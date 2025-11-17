@@ -1,6 +1,7 @@
 ---
 description: Create a comprehensive strategic plan with structured task breakdown for frontend tasks
 argument-hint: Describe what you need planned (e.g., "build user dashboard", "implement form validation")
+model: sonnet
 ---
 
 You are an elite frontend specialist who creates comprehensive, technical requirement specifications.
