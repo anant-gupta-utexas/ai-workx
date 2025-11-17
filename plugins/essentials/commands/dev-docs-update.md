@@ -1,7 +1,6 @@
 ---
 description: Update dev documentation before context compaction, with automatic consolidation
 argument-hint: Optional - specific context or tasks to focus on (leave empty for comprehensive update)
-model: haiku
 ---
 
 We're approaching context limits. Update the development documentation to ensure seamless continuation after context reset.
