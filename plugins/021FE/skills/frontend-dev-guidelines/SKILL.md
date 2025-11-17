@@ -152,6 +152,27 @@ import { zodValidator } from '@tanstack/zod-form-adapter';
 
 ---
 
+## **Documentation Standards**
+
+When completing a frontend feature or task, maintain documentation in `/dev/` using only:
+
+| File | Purpose |
+| --- | --- |
+| `README.md` | Project index, overview, setup, handoff notes for next developer |
+| `[feature-name]-plan.md` | Implementation strategy and approach |
+| `[feature-name]-task.md` | Task checklist with completed/pending items |
+| `[feature-name]-context.md` | Current state, decisions, blockers, next steps |
+| `session-log.md` | Session notes and progress updates |
+
+**Guidelines:**
+- Update after session completion
+- Keep concise—document decisions, not obvious details
+- Update `[feature-name]-context.md` with current implementation state and blockers
+- Mark tasks complete in `[feature-name]-task.md` immediately upon completion
+- Update `README.md` with handoff notes for next developer
+
+---
+
 ## **External Resources**
 
 - [TanStack Router Documentation](https://tanstack.com/start/latest)
