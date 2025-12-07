@@ -74,6 +74,27 @@
         "documentation",
         "dev-docs"
       ]
+    },
+    {
+      "name": "learning-coach",
+      "source": "./plugins/learning-coach",
+      "description": "Personal learning coach to help you understand complex topics through step-by-step guidance, examples, and real-world applications. Includes /learn command for interactive learning sessions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anant Gupta",
+        "contact": "anant.gupta@utexas.edu"
+      },
+      "category": "learning",
+      "keywords": [
+        "learning",
+        "education",
+        "coaching",
+        "tutoring",
+        "explanation",
+        "understanding",
+        "concepts",
+        "teaching"
+      ]
     }
   ],
   "repository": "https://github.com/anant-gupt-utexas/claude-workspace-plugins",

@@ -4,7 +4,7 @@ Production-tested Claude Code plugins for modern development workflows with spec
 
 ## 🎯 Available Plugins
 
-### Core Plugin (Recommended for All Projects)
+### Core Plugins (Recommended)
 
 #### [essentials](./plugins/essentials/)
 Essential utilities with specialized agents, expert consultation, documentation tools, skill development, and intelligent hooks.
@@ -16,6 +16,18 @@ Essential utilities with specialized agents, expert consultation, documentation 
 - 3 Hooks (skill activation, file tracking, error handling reminders)
 
 **Perfect for:** Planning, research, refactoring, expert consultation, documentation, context management
+
+#### [learning-coach](./plugins/learning-coach/)
+Personal learning coaches to help you master complex topics and ace system design interviews through structured guidance.
+
+**Includes:**
+- 2 Commands (/learn, /lld)
+
+**Perfect for:**
+- Learning new topics and complex concepts
+- Mastering Low Level Design (LLD) problems
+- Interview preparation for system design
+- Guided knowledge acquisition
 
 ---
 
@@ -77,8 +89,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 **Recommended installation order:**
 
 ```bash
-# Core plugin (install this first)
+# Core plugins (install essentials first)
 /plugin install essentials@claude-workspace-plugins
+/plugin install learning-coach@claude-workspace-plugins
 
 # Backend plugin (if you have a Python/FastAPI backend)
 /plugin install 021BE@claude-workspace-plugins
@@ -128,6 +141,42 @@ Test skill activation:
 - **error-handling-reminder** - Reminds about error handling best practices
 
 [View Details →](./plugins/essentials/README.md)
+
+---
+
+### learning-coach Plugin (Learning & Interview Prep)
+
+**Why install:** Provides two specialized learning coaches - one for mastering any topic and another for acing system design interviews through structured, guided sessions.
+
+**Commands:**
+- **/learn** - General learning coach for understanding complex topics with step-by-step explanations, examples, and real-world applications
+- **/lld** - Low Level Design interview coach for practicing system design problems with interactive guidance through requirements, design, implementation, testing, and analysis
+
+**How It Works:**
+
+**For /learn:**
+1. Run `/learn [topic]` and specify your topic
+2. The coach provides an overview of the learning path
+3. You get step-by-step guidance through each concept
+4. Examples and real-world applications reinforce understanding
+5. Comprehensive summaries help you retain knowledge
+
+**For /lld:**
+1. Run `/lld [problem-name or "list"]` to start a problem
+2. The interviewer guides you through requirement clarification
+3. Help identifying core entities and relationships
+4. Assistance with class design and implementation
+5. Testing validation and interview insights
+
+**Perfect For:**
+- Learning new programming languages, frameworks, and concepts
+- Understanding complex scientific, mathematical, or business theories
+- Developing soft skills and domain knowledge
+- Preparing for system design interviews
+- Practicing LLD problems with real interview-style guidance
+- 20 common problems: LRU Cache, Parking Lot, Elevator, Chess, ATM, and more
+
+[View Details →](./plugins/learning-coach/README.md)
 
 ---
 
@@ -342,37 +391,49 @@ Edit `.claude/skills/skill-rules.json` to customize activation patterns:
 
 ```bash
 /plugin install essentials@claude-workspace-plugins
+/plugin install learning-coach@claude-workspace-plugins
 /plugin install 021BE@claude-workspace-plugins
 /plugin install 021FE@claude-workspace-plugins
 ```
 
-**You get:** Complete development workflow with backend/frontend patterns, TRS documentation commands, planning agents, documentation tools, and intelligent hooks.
+**You get:** Complete development workflow with backend/frontend patterns, TRS documentation commands, planning agents, documentation tools, learning coach, and intelligent hooks.
 
 ### For Backend-Only Projects
 
 ```bash
 /plugin install essentials@claude-workspace-plugins
+/plugin install learning-coach@claude-workspace-plugins
 /plugin install 021BE@claude-workspace-plugins
 ```
 
-**You get:** Backend Clean Architecture patterns, backend TRS command, planning agents, documentation tools, and essential utilities.
+**You get:** Backend Clean Architecture patterns, backend TRS command, planning agents, documentation tools, learning coach, and essential utilities.
 
 ### For Frontend-Only Projects
 
 ```bash
 /plugin install essentials@claude-workspace-plugins
+/plugin install learning-coach@claude-workspace-plugins
 /plugin install 021FE@claude-workspace-plugins
 ```
 
-**You get:** TanStack Start/React patterns, frontend TRS command, UI/UX specialist, error fixing, planning agents, and documentation tools.
+**You get:** TanStack Start/React patterns, frontend TRS command, UI/UX specialist, error fixing, planning agents, learning coach, and documentation tools.
 
 ### For Product Planning & Documentation
 
 ```bash
 /plugin install essentials@claude-workspace-plugins
+/plugin install learning-coach@claude-workspace-plugins
 ```
 
-**You get:** Business strategy, planning, documentation architect, context management, and essential utilities without tech-specific development patterns.
+**You get:** Business strategy, planning, documentation architect, context management, learning coach, and essential utilities without tech-specific development patterns.
+
+### For Learning & Knowledge Acquisition
+
+```bash
+/plugin install learning-coach@claude-workspace-plugins
+```
+
+**You get:** Personal learning coach for mastering complex topics with structured guidance, examples, and real-world applications.
 
 ---
 
@@ -385,6 +446,7 @@ Edit `.claude/skills/skill-rules.json` to customize activation patterns:
 
 ### Plugin READMEs
 - [essentials Plugin →](./plugins/essentials/README.md)
+- [learning-coach Plugin →](./plugins/learning-coach/README.md)
 - [021BE Plugin →](./plugins/021BE/README.md)
 - [021FE Plugin →](./plugins/021FE/README.md)
 

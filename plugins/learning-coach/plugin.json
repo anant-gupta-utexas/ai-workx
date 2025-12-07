@@ -1,0 +1,40 @@
+{
+  "name": "learning-coach",
+  "version": "1.0.0",
+  "description": "Personal learning coach to help you understand complex topics through step-by-step guidance, examples, and real-world applications",
+  "author": "Anant Gupta",
+  "license": "MIT",
+  "keywords": [
+    "learning",
+    "education",
+    "coaching",
+    "tutoring",
+    "explanation",
+    "understanding",
+    "concepts",
+    "teaching"
+  ],
+  "category": "learning",
+  "components": {
+    "commands": [
+      {
+        "name": "learn",
+        "path": "${CLAUDE_PLUGIN_ROOT}/commands/learn.md",
+        "description": "Personal learning coach to help you understand complex topics step-by-step"
+      },
+      {
+        "name": "lld",
+        "path": "${CLAUDE_PLUGIN_ROOT}/commands/lld.md",
+        "description": "Interactive Low Level Design learning session with structured approach for interview preparation"
+      }
+    ]
+  },
+  "post_install": {
+    "instructions": [
+      "Learning Coach is ready to use!",
+      "General learning: /learn [topic] - e.g., /learn quantum computing",
+      "Low Level Design: /lld [problem-name or 'list'] - e.g., /lld LRU Cache",
+      "Start with /learn or /lld [topic] to begin a session"
+    ]
+  }
+}
