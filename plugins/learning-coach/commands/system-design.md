@@ -1,5 +1,5 @@
 ---
-argument-hint: [problem-name or "list" for common problems, or type: "lld" or "hld"]
+argument-hint: [problem-name or "list" for common problems, or type "lld" or "hld"]
 description: Interactive system design learning session covering both Low Level Design (LLD) and High Level Design (HLD) with structured approach
 ---
 
