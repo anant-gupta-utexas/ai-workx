@@ -4,7 +4,7 @@ Your personal learning coach for mastering complex topics through structured, st
 
 ## What's Included
 
-- **2 Slash Commands**: `/learn` and `/lld`
+- **2 Slash Commands**: `/learn` and `/system-design`
 
 ## Features
 

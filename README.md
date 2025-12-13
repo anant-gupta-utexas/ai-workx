@@ -21,11 +21,11 @@ Essential utilities with specialized agents, expert consultation, documentation 
 Personal learning coaches to help you master complex topics and ace system design interviews through structured guidance.
 
 **Includes:**
-- 2 Commands (/learn, /lld)
+- 2 Commands (/learn, /system-design)
 
 **Perfect for:**
 - Learning new topics and complex concepts
-- Mastering Low Level Design (LLD) problems
+- Mastering system design (LLD & HLD) problems
 - Interview preparation for system design
 - Guided knowledge acquisition
 
@@ -150,7 +150,7 @@ Test skill activation:
 
 **Commands:**
 - **/learn** - General learning coach for understanding complex topics with step-by-step explanations, examples, and real-world applications
-- **/lld** - Low Level Design interview coach for practicing system design problems with interactive guidance through requirements, design, implementation, testing, and analysis
+- **/system-design** - System design interview coach for practicing LLD & HLD problems with interactive guidance through requirements, design, implementation, testing, and analysis
 
 **How It Works:**
 
@@ -161,20 +161,21 @@ Test skill activation:
 4. Examples and real-world applications reinforce understanding
 5. Comprehensive summaries help you retain knowledge
 
-**For /lld:**
-1. Run `/lld [problem-name or "list"]` to start a problem
-2. The interviewer guides you through requirement clarification
-3. Help identifying core entities and relationships
-4. Assistance with class design and implementation
-5. Testing validation and interview insights
+**For /system-design:**
+1. Run `/system-design [problem-name or "list"]` to start a problem
+2. Choose between LLD (Low Level Design) or HLD (High Level Design)
+3. The interviewer guides you through requirement clarification
+4. Help identifying core entities, components, or architecture
+5. Assistance with design, implementation, and validation
+6. Testing validation and interview insights
 
 **Perfect For:**
 - Learning new programming languages, frameworks, and concepts
 - Understanding complex scientific, mathematical, or business theories
 - Developing soft skills and domain knowledge
 - Preparing for system design interviews
-- Practicing LLD problems with real interview-style guidance
-- 20 common problems: LRU Cache, Parking Lot, Elevator, Chess, ATM, and more
+- Practicing LLD problems (20 common problems): LRU Cache, Parking Lot, Elevator, Chess, ATM, and more
+- Practicing HLD problems (15 common problems): Netflix, Uber, Instagram, Airbnb, Amazon, and more
 
 [View Details →](./plugins/learning-coach/README.md)
 
