@@ -17,9 +17,10 @@ A comprehensive learning coaching system that helps you understand any topic by:
 - **Interactive learning** - Encourages questions and deeper exploration
 - **Comprehensive summaries** - Recaps at each step and provides final comprehensive summary
 
-### /lld Command
-An interactive Low Level Design learning system designed for interview preparation that guides you through:
+### /system-design Command
+An interactive system design learning system (LLD & HLD) designed for interview preparation that guides you through both approaches:
 
+#### Low Level Design (LLD) - "The How"
 - **Problem clarification** - Understand requirements through Socratic questioning
 - **Entity identification** - Discover core domain objects and data structures
 - **Class design** - Define classes, relationships, and hierarchies with visual diagrams
@@ -27,12 +28,25 @@ An interactive Low Level Design learning system designed for interview preparati
 - **Testing & validation** - Run test cases and verify the design
 - **Interview prep** - Learn design patterns, complexity analysis, and extension strategies
 
+#### High Level Design (HLD) - "The What"
+- **Requirements gathering** - Understand scale, constraints, and use cases
+- **Architecture design** - Identify major components and microservices
+- **Communication patterns** - Design how services interact (REST, gRPC, async messaging)
+- **Technology stack** - Choose databases, caches, message queues, and third-party services
+- **Scalability & reliability** - Design for scale, high availability, and fault tolerance
+- **Monitoring & operations** - Plan observability, security, and deployment strategies
+
 **Includes 20 common LLD problems:**
 - LRU Cache, Parking Lot, Elevator System, Library Management
 - Tic-Tac-Toe, Chess Game, Hotel Booking, Movie Ticket Booking
 - Vending Machine, ATM, Snake and Ladder, Car Rental
 - Splitwise, Rate Limiter, Logger, Notification Service
 - File System, Task Scheduler, Pub-Sub System, Connection Pool
+
+**Includes 15 common HLD problems:**
+- Netflix, Uber, Instagram, Airbnb, Amazon
+- Twitter/X, Slack, YouTube, Spotify, Dropbox
+- TikTok, Zoom, Discord, Google Maps, DoorDash
 
 ## How to Use
 
@@ -54,25 +68,26 @@ The coach will:
 /learn React best practices
 ```
 
-### Low Level Design with /lld
+### System Design with /system-design
 ```bash
-/lld [problem-name or "list"]
+/system-design [problem-name or "list"]
 ```
 
-The LLD coach will:
+The system design coach will:
 1. Present the problem or show available problems (if "list" specified)
-2. Guide you through requirements clarification
-3. Help identify core entities and relationships
-4. Assist with class design and implementation
-5. Walk through testing and validation
-6. Provide interview preparation insights
+2. Guide you based on problem type (LLD or HLD)
+3. For LLD: requirements → entities → class design → implementation → testing
+4. For HLD: requirements → architecture → tech stack → scalability → monitoring
+5. Provide interview preparation insights and design pattern analysis
 
 **Examples:**
 ```bash
-/lld list                    # Show all 20 common problems
-/lld LRU Cache              # Start with LRU Cache problem
-/lld Parking Lot            # Start with Parking Lot problem
-/lld Elevator System        # Start with Elevator System problem
+/system-design list                    # Show all LLD and HLD problems
+/system-design LRU Cache              # Start with LRU Cache (LLD problem)
+/system-design Parking Lot            # Start with Parking Lot (LLD problem)
+/system-design Netflix                # Start with Netflix (HLD problem)
+/system-design Uber                   # Start with Uber (HLD problem)
+/system-design Instagram              # Start with Instagram (HLD problem)
 ```
 
 ### Learning Topics (/learn)
@@ -84,12 +99,22 @@ The coach can help you understand:
 - **Creative Subjects**: Writing, Design, Music, Art, Photography
 - **And any topic you want to master!**
 
-### LLD Problem Categories (/lld)
+### System Design Problem Categories (/system-design)
+
+#### LLD Problem Categories
 - **Data Structures**: LRU Cache, Connection Pool
 - **Systems**: Parking Lot, Elevator System, Vending Machine, ATM, File System
 - **Management**: Library Management, Hotel Booking, Car Rental
 - **Entertainment**: Tic-Tac-Toe, Chess, Snake and Ladder, Movie Ticket Booking
 - **Applications**: Splitwise, Rate Limiter, Logger, Notification Service, Pub-Sub System, Task Scheduler
+
+#### HLD Problem Categories
+- **Streaming Platforms**: Netflix, YouTube, TikTok, Spotify
+- **Social Networks**: Instagram, Twitter/X, Discord
+- **Ride-Sharing & Delivery**: Uber, DoorDash
+- **Marketplace & E-commerce**: Amazon, Airbnb
+- **Productivity Tools**: Slack, Zoom
+- **Storage & Maps**: Dropbox, Google Maps
 
 ## Learning Approach
 
@@ -104,11 +129,11 @@ The coach can help you understand:
 4. **Practical Application** - Provide examples and real-world applications
 5. **Reinforcement** - Summarize at each step and provide comprehensive final summary
 
-### /lld - Low Level Design Coach
+### /system-design - System Design Coach (LLD & HLD)
 
-**Role:** An expert system design interviewer who helps you practice LLD interview problems through interactive guidance.
+**Role:** An expert system design interviewer who helps you practice both LLD and HLD interview problems through interactive guidance.
 
-**Process:**
+#### Low Level Design Process:
 1. **Requirements Clarification** - Ask clarifying questions like a real interviewer
 2. **Entity Identification** - Guide discovery of core domain objects and data structures
 3. **Class Design** - Help design classes with proper relationships and hierarchies
@@ -116,11 +141,20 @@ The coach can help you understand:
 5. **Testing** - Validate the design with comprehensive test cases
 6. **Analysis** - Discuss complexity, patterns used, and possible extensions
 
+#### High Level Design Process:
+1. **Requirements & Constraints** - Understand scale, use cases, and business requirements
+2. **Architecture Design** - Identify major components, services, and communication patterns
+3. **Technology Selection** - Choose appropriate databases, caches, message queues
+4. **Scalability Strategy** - Design for handling growth in users, data, and traffic
+5. **Reliability & Monitoring** - Plan for failures, observability, and operations
+6. **Analysis** - Discuss trade-offs, architecture patterns, and extension scenarios
+
 **Interview Style:**
 - Socratic approach - asks questions rather than giving answers directly
 - Provides hints when you're stuck
 - Validates understanding at checkpoints
 - Encourages creative problem-solving
+- Adapts based on whether you're doing LLD or HLD
 
 ### Communication Style (Both Commands)
 - Clear and straightforward language
@@ -148,9 +182,11 @@ Let me give you an overview of what we'll cover:
 Let's begin with the foundations...
 ```
 
-### /lld Example
+### /system-design Examples
+
+#### LLD Example
 ```
-/lld LRU Cache
+/system-design LRU Cache
 
 Interviewer: Let's design an LRU Cache. What clarifying questions would you ask?
 
@@ -165,6 +201,26 @@ Interviewer: Great thinking! Now let's design the classes. What attributes and m
 would each class need? Let me review your design...
 
 [Continues through design, implementation, testing, and analysis phases]
+```
+
+#### HLD Example
+```
+/system-design Netflix
+
+Architect: Let's design Netflix, a video streaming platform for millions of users worldwide.
+What clarifying questions would you ask about scale, features, and constraints?
+
+[You ask about concurrent users, video quality, global reach, payment handling, etc.]
+
+Architect: Excellent questions! Based on the scale you mentioned, let's think about
+the major components. What services would we need to build Netflix?
+
+[You identify: User Service, Video Service, Recommendation Service, Payment Service, etc.]
+
+Architect: Perfect! Now let's think about how these services communicate and what
+technologies we'd use. What kind of database and caching strategy would work?
+
+[Continues through architecture, tech stack, scalability, monitoring, and analysis]
 ```
 
 ## Installation

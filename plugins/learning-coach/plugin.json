@@ -23,9 +23,9 @@
         "description": "Personal learning coach to help you understand complex topics step-by-step"
       },
       {
-        "name": "lld",
-        "path": "${CLAUDE_PLUGIN_ROOT}/commands/lld.md",
-        "description": "Interactive Low Level Design learning session with structured approach for interview preparation"
+        "name": "system-design",
+        "path": "${CLAUDE_PLUGIN_ROOT}/commands/system-design.md",
+        "description": "Interactive system design learning (LLD & HLD) with structured approach for interview preparation"
       }
     ]
   },
@@ -33,8 +33,8 @@
     "instructions": [
       "Learning Coach is ready to use!",
       "General learning: /learn [topic] - e.g., /learn quantum computing",
-      "Low Level Design: /lld [problem-name or 'list'] - e.g., /lld LRU Cache",
-      "Start with /learn or /lld [topic] to begin a session"
+      "System Design: /system-design [problem-name or 'list'] - e.g., /system-design LRU Cache or /system-design Netflix",
+      "Start with /learn or /system-design to begin a session"
     ]
   }
 }
