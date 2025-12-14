@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Complete fullstack development setup with backend/frontend patterns, expert agents, and comprehensive tooling for building products from 0 to 1",
   "author": "Anant Gupta",
-  "license": "MIT",
-  "keywords": [
+  "tags": [
     "fullstack",
     "0-to-1",
     "backend",
@@ -18,94 +17,5 @@
     "python",
     "fastapi"
   ],
-  "category": "development",
-  "components": {
-    "skills": [
-      {
-        "name": "backend-dev-guidelines",
-        "path": "${CLAUDE_PLUGIN_ROOT}/skills/backend-dev-guidelines",
-        "description": "Python/FastAPI Clean Architecture with domain entities, use cases, and repositories"
-      },
-      {
-        "name": "frontend-dev-guidelines",
-        "path": "${CLAUDE_PLUGIN_ROOT}/skills/frontend-dev-guidelines",
-        "description": "React/TypeScript/MUI v7 patterns with GUARDRAIL enforcement"
-      },
-      {
-        "name": "consult-experts",
-        "path": "${CLAUDE_PLUGIN_ROOT}/skills/consult-experts",
-        "description": "Access specialized expert agents for business strategy, tech leadership, and UI/UX design"
-      },
-      {
-        "name": "skill-developer",
-        "path": "${CLAUDE_PLUGIN_ROOT}/skills/skill-developer",
-        "description": "Meta-skill for creating and managing Claude Code skills"
-      }
-    ],
-    "agents": [
-      {
-        "name": "business-strategist",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/business-strategist.md",
-        "description": "Business strategy and product guidance for building products"
-      },
-      {
-        "name": "frontend-error-fixer",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/frontend-error-fixer.md",
-        "description": "Debug and fix frontend errors (build and runtime)"
-      },
-      {
-        "name": "plan-reviewer",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/plan-reviewer.md",
-        "description": "Review development plans before implementation"
-      },
-      {
-        "name": "refactor-planner",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/refactor-planner.md",
-        "description": "Create comprehensive refactoring strategies"
-      },
-      {
-        "name": "uiux-specialist",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/uiux-specialist.md",
-        "description": "UI/UX design and specialist guidance for product interfaces"
-      },
-      {
-        "name": "web-research-specialist",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/web-research-specialist.md",
-        "description": "Research technical issues and solutions online"
-      }
-    ],
-    "hooks": [
-      {
-        "name": "0-to-1-hooks",
-        "path": "${CLAUDE_PLUGIN_ROOT}/hooks/hooks.json",
-        "description": "0-to-1 plugin hooks for skill activation, file tracking, and error handling reminders"
-      }
-    ],
-    "commands": [
-      {
-        "name": "dev-docs",
-        "path": "${CLAUDE_PLUGIN_ROOT}/commands/dev-docs.md",
-        "description": "Create structured development documentation"
-      },
-      {
-        "name": "dev-docs-update",
-        "path": "${CLAUDE_PLUGIN_ROOT}/commands/dev-docs-update.md",
-        "description": "Update docs before context reset"
-      }
-    ]
-  },
-  "requirements": {
-    "tech_stack": [
-      "Backend: Python/FastAPI or Node.js/Express",
-      "Frontend: React 18+/TypeScript/MUI v7",
-      "TypeScript",
-      "Prisma ORM (optional)"
-    ]
-  },
-  "post_install": {
-    "instructions": [
-      "The plugin is ready to use! Skills, agents, commands, and hooks are automatically available.",
-      "Test skill activation: Ask 'How do I create a controller?' or 'How should I structure my React components?'"
-    ]
-  }
+  "dependencies": []
 }

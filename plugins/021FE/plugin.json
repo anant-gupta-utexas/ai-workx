@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "TanStack Start/React/TypeScript frontend development guidelines with modern patterns for SSR-ready applications",
   "author": "Anant Gupta",
-  "license": "MIT",
-  "keywords": [
+  "tags": [
     "frontend",
     "react",
     "typescript",
@@ -16,55 +15,5 @@
     "tailwind",
     "component-patterns"
   ],
-  "category": "development",
-  "components": {
-    "skills": [
-      {
-        "name": "frontend-dev-guidelines",
-        "path": "${CLAUDE_PLUGIN_ROOT}/skills/frontend-dev-guidelines",
-        "description": "TanStack Start/React/TypeScript patterns with Suspense, lazy loading, shadcn/ui, and modern SSR-ready architecture"
-      }
-    ],
-    "agents": [
-      {
-        "name": "frontend-error-fixer",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/frontend-error-fixer.md",
-        "description": "Debug and fix frontend errors (build and runtime)"
-      },
-      {
-        "name": "uiux-specialist",
-        "path": "${CLAUDE_PLUGIN_ROOT}/agents/uiux-specialist.md",
-        "description": "UI/UX design and specialist guidance for product interfaces"
-      }
-    ],
-    "commands": [
-      {
-        "name": "dev-docs-fe",
-        "path": "${CLAUDE_PLUGIN_ROOT}/commands/dev-docs-fe.md",
-        "description": "Create comprehensive technical requirement specifications for frontend features with structured task breakdown"
-      }
-    ]
-  },
-  "requirements": {
-    "tech_stack": [
-      "TanStack Start",
-      "React 18+",
-      "TypeScript",
-      "TanStack Router",
-      "TanStack Query",
-      "TanStack Form",
-      "shadcn/ui",
-      "Tailwind CSS",
-      "Zod",
-      "Sonner"
-    ]
-  },
-  "post_install": {
-    "instructions": [
-      "The frontend-dev-guidelines skill and agents are ready to use!",
-      "Skills emphasize modern patterns: Suspense, lazy loading, useSuspenseQuery, and SSR-ready architecture",
-      "Skills activate automatically when working with React/TypeScript files or using keywords like 'react best practices', 'tanstack patterns'",
-      "Test activation: Ask 'Following frontend guidelines, how do I create a dashboard component?'"
-    ]
-  }
+  "dependencies": []
 }
