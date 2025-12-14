@@ -2,8 +2,11 @@
   "name": "021BE",
   "version": "1.0.0",
   "description": "Python/FastAPI Clean Architecture backend development guidelines with domain entities, use cases, and repository patterns",
-  "author": "Anant Gupta",
-  "tags": [
+  "author": {
+    "name": "Anant Gupta"
+  },
+  "license": "MIT",
+  "keywords": [
     "backend",
     "python",
     "fastapi",
@@ -11,6 +14,5 @@
     "domain-driven-design",
     "repository-pattern",
     "use-cases"
-  ],
-  "dependencies": []
+  ]
 }

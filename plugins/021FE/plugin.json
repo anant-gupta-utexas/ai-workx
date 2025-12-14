@@ -2,8 +2,11 @@
   "name": "021FE",
   "version": "1.0.0",
   "description": "TanStack Start/React/TypeScript frontend development guidelines with modern patterns for SSR-ready applications",
-  "author": "Anant Gupta",
-  "tags": [
+  "author": {
+    "name": "Anant Gupta"
+  },
+  "license": "MIT",
+  "keywords": [
     "frontend",
     "react",
     "typescript",
@@ -14,6 +17,5 @@
     "shadcn-ui",
     "tailwind",
     "component-patterns"
-  ],
-  "dependencies": []
+  ]
 }

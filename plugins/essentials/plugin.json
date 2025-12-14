@@ -2,8 +2,11 @@
   "name": "essentials",
   "version": "1.0.0",
   "description": "Essential utilities including specialized agents, expert consultation skills, skill development tools, and intelligent hooks for enhanced development workflow",
-  "author": "Anant Gupta",
-  "tags": [
+  "author": {
+    "name": "Anant Gupta"
+  },
+  "license": "MIT",
+  "keywords": [
     "utilities",
     "agents",
     "experts",
@@ -14,6 +17,5 @@
     "refactoring",
     "documentation",
     "dev-docs"
-  ],
-  "dependencies": []
+  ]
 }
