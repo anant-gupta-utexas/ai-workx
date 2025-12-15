@@ -100,6 +100,28 @@
         "architecture",
         "interview-prep"
       ]
+    },
+    {
+      "name": "financial-coach",
+      "source": "./plugins/financial-coach",
+      "description": "Personal financial coach to help you understand financial concepts, investment strategies, and money management through guided learning.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anant Gupta",
+        "contact": "anant.gupta@utexas.edu"
+      },
+      "category": "learning",
+      "keywords": [
+        "finance",
+        "investing",
+        "money",
+        "budgeting",
+        "financial-planning",
+        "stocks",
+        "portfolio",
+        "wealth",
+        "coaching"
+      ]
     }
   ],
   "repository": "https://github.com/anant-gupt-utexas/claude-workspace-plugins",

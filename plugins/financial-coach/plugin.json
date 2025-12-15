@@ -1,0 +1,20 @@
+{
+  "name": "financial-coach",
+  "version": "1.0.0",
+  "description": "Personal financial coach to help you understand financial concepts, investment strategies, and money management through guided learning",
+  "author": {
+    "name": "Anant Gupta"
+  },
+  "license": "MIT",
+  "keywords": [
+    "finance",
+    "investing",
+    "money",
+    "budgeting",
+    "financial-planning",
+    "stocks",
+    "portfolio",
+    "wealth",
+    "coaching"
+  ]
+}

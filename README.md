@@ -29,6 +29,18 @@ Personal learning coaches to help you master complex topics and ace system desig
 - Interview preparation for system design
 - Guided knowledge acquisition
 
+#### [financial-coach](./plugins/financial-coach/)
+Personal financial coach to help you understand financial concepts, investment strategies, and money management.
+
+**Includes:**
+- Ready for custom commands
+
+**Perfect for:**
+- Learning personal finance and budgeting
+- Understanding investment strategies
+- Retirement planning guidance
+- Wealth building concepts
+
 ---
 
 ### Specialized Plugins (Install Based on Your Stack)
@@ -92,6 +104,7 @@ This opens an interactive UI showing all available plugins from this marketplace
 # Core plugins (install essentials first)
 /plugin install essentials@claude-workspace-plugins
 /plugin install learning-coach@claude-workspace-plugins
+/plugin install financial-coach@claude-workspace-plugins
 
 # Backend plugin (if you have a Python/FastAPI backend)
 /plugin install 021BE@claude-workspace-plugins
@@ -178,6 +191,27 @@ Test skill activation:
 - Practicing HLD problems (15 common problems): Netflix, Uber, Instagram, Airbnb, Amazon, and more
 
 [View Details →](./plugins/learning-coach/README.md)
+
+---
+
+### financial-coach Plugin (Financial Education)
+
+**Why install:** Provides financial coaching capabilities for understanding money management, investing, and financial planning.
+
+**Features (Ready to customize):**
+- Personal finance and budgeting guidance
+- Investment education (stocks, bonds, ETFs, asset allocation)
+- Retirement planning concepts
+- Tax strategy basics
+- Wealth building fundamentals
+
+**Perfect For:**
+- Learning personal finance fundamentals
+- Understanding investment strategies
+- Planning for retirement
+- Building financial literacy
+
+[View Details →](./plugins/financial-coach/README.md)
 
 ---
 
@@ -448,6 +482,7 @@ Edit `.claude/skills/skill-rules.json` to customize activation patterns:
 ### Plugin READMEs
 - [essentials Plugin →](./plugins/essentials/README.md)
 - [learning-coach Plugin →](./plugins/learning-coach/README.md)
+- [financial-coach Plugin →](./plugins/financial-coach/README.md)
 - [021BE Plugin →](./plugins/021BE/README.md)
 - [021FE Plugin →](./plugins/021FE/README.md)
 
