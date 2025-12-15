@@ -39,11 +39,11 @@ mv plugins/source/{type}/{component} plugins/target/{type}/{component}
 ## Update Checklist
 
 ### Source Plugin
-- [ ] `plugin.json` - Remove from `components.{type}` array
+- [ ] `plugin.json` - No changes needed (Claude Code auto-discovers components)
 - [ ] `README.md` - Remove from "What's Included", descriptions, examples, update counts
 
 ### Target Plugin
-- [ ] `plugin.json` - Add to `components.{type}` array (alphabetical order)
+- [ ] `plugin.json` - No changes needed (Claude Code auto-discovers components)
 - [ ] `README.md` - Add to "What's Included", descriptions, examples, update counts
 
 ### Marketplace & Root
@@ -52,40 +52,57 @@ mv plugins/source/{type}/{component} plugins/target/{type}/{component}
 
 ---
 
-## plugin.json Entry Format
+## plugin.json Manifest Schema
 
-**Skills:**
+Claude Code auto-discovers skills, agents, commands, and hooks from the directory structure. The `plugin.json` is a simple manifest file:
+
 ```json
 {
-  "name": "skill-name",
-  "path": "${CLAUDE_PLUGIN_ROOT}/skills/skill-name",
-  "description": "Skill description"
+  "name": "plugin-name",
+  "version": "1.0.0",
+  "description": "Brief plugin description",
+  "author": {
+    "name": "Author Name",
+    "email": "author@example.com",
+    "url": "https://github.com/author"
+  },
+  "license": "MIT",
+  "keywords": ["keyword1", "keyword2"]
 }
 ```
 
-**Agents/Commands:**
-```json
-{
-  "name": "component-name",
-  "path": "${CLAUDE_PLUGIN_ROOT}/{type}/{component-name}.md",
-  "description": "Description"
-}
-```
+### Supported Fields
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `name` | string | Yes | Unique identifier in kebab-case |
+| `version` | string | No | Semantic versioning |
+| `description` | string | No | Brief plugin description |
+| `author` | object | No | Author info (name, email, url all optional) |
+| `license` | string | No | License identifier (e.g., "MIT") |
+| `keywords` | array | No | Search/discovery keywords |
+
+**Important:** Do NOT include `category`, `components`, `post_install`, `tags`, or `dependencies` - Claude Code auto-discovers these.
 
 ---
 
 
 ## Troubleshooting
 
+**Plugin installation fails with manifest validation errors:**
+- Ensure `author` is an object: `"author": { "name": "Your Name" }`
+- Remove unsupported fields: `category`, `components`, `post_install`, `tags`, `dependencies`
+- Valid fields: `name`, `version`, `description`, `author`, `license`, `keywords`
+
 **Skill not activating:**
-- `plugin.json` must reference directory, not `SKILL.md` file
-  - ❌ `"${CLAUDE_PLUGIN_ROOT}/skills/skill-name/SKILL.md"`
-  - ✅ `"${CLAUDE_PLUGIN_ROOT}/skills/skill-name"`
-- Check `SKILL.md` frontmatter has `name` and `description`
+- Ensure `SKILL.md` exists in the skill directory with frontmatter: `name` and `description`
+- Check that the skill directory is in `plugins/{plugin}/skills/{skill-name}/`
+- Claude Code auto-discovers skills—no `plugin.json` entries needed
 
 **JSON validation:**
 ```bash
-jq empty .claude-plugin/marketplace.json && echo "✓ Valid"
+jq empty plugins/*/plugin.json && echo "✓ All plugins valid"
+jq empty .claude-plugin/marketplace.json && echo "✓ Marketplace valid"
 ```
 
 ---
@@ -93,9 +110,10 @@ jq empty .claude-plugin/marketplace.json && echo "✓ Valid"
 ## Best Practices
 
 - Move one component at a time
-- Validate JSON after changes: `jq empty {file}.json`
-- Keep descriptions consistent across all files
-- Commit physical moves separately from config updates
+- Physical moves automatically discover components—no `plugin.json` updates needed
+- Validate JSON after changes: `jq empty plugins/*/plugin.json`
+- Keep descriptions consistent across all files (README.md and marketplace.json)
+- Commit physical moves and doc updates together
 
 ## Frontmatter Templates
 
