@@ -30,16 +30,16 @@ Personal learning coaches to help you master complex topics and ace system desig
 - Guided knowledge acquisition
 
 #### [financial-coach](./plugins/financial-coach/)
-Personal financial coach to help you understand financial concepts, investment strategies, and money management.
+Personal financial coach with YouTube video analysis for investment research and financial education.
 
 **Includes:**
-- Ready for custom commands
+- 1 Skill (yt-financial-summary)
 
 **Perfect for:**
-- Learning personal finance and budgeting
+- Analyzing financial YouTube videos with structured summaries
+- Investment research from video content
+- Learning personal finance concepts
 - Understanding investment strategies
-- Retirement planning guidance
-- Wealth building concepts
 
 ---
 
@@ -196,20 +196,28 @@ Test skill activation:
 
 ### financial-coach Plugin (Financial Education)
 
-**Why install:** Provides financial coaching capabilities for understanding money management, investing, and financial planning.
+**Why install:** Analyze financial YouTube videos with comprehensive structured summaries for investment research.
 
-**Features (Ready to customize):**
-- Personal finance and budgeting guidance
-- Investment education (stocks, bonds, ETFs, asset allocation)
-- Retirement planning concepts
-- Tax strategy basics
-- Wealth building fundamentals
+**Skill:**
+- **yt-financial-summary** - Fetches YouTube transcripts and generates detailed financial analysis
 
-**Perfect For:**
-- Learning personal finance fundamentals
-- Understanding investment strategies
-- Planning for retirement
-- Building financial literacy
+**What the skill analyzes:**
+- Key companies with ticker symbols
+- Fundamental analysis (revenue, ratios, growth metrics, competitive advantages)
+- Technical analysis (price patterns, support/resistance, indicators)
+- Investment thesis (bull/bear case, price targets, timeframe)
+- Credibility assessment (speaker background, data support, biases)
+- Key timestamps for important insights
+
+**Requirements:**
+```bash
+pip install youtube-transcript-api
+```
+
+**How to use:**
+```
+Analyze this financial video: https://www.youtube.com/watch?v=VIDEO_ID
+```
 
 [View Details →](./plugins/financial-coach/README.md)
 

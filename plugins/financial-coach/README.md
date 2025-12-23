@@ -4,7 +4,42 @@ Your personal financial coach for mastering money management, investing, and fin
 
 ## What's Included
 
+- **1 Skill**: yt-financial-summary (YouTube financial video analysis)
 - **0 Commands**: Ready to add custom financial coaching commands
+
+## Skills
+
+### yt-financial-summary
+
+Fetches YouTube video transcripts and generates comprehensive financial analysis summaries.
+
+**Triggers:**
+- Providing a YouTube URL for financial video analysis
+- Asking to analyze a financial/investment video
+- Requesting a summary of a YouTube finance video
+
+**What it does:**
+1. Extracts the video ID from YouTube URL
+2. Fetches the transcript using `youtube-transcript-api`
+3. Analyzes and summarizes into a structured format
+
+**Output includes:**
+- Key companies discussed (with tickers)
+- Fundamental analysis (revenue, ratios, growth metrics)
+- Technical analysis elements (price patterns, support/resistance)
+- Investment thesis (bull/bear case, price targets)
+- Credibility assessment (speaker background, data support, biases)
+- Key timestamps for important insights
+
+**Requirements:**
+```bash
+pip install youtube-transcript-api
+```
+
+**Example usage:**
+```
+Analyze this financial video: https://www.youtube.com/watch?v=VIDEO_ID
+```
 
 ## Features
 
@@ -18,10 +53,25 @@ This plugin provides a foundation for financial coaching capabilities. Add comma
 
 ## Getting Started
 
-This plugin is initialized and ready for customization. Add commands to the `commands/` directory to create financial coaching workflows.
+### Using the YouTube Financial Summary Skill
 
-### Example Command Ideas
+1. Install the required dependency:
+   ```bash
+   pip install youtube-transcript-api
+   ```
 
+2. Provide a YouTube URL:
+   ```
+   Summarize this financial video: https://www.youtube.com/watch?v=xyz123
+   ```
+
+3. The skill will fetch the transcript and provide a comprehensive analysis
+
+### Adding Custom Commands
+
+Add commands to the `commands/` directory to create financial coaching workflows.
+
+**Example Command Ideas:**
 - `/budget` - Interactive budgeting session
 - `/invest` - Investment strategy coaching
 - `/retire` - Retirement planning guidance
@@ -30,6 +80,10 @@ This plugin is initialized and ready for customization. Add commands to the `com
 ## Installation
 
 This plugin is ready to use once installed in your Claude workspace.
+
+```bash
+/plugin install financial-coach@claude-workspace-plugins
+```
 
 ## License
 

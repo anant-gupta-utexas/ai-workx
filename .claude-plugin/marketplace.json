@@ -104,7 +104,7 @@
     {
       "name": "financial-coach",
       "source": "./plugins/financial-coach",
-      "description": "Personal financial coach to help you understand financial concepts, investment strategies, and money management through guided learning.",
+      "description": "Personal financial coach with YouTube video analysis skill. Fetches transcripts and generates comprehensive financial summaries including fundamental analysis, technical analysis, investment thesis, and credibility assessment.",
       "version": "1.0.0",
       "author": {
         "name": "Anant Gupta",
@@ -120,7 +120,10 @@
         "stocks",
         "portfolio",
         "wealth",
-        "coaching"
+        "coaching",
+        "youtube",
+        "transcript",
+        "video-analysis"
       ]
     }
   ],
