@@ -139,7 +139,7 @@ Test skill activation:
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 
 **Agents:**
-- **business-strategist** - Business strategy and product guidance for 0-to-1 products
+- **business-strategist** - Business strategy and product guidance for new products
 - **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering
 - **plan-reviewer** - Review development plans before implementation
 - **refactor-planner** - Create comprehensive refactoring strategies

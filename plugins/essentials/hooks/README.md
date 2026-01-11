@@ -1,4 +1,4 @@
-# 0-to-1 Plugin Hooks
+# Essentials Plugin Hooks
 
 This directory contains hooks that enhance the Claude Code development experience with skill suggestions, file tracking, and error handling reminders.
 

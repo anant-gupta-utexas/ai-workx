@@ -18,10 +18,12 @@ Guide for moving skills, agents, commands, and hooks between plugins.
 
 | Type | File Extension | Location Pattern | Frontmatter Fields |
 |------|---------------|------------------|--------------------|
-| Skill | Directory with `SKILL.md` | `plugins/{plugin}/skills/{skill-name}/` | `name`, `description` |
+| Skill | Directory with `SKILL.md` | `plugins/{plugin}/skills/{skill-name}/` | `name`, `description` + optional: `context`, `agent`, `once`, `allowed-tools` |
 | Agent | `.md` | `plugins/{plugin}/agents/{agent-name}.md` | `name`, `description`, `color` |
 | Command | `.md` | `plugins/{plugin}/commands/{command-name}.md` | `description`, `argument-hint` |
 | Hook | `.ts` or `.json` | `plugins/{plugin}/hooks/{hook-name}.ts` | N/A (TypeScript/JSON) |
+
+> **Note (Claude Code 2.1.3+):** Slash commands and skills are now conceptually merged. Both are auto-discovered from their respective directories.
 
 ## Moving Components
 
@@ -135,6 +137,8 @@ color: blue|green|red|purple|orange|white
 ```
 
 ### Skill (SKILL.md)
+
+**Required fields:**
 ```markdown
 ---
 name: skill-name
@@ -142,7 +146,29 @@ description: Comprehensive description with trigger conditions
 ---
 ```
 
-**Note:** Skills are directories with `SKILL.md` + optional `resources/` folder.
+**With optional fields (Claude Code 2.1.0+):**
+```markdown
+---
+name: skill-name
+description: Comprehensive description with trigger conditions
+context: fork        # Run in forked sub-agent context
+agent: agent-name    # Specify which agent executes
+once: true           # Execute only once per session
+allowed-tools:       # YAML-style tool list
+  - Read
+  - Grep
+  - Glob
+---
+```
+
+| Optional Field | Description |
+|----------------|-------------|
+| `context: fork` | Run skill in isolated forked sub-agent |
+| `agent` | Specify which agent type executes the skill |
+| `once: true` | Hook/skill executes only once per session |
+| `allowed-tools` | YAML-style list of allowed tools |
+
+**Note:** Skills are directories with `SKILL.md` + optional `resources/` folder. Skills hot-reload automatically when modified (no restart needed).
 
 ---
 

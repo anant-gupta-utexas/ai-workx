@@ -147,7 +147,7 @@ The command will update:
 - Market analysis
 - Business model design
 - Go-to-market strategy
-- 0-to-1 product planning
+- New product planning and strategy
 
 **When to use:**
 - Planning new products or features
@@ -340,7 +340,7 @@ The command will update:
 - ✅ Technical research
 - ✅ Creating custom skills
 - ✅ Enhanced development workflow
-- ✅ 0-to-1 product development
+- ✅ New product development and planning
 - ✅ Documentation creation and maintenance
 - ✅ Context management across sessions
 

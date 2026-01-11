@@ -56,6 +56,28 @@ Defines:
 
 ---
 
+## Claude Code 2.1.x Features
+
+### Skill Hot-Reload (2.1.0+)
+Skills in `~/.claude/skills` or `.claude/skills` are automatically hot-reloaded when modified. No session restart required.
+
+### New Frontmatter Fields (2.1.0+)
+
+| Field | Description |
+|-------|-------------|
+| `context: fork` | Run skill in forked sub-agent (isolated context) |
+| `agent` | Specify which agent type executes the skill |
+| `once: true` | Execute only once per session |
+| `allowed-tools` | YAML-style list of allowed tools |
+
+### Merged Commands & Skills (2.1.3+)
+Slash commands and skills are now conceptually merged, simplifying the mental model. Both are auto-discovered from their respective directories.
+
+### Hook Timeout (2.1.3+)
+Hook execution timeout increased from 60 seconds to **10 minutes**, allowing complex analysis hooks.
+
+---
+
 ## Skill Types
 
 ### 1. Guardrail Skills
@@ -110,7 +132,7 @@ Defines:
 
 **Location:** `.claude/skills/{skill-name}/SKILL.md`
 
-**Template:**
+**Template (basic):**
 ```markdown
 ---
 name: my-new-skill
@@ -127,6 +149,21 @@ Specific scenarios and conditions
 
 ## Key Information
 The actual guidance, documentation, patterns, examples
+```
+
+**Template (with optional fields - Claude Code 2.1.0+):**
+```markdown
+---
+name: my-new-skill
+description: Brief description with trigger keywords
+context: fork        # Run in forked sub-agent (isolated context)
+agent: agent-name    # Specify which agent executes this skill
+once: true           # Execute only once per session
+allowed-tools:       # YAML-style tool list
+  - Read
+  - Grep
+  - Glob
+---
 ```
 
 **Best Practices:**

@@ -1,5 +1,5 @@
 {
-  "description": "0-to-1 plugin hooks for skill activation, file tracking, and error handling reminders",
+  "description": "Essentials plugin hooks for skill activation, file tracking, and error handling reminders",
   "hooks": {
     "UserPromptSubmit": [
       {
