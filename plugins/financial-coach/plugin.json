@@ -1,7 +1,7 @@
 {
   "name": "financial-coach",
-  "version": "1.0.0",
-  "description": "Personal financial coach to help you understand financial concepts, investment strategies, and money management through guided learning",
+  "version": "1.1.0",
+  "description": "Personal financial coach with company valuation analysis and YouTube video analysis. Includes multi-phase investment framework with moat assessment, sector-specific valuation metrics, and reverse DCF reality checks.",
   "author": {
     "name": "Anant Gupta"
   },
@@ -9,8 +9,10 @@
   "keywords": [
     "finance",
     "investing",
-    "money",
-    "budgeting",
+    "valuation",
+    "stock-analysis",
+    "moat",
+    "dcf",
     "financial-planning",
     "stocks",
     "portfolio",

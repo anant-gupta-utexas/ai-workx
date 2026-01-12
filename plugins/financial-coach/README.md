@@ -4,10 +4,45 @@ Your personal financial coach for mastering money management, investing, and fin
 
 ## What's Included
 
-- **1 Skill**: yt-financial-summary (YouTube financial video analysis)
+- **2 Skills**: company-valuation, yt-financial-summary
 - **0 Commands**: Ready to add custom financial coaching commands
 
 ## Skills
+
+### company-valuation
+
+Comprehensive investment analysis that surfaces key decision points for evaluating whether a company is a good investment. Uses a multi-phase framework combining moat analysis, sector-appropriate valuation metrics, and reverse DCF reality checks.
+
+**Triggers:**
+- Providing a company name or ticker for analysis
+- Asking "Should I invest in [company]?"
+- Requesting stock valuation or investment analysis
+- Wanting help evaluating an investment opportunity
+
+**What it does:**
+1. Gathers current market data via web search
+2. Analyzes business fundamentals (what it does, how it makes money)
+3. Assesses competitive moats and market sentiment tier
+4. Applies sector-appropriate valuation metrics
+5. Runs a reverse DCF reality check
+6. Evaluates risks and provides investment verdict
+
+**Output includes:**
+- Business model breakdown with revenue streams
+- Moat assessment (switching costs, network effects, cost advantage, intangibles)
+- Market sentiment classification (Trash Bin to Cult Status)
+- Sector-specific valuation metrics with benchmarks
+- Financial health and capital efficiency analysis
+- Reverse DCF implied growth expectations
+- Risk assessment matrix
+- Final investment recommendation with bull/bear cases
+
+**Example usage:**
+```
+Should I invest in Apple?
+Analyze NVDA as an investment
+Is Microsoft a good buy right now?
+```
 
 ### yt-financial-summary
 
