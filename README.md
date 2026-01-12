@@ -18,28 +18,32 @@ Essential utilities with specialized agents, expert consultation, documentation 
 **Perfect for:** Planning, research, refactoring, expert consultation, documentation, context management
 
 #### [learning-coach](./plugins/learning-coach/)
-Personal learning coaches to help you master complex topics and ace system design interviews through structured guidance.
+Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
 
 **Includes:**
-- 2 Commands (/learn, /system-design)
+- 1 Skill (technical_coach) with 3 integrated modes:
+  - General Learning for any topic
+  - SWE System Design (20 LLD + 15 HLD problems)
+  - ML System Design (10 MLE interview problems with 9-step framework)
 
 **Perfect for:**
 - Learning new topics and complex concepts
-- Mastering system design (LLD & HLD) problems
-- Interview preparation for system design
-- Guided knowledge acquisition
+- SWE system design interviews (LLD & HLD)
+- MLE system design interviews (recommendations, visual search, content moderation)
+- Interview preparation with Socratic coaching
 
 #### [financial-coach](./plugins/financial-coach/)
-Personal financial coach with YouTube video analysis for investment research and financial education.
+Personal financial coach with comprehensive company valuation analysis and YouTube video analysis for investment research and financial education.
 
 **Includes:**
-- 1 Skill (yt-financial-summary)
+- 2 Skills (company-valuation, yt-financial-summary)
 
 **Perfect for:**
+- Evaluating whether a company is a good investment
+- Comprehensive stock analysis with moat assessment and valuation metrics
 - Analyzing financial YouTube videos with structured summaries
 - Investment research from video content
-- Learning personal finance concepts
-- Understanding investment strategies
+- Learning personal finance and valuation concepts
 
 ---
 
@@ -159,64 +163,82 @@ Test skill activation:
 
 ### learning-coach Plugin (Learning & Interview Prep)
 
-**Why install:** Provides two specialized learning coaches - one for mastering any topic and another for acing system design interviews through structured, guided sessions.
+**Why install:** Comprehensive learning and system design coach with three integrated modes - general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
 
-**Commands:**
-- **/learn** - General learning coach for understanding complex topics with step-by-step explanations, examples, and real-world applications
-- **/system-design** - System design interview coach for practicing LLD & HLD problems with interactive guidance through requirements, design, implementation, testing, and analysis
+**Skill:**
+- **technical_coach** - Unified skill with automatic mode detection based on your request
 
-**How It Works:**
+**Three Modes:**
 
-**For /learn:**
-1. Run `/learn [topic]` and specify your topic
-2. The coach provides an overview of the learning path
-3. You get step-by-step guidance through each concept
-4. Examples and real-world applications reinforce understanding
-5. Comprehensive summaries help you retain knowledge
+**1. General Learning Mode:**
+- Request any topic and get step-by-step guidance
+- Examples, analogies, and real-world applications
+- Comprehensive summaries to reinforce understanding
 
-**For /system-design:**
-1. Run `/system-design [problem-name or "list"]` to start a problem
-2. Choose between LLD (Low Level Design) or HLD (High Level Design)
-3. The interviewer guides you through requirement clarification
-4. Help identifying core entities, components, or architecture
-5. Assistance with design, implementation, and validation
-6. Testing validation and interview insights
+**2. SWE System Design Mode:**
+- **LLD (20 problems):** LRU Cache, Parking Lot, Elevator, Chess, ATM, and more
+- **HLD (15 problems):** Netflix, Uber, Instagram, Airbnb, Amazon, and more
+- Socratic approach with checkpoints and hints
+
+**3. ML System Design Mode (9-step framework):**
+- Problem Formulation → Metrics → Architecture → Data → Features → Model → Serving → Testing → Monitoring
+- **10 MLE problems:** Visual Search, Video Recommendations, Harmful Content Detection, Ad Click Prediction, News Feed, People You May Know, and more
+
+**How to Use:**
+```
+"Help me understand distributed systems"          # General Learning
+"Practice LRU Cache LLD problem"                  # SWE LLD
+"Design Netflix architecture"                     # SWE HLD
+"Design a video recommendation system"            # ML System Design
+"Practice harmful content detection for MLE"      # ML System Design
+```
 
 **Perfect For:**
-- Learning new programming languages, frameworks, and concepts
-- Understanding complex scientific, mathematical, or business theories
-- Developing soft skills and domain knowledge
-- Preparing for system design interviews
-- Practicing LLD problems (20 common problems): LRU Cache, Parking Lot, Elevator, Chess, ATM, and more
-- Practicing HLD problems (15 common problems): Netflix, Uber, Instagram, Airbnb, Amazon, and more
+- Learning new concepts, frameworks, and technologies
+- SWE system design interviews (35 LLD + HLD problems)
+- MLE system design interviews (10 ML problems with 9-step framework)
+- Interview preparation with interactive Socratic coaching
 
 [View Details →](./plugins/learning-coach/README.md)
 
 ---
 
-### financial-coach Plugin (Financial Education)
+### financial-coach Plugin (Financial Education & Investment Analysis)
 
-**Why install:** Analyze financial YouTube videos with comprehensive structured summaries for investment research.
+**Why install:** Comprehensive investment analysis tools including company valuation framework and YouTube video analysis for investment research.
 
-**Skill:**
+**Skills:**
+- **company-valuation** - Multi-phase investment analysis with moat assessment, sector-appropriate valuation metrics, and reverse DCF reality checks
 - **yt-financial-summary** - Fetches YouTube transcripts and generates detailed financial analysis
 
-**What the skill analyzes:**
+**What company-valuation provides:**
+- Business fundamentals breakdown (revenue streams, customers, geography)
+- Moat assessment (switching costs, network effects, cost advantage, intangibles)
+- Market sentiment classification (Trash Bin to Cult Status tiers)
+- Sector-specific valuation metrics with 2024-2025 benchmarks
+- Financial health and capital efficiency analysis (ROIC, Rule of 40, Clean FCF)
+- Reverse DCF implied growth expectations
+- Risk assessment matrix
+- Final investment verdict with bull/bear cases
+
+**What yt-financial-summary analyzes:**
 - Key companies with ticker symbols
 - Fundamental analysis (revenue, ratios, growth metrics, competitive advantages)
 - Technical analysis (price patterns, support/resistance, indicators)
 - Investment thesis (bull/bear case, price targets, timeframe)
 - Credibility assessment (speaker background, data support, biases)
-- Key timestamps for important insights
-
-**Requirements:**
-```bash
-pip install youtube-transcript-api
-```
 
 **How to use:**
 ```
+Should I invest in Apple?
+Analyze NVDA as an investment
+Is Microsoft a good buy right now?
 Analyze this financial video: https://www.youtube.com/watch?v=VIDEO_ID
+```
+
+**Requirements for YouTube analysis:**
+```bash
+pip install youtube-transcript-api
 ```
 
 [View Details →](./plugins/financial-coach/README.md)

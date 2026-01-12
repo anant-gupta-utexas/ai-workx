@@ -1,253 +1,145 @@
 # Learning Coach Plugin
 
-Your personal learning coach for mastering complex topics through structured, step-by-step guidance.
+Your personal learning and system design coach for mastering complex topics, practicing SWE system design (LLD & HLD), and preparing for ML system design interviews.
 
 ## What's Included
 
-- **2 Slash Commands**: `/learn` and `/system-design`
+- **1 Skill**: `technical_coach` - A comprehensive skill covering:
+  - General learning for any topic
+  - SWE System Design (20 LLD + 15 HLD problems)
+  - ML System Design (10 MLE interview problems with 9-step framework)
 
 ## Features
 
-### /learn Command
-A comprehensive learning coaching system that helps you understand any topic by:
+### Three Integrated Modes
 
-- **Breaking down complexity** - Transforms complex topics into manageable, digestible pieces
+#### 1. General Learning Mode
+A comprehensive learning coaching system that helps you understand any topic by:
+- **Breaking down complexity** - Transforms complex topics into manageable pieces
 - **Structured guidance** - Provides overview, sub-topics, and logical learning paths
 - **Rich explanations** - Uses examples, analogies, and real-world applications
 - **Interactive learning** - Encourages questions and deeper exploration
-- **Comprehensive summaries** - Recaps at each step and provides final comprehensive summary
+- **Comprehensive summaries** - Recaps at each step with final summary
 
-### /system-design Command
-An interactive system design learning system (LLD & HLD) designed for interview preparation that guides you through both approaches:
+#### 2. SWE System Design Mode (LLD & HLD)
+An interactive system design coach for software engineering interview preparation:
 
-#### Low Level Design (LLD) - "The How"
-- **Problem clarification** - Understand requirements through Socratic questioning
-- **Entity identification** - Discover core domain objects and data structures
-- **Class design** - Define classes, relationships, and hierarchies with visual diagrams
-- **Implementation** - Build clean, maintainable code with design patterns
-- **Testing & validation** - Run test cases and verify the design
-- **Interview prep** - Learn design patterns, complexity analysis, and extension strategies
+**Low Level Design (LLD) - "The How"**
+- Problem clarification through Socratic questioning
+- Entity identification and data structure design
+- Class design with proper relationships and hierarchies
+- Clean code implementation with design patterns
+- Testing and validation with comprehensive test cases
 
-#### High Level Design (HLD) - "The What"
-- **Requirements gathering** - Understand scale, constraints, and use cases
-- **Architecture design** - Identify major components and microservices
-- **Communication patterns** - Design how services interact (REST, gRPC, async messaging)
-- **Technology stack** - Choose databases, caches, message queues, and third-party services
-- **Scalability & reliability** - Design for scale, high availability, and fault tolerance
-- **Monitoring & operations** - Plan observability, security, and deployment strategies
+**High Level Design (HLD) - "The What"**
+- Requirements gathering for scale and constraints
+- Architecture design with major components and services
+- Communication patterns (REST, gRPC, async messaging)
+- Technology stack selection
+- Scalability, reliability, and monitoring strategies
 
-**Includes 20 common LLD problems:**
-- LRU Cache, Parking Lot, Elevator System, Library Management
-- Tic-Tac-Toe, Chess Game, Hotel Booking, Movie Ticket Booking
-- Vending Machine, ATM, Snake and Ladder, Car Rental
-- Splitwise, Rate Limiter, Logger, Notification Service
-- File System, Task Scheduler, Pub-Sub System, Connection Pool
+#### 3. ML System Design Mode (MLE Interviews)
+A specialized coach for ML system design interviews using the **9-step framework**:
 
-**Includes 15 common HLD problems:**
-- Netflix, Uber, Instagram, Airbnb, Amazon
-- Twitter/X, Slack, YouTube, Spotify, Dropbox
-- TikTok, Zoom, Discord, Google Maps, DoorDash
+1. **Problem Formulation** - Translate business problems to ML tasks
+2. **Metrics Definition** - Offline (precision, recall, NDCG) + online metrics
+3. **Architectural Components** - ML pipeline + infrastructure design
+4. **Data Collection & Preparation** - Labeling, sources, augmentation
+5. **Feature Engineering** - User, item, context, cross-features
+6. **Model Development** - Model selection, baselines, offline evaluation
+7. **Prediction Service** - Batch vs online, latency requirements
+8. **Online Testing & Deployment** - A/B tests, canary releases
+9. **Scaling, Monitoring, Updates** - Drift detection, retraining
+
+## Problem Libraries
+
+### LLD Problems (20)
+| Category | Problems |
+|----------|----------|
+| **Data Structures** | LRU Cache, Connection Pool |
+| **Systems** | Parking Lot, Elevator System, Vending Machine, ATM, File System |
+| **Management** | Library Management, Hotel Booking, Car Rental |
+| **Entertainment** | Tic-Tac-Toe, Chess, Snake and Ladder, Movie Ticket Booking |
+| **Applications** | Splitwise, Rate Limiter, Logger, Notification Service, Pub-Sub, Task Scheduler |
+
+### HLD Problems (15)
+| Category | Problems |
+|----------|----------|
+| **Streaming** | Netflix, YouTube, TikTok, Spotify |
+| **Social** | Instagram, Twitter/X, Discord |
+| **Ride-Sharing & Delivery** | Uber, DoorDash |
+| **Marketplace** | Amazon, Airbnb |
+| **Productivity** | Slack, Zoom |
+| **Storage & Maps** | Dropbox, Google Maps |
+
+### ML System Design Problems (10)
+| Category | Problems |
+|----------|----------|
+| **Search & Ranking** | Visual Search System, YouTube Video Search, Similar Listings |
+| **Recommendations** | Video Recommendation, Event Recommendation, Personalized News Feed |
+| **Content Moderation** | Harmful Content Detection, Google Street View Blurring |
+| **Ads** | Ad Click Prediction |
+| **Social** | People You May Know |
 
 ## How to Use
 
-### General Learning with /learn
-```bash
-/learn [topic]
+The skill activates automatically based on your request. Examples:
+
+### General Learning
+```
+"Help me understand distributed systems"
+"Teach me about database indexing"
+"I want to learn about machine learning"
 ```
 
-The coach will:
-1. Introduce itself as your Learning Coach
-2. Ask what topic you'd like to learn about (if not specified)
-3. Provide an overview of the learning path
-4. Guide you step-by-step through the topic
-
-**Examples:**
-```bash
-/learn machine learning
-/learn database design
-/learn React best practices
+### SWE System Design
+```
+"Practice LRU Cache LLD problem"
+"Design a parking lot system"
+"Help me design Netflix architecture"
+"Practice HLD for Instagram"
 ```
 
-### System Design with /system-design
-```bash
-/system-design [problem-name or "list"]
+### ML System Design
 ```
-
-The system design coach will:
-1. Present the problem or show available problems (if "list" specified)
-2. Guide you based on problem type (LLD or HLD)
-3. For LLD: requirements → entities → class design → implementation → testing
-4. For HLD: requirements → architecture → tech stack → scalability → monitoring
-5. Provide interview preparation insights and design pattern analysis
-
-**Examples:**
-```bash
-/system-design list                    # Show all LLD and HLD problems
-/system-design LRU Cache              # Start with LRU Cache (LLD problem)
-/system-design Parking Lot            # Start with Parking Lot (LLD problem)
-/system-design Netflix                # Start with Netflix (HLD problem)
-/system-design Uber                   # Start with Uber (HLD problem)
-/system-design Instagram              # Start with Instagram (HLD problem)
+"Design a video recommendation system"
+"How would you build a visual search system?"
+"Practice harmful content detection for MLE interview"
+"Help me design a personalized news feed"
 ```
-
-### Learning Topics (/learn)
-The coach can help you understand:
-- **Technical Topics**: Programming languages, AI/ML, Databases, Cloud Computing, DevOps
-- **Science**: Physics, Chemistry, Biology, Astronomy, Mathematics
-- **Business & Economics**: Marketing, Finance, Strategy, Entrepreneurship, Sales
-- **Soft Skills**: Communication, Leadership, Problem-Solving, Negotiation, Public Speaking
-- **Creative Subjects**: Writing, Design, Music, Art, Photography
-- **And any topic you want to master!**
-
-### System Design Problem Categories (/system-design)
-
-#### LLD Problem Categories
-- **Data Structures**: LRU Cache, Connection Pool
-- **Systems**: Parking Lot, Elevator System, Vending Machine, ATM, File System
-- **Management**: Library Management, Hotel Booking, Car Rental
-- **Entertainment**: Tic-Tac-Toe, Chess, Snake and Ladder, Movie Ticket Booking
-- **Applications**: Splitwise, Rate Limiter, Logger, Notification Service, Pub-Sub System, Task Scheduler
-
-#### HLD Problem Categories
-- **Streaming Platforms**: Netflix, YouTube, TikTok, Spotify
-- **Social Networks**: Instagram, Twitter/X, Discord
-- **Ride-Sharing & Delivery**: Uber, DoorDash
-- **Marketplace & E-commerce**: Amazon, Airbnb
-- **Productivity Tools**: Slack, Zoom
-- **Storage & Maps**: Dropbox, Google Maps
 
 ## Learning Approach
 
-### /learn - General Learning Coach
+### General Learning Coach
+- **Approachable & Friendly** - Like a mentor you can trust
+- **Patient & Encouraging** - Adapts to your pace
+- **Step-by-Step** - Logical progression through concepts
 
-**Role:** A patient, knowledgeable, and enthusiastic guide who adapts to your level of understanding.
+### System Design Interview Style
+- **Socratic approach** - Asks questions rather than giving answers directly
+- **Checkpoints** - Validates understanding at each stage
+- **Hints when stuck** - Guides without giving away answers
+- **Real interview simulation** - Prepares you for actual interviews
 
-**Process:**
-1. **Initial Inquiry** - Understand what you want to learn
-2. **Overview First** - Outline the bigger picture and key concepts
-3. **Step-by-Step Breakdown** - Guide through each concept logically
-4. **Practical Application** - Provide examples and real-world applications
-5. **Reinforcement** - Summarize at each step and provide comprehensive final summary
+## File Structure
 
-### /system-design - System Design Coach (LLD & HLD)
-
-**Role:** An expert system design interviewer who helps you practice both LLD and HLD interview problems through interactive guidance.
-
-#### Low Level Design Process:
-1. **Requirements Clarification** - Ask clarifying questions like a real interviewer
-2. **Entity Identification** - Guide discovery of core domain objects and data structures
-3. **Class Design** - Help design classes with proper relationships and hierarchies
-4. **Implementation** - Walk through clean code implementation with design patterns
-5. **Testing** - Validate the design with comprehensive test cases
-6. **Analysis** - Discuss complexity, patterns used, and possible extensions
-
-#### High Level Design Process:
-1. **Requirements & Constraints** - Understand scale, use cases, and business requirements
-2. **Architecture Design** - Identify major components, services, and communication patterns
-3. **Technology Selection** - Choose appropriate databases, caches, message queues
-4. **Scalability Strategy** - Design for handling growth in users, data, and traffic
-5. **Reliability & Monitoring** - Plan for failures, observability, and operations
-6. **Analysis** - Discuss trade-offs, architecture patterns, and extension scenarios
-
-**Interview Style:**
-- Socratic approach - asks questions rather than giving answers directly
-- Provides hints when you're stuck
-- Validates understanding at checkpoints
-- Encourages creative problem-solving
-- Adapts based on whether you're doing LLD or HLD
-
-### Communication Style (Both Commands)
-- Clear and straightforward language
-- Patient and encouraging tone
-- Matches your communication style
-- Welcomes questions and discussion
-- Adapts to your learning pace
-
-## Example Sessions
-
-### /learn Example
 ```
-/learn machine learning
-
-Coach: Hello! I'm your personal Learning Coach. I'm excited to help you understand machine learning!
-
-Let me give you an overview of what we'll cover:
-
-1. **Foundations** - What is machine learning and how it differs from traditional programming
-2. **Core Concepts** - Supervised vs unsupervised learning, training data
-3. **Key Algorithms** - Linear regression, classification, clustering
-4. **Real-World Applications** - How companies use ML today
-5. **Getting Started** - Practical next steps for learning more
-
-Let's begin with the foundations...
+skills/
+  technical_coach/
+    SKILL.md           # Main skill with mode detection and overview
+    resources/
+      hld.md           # Detailed HLD guide (6-section flow)
+      lld.md           # Detailed LLD guide (5-section flow)
+      mle.md           # ML System Design (9-step framework)
 ```
-
-### /system-design Examples
-
-#### LLD Example
-```
-/system-design LRU Cache
-
-Interviewer: Let's design an LRU Cache. What clarifying questions would you ask?
-
-[You ask questions about capacity, eviction policy, thread safety, etc.]
-
-Interviewer: Good questions! Based on our discussion, let's identify the core entities.
-What main components would you need in an LRU Cache?
-
-[You identify entities: Node, Cache, DoubleLinkedList]
-
-Interviewer: Great thinking! Now let's design the classes. What attributes and methods
-would each class need? Let me review your design...
-
-[Continues through design, implementation, testing, and analysis phases]
-```
-
-#### HLD Example
-```
-/system-design Netflix
-
-Architect: Let's design Netflix, a video streaming platform for millions of users worldwide.
-What clarifying questions would you ask about scale, features, and constraints?
-
-[You ask about concurrent users, video quality, global reach, payment handling, etc.]
-
-Architect: Excellent questions! Based on the scale you mentioned, let's think about
-the major components. What services would we need to build Netflix?
-
-[You identify: User Service, Video Service, Recommendation Service, Payment Service, etc.]
-
-Architect: Perfect! Now let's think about how these services communicate and what
-technologies we'd use. What kind of database and caching strategy would work?
-
-[Continues through architecture, tech stack, scalability, monitoring, and analysis]
-```
-
-## Installation
-
-This plugin is ready to use once installed in your Claude workspace.
-
-### Quick Start
-1. Install the plugin
-2. Run `/learn`
-3. Tell the coach what you want to learn
-4. Follow along as they break down the topic step-by-step
 
 ## Tips for Best Results
 
-1. **Be specific** - The more specific your topic, the better the guidance
+1. **Be specific** - The more specific your topic or problem, the better the guidance
 2. **Ask questions** - Don't hesitate to ask for clarification or deeper dives
-3. **Take notes** - Write down key points and examples as you learn
-4. **Practice** - Apply what you learn in real projects or exercises
+3. **Practice actively** - Try to answer before the coach reveals solutions
+4. **Take notes** - Write down key points and design decisions
 5. **Review** - Go back through the summaries when you need reinforcement
-
-## About the Coach
-
-Your Learning Coach is designed with these characteristics:
-- **Approachable & Friendly** - Like a mentor you can trust
-- **Patient & Encouraging** - Celebrates your learning journey
-- **Knowledgeable & Enthusiastic** - Genuinely enjoys helping people learn
-- **Adaptive** - Adjusts explanations based on your understanding level
 
 ## License
 
