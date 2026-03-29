@@ -7,13 +7,12 @@ Production-tested Claude Code plugins for modern development workflows with spec
 ### Core Plugins (Recommended)
 
 #### [essentials](./plugins/essentials/)
-Essential utilities with specialized agents, expert consultation, documentation tools, skill development, and intelligent hooks.
+Essential utilities with specialized agents, expert consultation, documentation tools, and skill development.
 
 **Includes:**
 - 2 Skills (consult-experts, skill-developer)
 - 5 Agents (business-strategist, documentation-architect, plan-reviewer, refactor-planner, web-research-specialist)
 - 1 Command (dev-docs-update)
-- 3 Hooks (skill activation, file tracking, error handling reminders)
 
 **Perfect for:** Planning, research, refactoring, expert consultation, documentation, context management
 
@@ -117,14 +116,8 @@ This opens an interactive UI showing all available plugins from this marketplace
 /plugin install 021FE@claude-workspace-plugins
 ```
 
-### 4. Post-Installation Setup
+### 4. Test Installation
 
-**For essentials plugin (required):**
-```bash
-cd ~/.claude/plugins/marketplaces/claude-workspace-plugins/plugins/essentials/hooks && npm install
-```
-
-Test skill activation:
 ```bash
 "Use the business-strategist agent to help with my product roadmap"
 "Consult expert for architecture decisions"
@@ -151,11 +144,6 @@ Test skill activation:
 
 **Commands:**
 - **/dev-docs-update** - Update dev documentation before context compaction for seamless continuation
-
-**Hooks:**
-- **skill-activation-prompt** - Auto-suggests relevant skills based on your work
-- **post-tool-use-tracker** - Tracks file changes for context management
-- **error-handling-reminder** - Reminds about error handling best practices
 
 [View Details →](./plugins/essentials/README.md)
 
@@ -359,65 +347,6 @@ Use commands for workflows:
 
 ---
 
-## ⚙️ Customization
-
-### Adjusting Path Patterns
-
-The essentials plugin includes `skill-rules.json` that configures when skills activate. This file references all skills (backend and frontend) for comprehensive activation logic.
-
-**Important Note:** If you only install specialized plugins for your project type (e.g., only frontend), the skill activation hook will still check for keywords related to uninstalled skills. This doesn't cause errors - it simply won't find matches for those skills.
-
-Edit `.claude/skills/skill-rules.json` to customize activation patterns:
-
-**Monorepo Example:**
-```json
-{
-  "skills": {
-    "backend-dev-guidelines": {
-      "fileTriggers": {
-        "pathPatterns": [
-          "services/*/src/**/*.py",
-          "packages/backend/**/*.ts"
-        ]
-      }
-    },
-    "frontend-dev-guidelines": {
-      "fileTriggers": {
-        "pathPatterns": [
-          "apps/web/src/**/*.tsx",
-          "packages/ui/src/**/*.tsx"
-        ]
-      }
-    }
-  }
-}
-```
-
-**Frontend-Only Project:**
-```json
-{
-  "skills": {
-    "frontend-dev-guidelines": {
-      "fileTriggers": {
-        "pathPatterns": [
-          "src/**/*.tsx",
-          "components/**/*.tsx"
-        ]
-      },
-      "promptTriggers": {
-        "keywords": [
-          "react",
-          "frontend guidelines",
-          "mui patterns"
-        ]
-      }
-    }
-  }
-}
-```
-
----
-
 ## 🔧 Managing Plugins
 
 ### List Installed Plugins
@@ -568,7 +497,6 @@ After installing these plugins, you get:
 - ✅ **Expert guidance** - Access to business strategist, documentation architect, tech lead, and UI/UX specialist agents
 - ✅ **TRS documentation commands** - Create comprehensive Technical Requirement Specifications for backend and frontend features
 - ✅ **Context management** - Update dev docs before context reset for seamless continuation
-- ✅ **Automated workflows** - Hooks that track and optimize your work
 - ✅ **Production patterns** - Best practices from real-world projects (Python/FastAPI, TanStack Start/React)
 - ✅ **Modern tech stacks** - SSR-ready React patterns, Clean Architecture backend, shadcn/ui, TanStack ecosystem
 - ✅ **Comprehensive documentation** - Everything you need to know

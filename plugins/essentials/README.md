@@ -1,6 +1,6 @@
 # Essentials Plugin
 
-Essential utilities for enhanced development workflow including specialized agents for planning and research, expert consultation skills, skill development tools, and intelligent hooks.
+Essential utilities for enhanced development workflow including specialized agents for planning and research, expert consultation skills, and skill development tools.
 
 ## What's Included
 
@@ -18,24 +18,11 @@ Essential utilities for enhanced development workflow including specialized agen
 ### Commands (1)
 - **dev-docs-update** - Update dev documentation before context compaction for seamless continuation
 
-### Hooks (3)
-- **skill-activation-prompt** - Auto-suggests relevant skills based on your work
-- **post-tool-use-tracker** - Tracks file changes for context management
-- **error-handling-reminder** - Reminds about error handling best practices
-
 ## Installation
 
 ```bash
 # From your project directory
 /plugin install essentials@claude-workspace-plugins
-```
-
-## Post-Installation Setup
-
-### Install Hook Dependencies
-
-```bash
-cd ~/.claude/plugins/marketplaces/claude-workspace-plugins/plugins/essentials/hooks && npm install
 ```
 
 ## Usage Examples
@@ -288,50 +275,6 @@ The command will update:
 - After major implementation milestones
 - When switching between different features
 
-### Hooks
-
-#### Skill Activation Prompt Hook
-
-**Purpose:** Auto-suggests relevant skills based on your work
-
-**How it works:**
-- Analyzes your prompts and file changes
-- Suggests relevant skills automatically
-- Loads skill resources when needed
-
-**Benefits:**
-- Skills activate at the right time
-- No manual triggering needed
-- Context-aware suggestions
-
-#### Post Tool Use Tracker Hook
-
-**Purpose:** Tracks file changes for context management
-
-**How it works:**
-- Monitors tool usage and file modifications
-- Tracks which files have been changed
-- Helps manage context and affected files
-
-**Benefits:**
-- Better context awareness
-- Tracks implementation progress
-- Useful for large changes across multiple files
-
-#### Error Handling Reminder Hook
-
-**Purpose:** Reminds about error handling best practices
-
-**How it works:**
-- Triggers when adding new API endpoints or functions
-- Provides error handling reminders
-- Encourages defensive programming
-
-**Benefits:**
-- Reduces bugs from missing error handling
-- Promotes best practices
-- Improves code quality
-
 ## Perfect For
 
 - ✅ Product planning and strategy
@@ -339,7 +282,6 @@ The command will update:
 - ✅ Refactoring and code modernization
 - ✅ Technical research
 - ✅ Creating custom skills
-- ✅ Enhanced development workflow
 - ✅ New product development and planning
 - ✅ Documentation creation and maintenance
 - ✅ Context management across sessions
@@ -351,58 +293,13 @@ The command will update:
 - ❌ Infrastructure management
 - ❌ Database administration
 
-## Hook Configuration
-
-### Customizing Skill Activation
-
-Edit `.claude/skills/skill-rules.json` to customize when skills activate:
-
-```json
-{
-  "skills": {
-    "consult-experts": {
-      "promptTriggers": {
-        "keywords": [
-          "consult product",
-          "expert advice",
-          "product strategy"
-        ]
-      }
-    },
-    "skill-developer": {
-      "promptTriggers": {
-        "keywords": [
-          "skill development",
-          "create skill",
-          "skill-rules.json"
-        ]
-      }
-    }
-  }
-}
-```
-
 ## Troubleshooting
-
-### Hooks not working?
-
-**Check:**
-1. Hook dependencies installed: `cd hooks && npm install`
-2. Hooks are configured in `.claude/hooks/`
-3. Node.js and npx available in PATH
-
-**Test manually:**
-```bash
-echo '{"session_id":"test","prompt":"your test prompt"}' | \
-  npx tsx hooks/skill-activation-prompt.ts
-```
 
 ### Skills not activating?
 
 **Check:**
 1. Using trigger keywords in prompts
-2. `skill-rules.json` exists in `.claude/skills/`
-3. Keywords match your prompts
+2. Keywords match your prompts
 
 ### Agents not working?
 

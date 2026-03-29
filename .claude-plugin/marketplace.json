@@ -55,7 +55,7 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Essential utilities including specialized agents (documentation architect, planning, research), expert consultation skills, skill development tools, dev-docs-update command, and intelligent hooks for enhanced development workflow",
+      "description": "Essential utilities including specialized agents (documentation architect, planning, research), expert consultation skills, skill development tools, and dev-docs-update command for enhanced development workflow",
       "version": "1.0.0",
       "author": {
         "name": "Anant Gupta",
@@ -67,7 +67,6 @@
         "agents",
         "experts",
         "skill-development",
-        "hooks",
         "planning",
         "research",
         "refactoring",
