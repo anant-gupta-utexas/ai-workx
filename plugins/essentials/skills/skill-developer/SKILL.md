@@ -1,6 +1,6 @@
 ---
 name: skill-developer
-description: Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, modifying skill-rules.json, understanding trigger patterns, working with hooks, debugging skill activation, or implementing progressive disclosure. Covers skill structure, YAML frontmatter, trigger types (keywords, intent patterns, file paths, content patterns), enforcement levels (block, suggest, warn), hook mechanisms (UserPromptSubmit, PreToolUse), session tracking, and the 500-line rule.
+description: Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, understanding trigger patterns, working with hooks, debugging skill activation, or implementing progressive disclosure. Covers skill structure, YAML frontmatter, trigger types (keywords, intent patterns, file paths, content patterns), enforcement levels (block, suggest, warn), hook mechanisms (UserPromptSubmit, PreToolUse), session tracking, and the 500-line rule.
 ---
 
 # Skill Developer Guide
@@ -16,7 +16,6 @@ Automatically activates when you mention:
 - Modifying skill triggers or rules
 - Understanding how skill activation works
 - Debugging skill activation issues
-- Working with skill-rules.json
 - Hook system mechanics
 - Claude Code best practices
 - Progressive disclosure
@@ -42,17 +41,6 @@ Automatically activates when you mention:
 - **Purpose**: Gentle reminder to self-assess error handling in code written
 - **Method**: Analyzes edited files for risky patterns, displays reminder if needed
 - **Use Cases**: Error handling awareness without blocking friction
-
-### Configuration File
-
-**Location**: `.claude/skills/skill-rules.json`
-
-Defines:
-- All skills and their trigger conditions
-- Enforcement levels (block, suggest, warn)
-- File path patterns (glob)
-- Content detection patterns (regex)
-- Skip conditions (session tracking, file markers, env vars)
 
 ---
 
@@ -173,30 +161,11 @@ allowed-tools:       # YAML-style tool list
 - ✅ **Examples**: Real code examples
 - ✅ **Structure**: Clear headings, lists, code blocks
 
-### Step 2: Add to skill-rules.json
-
-See `REFERENCE.md` for complete schema and examples.
-
-**Basic Template:**
-```json
-{
-  "my-new-skill": {
-    "type": "domain",
-    "enforcement": "suggest",
-    "priority": "medium",
-    "promptTriggers": {
-      "keywords": ["keyword1", "keyword2"],
-      "intentPatterns": ["(create|add).*?something"]
-    }
-  }
-}
-```
-
-### Step 3: Test & Refine
+### Step 2: Test & Refine
 
 Test your triggers and refine patterns. See `REFERENCE.md - Testing Your Skills` for test commands.
 
-### Step 4: Refine Patterns
+### Step 3: Refine Patterns
 
 Based on testing:
 - Add missing keywords
@@ -204,7 +173,7 @@ Based on testing:
 - Adjust file path patterns
 - Test content patterns against actual files
 
-### Step 5: Follow Anthropic Best Practices
+### Step 4: Follow Anthropic Best Practices
 
 ✅ Keep SKILL.md under 500 lines
 ✅ Use progressive disclosure with reference files
@@ -296,7 +265,6 @@ When creating a new skill, verify:
 
 - [ ] Skill file created in `.claude/skills/{name}/SKILL.md`
 - [ ] Proper frontmatter with name and description
-- [ ] Entry added to `skill-rules.json`
 - [ ] Keywords tested with real prompts
 - [ ] Intent patterns tested with variations
 - [ ] File path patterns tested with actual files
@@ -307,7 +275,6 @@ When creating a new skill, verify:
 - [ ] No false positives in testing
 - [ ] No false negatives in testing
 - [ ] Performance is acceptable (<100ms or <200ms)
-- [ ] JSON syntax validated: `jq . skill-rules.json`
 - [ ] **SKILL.md under 500 lines** ⭐
 - [ ] Reference files created if needed
 - [ ] Table of contents added to files > 100 lines
@@ -319,7 +286,6 @@ When creating a new skill, verify:
 For detailed information on specific topics, see:
 
 ### `REFERENCE.md` - Complete Configuration Guide
-- Complete skill-rules.json schema with TypeScript types
 - All trigger types (keywords, intent patterns, file paths, content patterns)
 - Ready-to-use pattern library (regex and glob patterns)
 - Complete guardrail and domain skill examples
@@ -354,10 +320,9 @@ For detailed information on specific topics, see:
 ### Create New Skill (5 Steps)
 
 1. Create `.claude/skills/{name}/SKILL.md` with frontmatter
-2. Add entry to `.claude/skills/skill-rules.json`
-3. Test with `npx tsx` commands
-4. Refine patterns based on testing
-5. Keep SKILL.md under 500 lines
+2. Test with real prompts and scenarios
+3. Refine patterns based on testing
+4. Keep SKILL.md under 500 lines
 
 ### Trigger Types
 
@@ -399,7 +364,6 @@ See `TROUBLESHOOTING.md` for complete debugging guide and `REFERENCE.md - Testin
 ## Related Files
 
 **Configuration:**
-- `.claude/skills/skill-rules.json` - Master configuration
 - `.claude/hooks/state/` - Session tracking
 - `.claude/settings.json` - Hook registration
 

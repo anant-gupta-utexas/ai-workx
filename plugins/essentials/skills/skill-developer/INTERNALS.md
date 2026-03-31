@@ -27,9 +27,7 @@ npx tsx skill-activation-prompt.ts
     ↓
 Hook reads stdin (JSON with prompt)
     ↓
-Loads skill-rules.json
-    ↓
-Matches keywords + intent patterns
+Matches keywords + intent patterns from skill descriptions
     ↓
 Groups matches by priority (critical → high → medium → low)
     ↓
@@ -93,8 +91,6 @@ skill-verification-guard.sh executes
 npx tsx skill-verification-guard.ts
     ↓
 Hook reads stdin (JSON with tool_name, tool_input)
-    ↓
-Loads skill-rules.json
     ↓
 Checks file path patterns (glob matching)
     ↓
@@ -266,7 +262,7 @@ The hook cannot detect when the skill is *actually* invoked - it just blocks onc
 
 ### Performance Bottlenecks
 
-1. **Loading skill-rules.json** (every execution)
+1. **Loading skill configurations** (every execution)
    - Future: Cache in memory
    - Future: Watch for changes, reload only when needed
 

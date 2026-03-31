@@ -77,7 +77,7 @@ Skills can auto-activate based on:
 - Content patterns in files
 - Intent patterns
 
-Configure in `.claude/skills/skill-rules.json` if using skills outside plugins.
+Skills are auto-discovered from their directories. Include trigger keywords in your SKILL.md description for activation.
 
 ## Hot-Reload (Claude Code 2.1.0+)
 

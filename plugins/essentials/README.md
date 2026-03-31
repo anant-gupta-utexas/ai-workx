@@ -38,7 +38,7 @@ Essential utilities for enhanced development workflow including specialized agen
 **Skill Development:**
 ```bash
 "Help me create a new skill for code review"
-"How do I configure skill triggers in skill-rules.json?"
+"How do I configure skill triggers?"
 "Show me how to add keywords to my skill"
 ```
 
@@ -119,8 +119,8 @@ The command will update:
 - Testing and troubleshooting
 
 **Activation keywords:**
-- `skill development`, `skill-rules.json`
-- `create new skill`, `skill triggers`, `configure skill`
+- `skill development`, `create new skill`
+- `skill triggers`, `configure skill`
 
 **Resources:** 7 comprehensive guides on skill development
 

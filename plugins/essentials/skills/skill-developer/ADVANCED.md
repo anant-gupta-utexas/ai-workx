@@ -6,12 +6,12 @@ Ideas and concepts for future improvements to the skill system.
 
 ## Dynamic Rule Updates
 
-**Current State:** Requires Claude Code restart to pick up changes to skill-rules.json
+**Current State:** Skills hot-reload automatically when SKILL.md files are modified (Claude Code 2.1.0+)
 
-**Future Enhancement:** Hot-reload configuration without restart
+**Future Enhancement:** Hot-reload hook configurations without restart
 
 **Implementation Ideas:**
-- Watch skill-rules.json for changes
+- Watch hook configuration for changes
 - Reload on file modification
 - Invalidate cached compiled regexes
 - Notify user of reload

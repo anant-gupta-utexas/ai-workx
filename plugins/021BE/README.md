@@ -45,22 +45,7 @@ When your prompts contain these keywords:
 
 ### Customizing File Patterns
 
-If your project structure differs, edit `.claude/skills/skill-rules.json`:
-
-```json
-{
-  "skills": {
-    "backend-dev-guidelines": {
-      "fileTriggers": {
-        "pathPatterns": [
-          "backend/**/*.py",
-          "services/*/src/**/*.py"
-        ]
-      }
-    }
-  }
-}
-```
+If your project structure differs, update the skill's SKILL.md description to include your project-specific paths and keywords.
 
 ## Usage Examples
 

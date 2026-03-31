@@ -24,20 +24,18 @@ Complete debugging guide for skill activation problems.
 ####  1. Keywords Don't Match
 
 **Check:**
-- Look at `promptTriggers.keywords` in skill-rules.json
+- Look at the keywords in your skill's description field in SKILL.md frontmatter
 - Are the keywords actually in your prompt?
 - Remember: case-insensitive substring matching
 
-**Example:**
-```json
-"keywords": ["layout", "grid"]
-```
+**Example keywords in description:**
+`layout`, `grid`
 - "how does the layout work?" → ✅ Matches "layout"
 - "how does the grid system work?" → ✅ Matches "grid"
 - "how do layouts work?" → ✅ Matches "layout"
 - "how does it work?" → ❌ No match
 
-**Fix:** Add more keyword variations to skill-rules.json
+**Fix:** Add more keyword variations to your SKILL.md description
 
 #### 2. Intent Patterns Too Specific
 
@@ -66,39 +64,10 @@ Complete debugging guide for skill activation problems.
 
 **Check:**
 - Skill name in SKILL.md frontmatter
-- Skill name in skill-rules.json
+- Directory name matches the skill name
 - Must match exactly
 
-**Example:**
-```yaml
-# SKILL.md
-name: project-catalog-developer
-```
-```json
-// skill-rules.json
-"project-catalogue-developer": {  // ❌ Typo: catalogue vs catalog
-  ...
-}
-```
-
 **Fix:** Make names match exactly
-
-#### 4. JSON Syntax Error
-
-**Check:**
-```bash
-cat .claude/skills/skill-rules.json | jq .
-```
-
-If invalid JSON, jq will show the error.
-
-**Common errors:**
-- Trailing commas
-- Missing quotes
-- Single quotes instead of double
-- Unescaped characters in strings
-
-**Fix:** Correct JSON syntax, validate with jq
 
 #### Debug Command
 
@@ -116,7 +85,7 @@ See [REFERENCE.md - Testing Your Skills](REFERENCE.md#testing-your-skills) for t
 
 **Check:**
 - File path being edited
-- `fileTriggers.pathPatterns` in skill-rules.json
+- File path patterns configured for the skill
 - Glob pattern syntax
 
 **Example:**
@@ -422,7 +391,7 @@ Expected: No output (no errors)
 ### 1. Too Many Patterns
 
 **Check:**
-- Count patterns in skill-rules.json
+- Count patterns across your skills
 - Each pattern = regex compilation + matching
 
 **Solution:** Reduce patterns

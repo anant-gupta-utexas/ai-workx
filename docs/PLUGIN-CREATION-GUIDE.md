@@ -330,7 +330,7 @@ Skills can activate based on:
 3. **File Paths**: Glob patterns for file locations
 4. **Content Patterns**: Regex in file contents
 
-**Note**: Auto-activation requires configuring `skill-rules.json` in the user's `.claude/skills/` directory. Plugins themselves don't control activation triggers - that's user-configurable.
+**Note**: Auto-activation is driven by the skill's SKILL.md description field. Include trigger keywords in the description for Claude Code to auto-discover and activate skills.
 
 ## Testing Plugins
 

@@ -55,22 +55,7 @@ When your prompts contain these keywords:
 
 ### Customizing File Patterns
 
-If your project structure differs, edit `.claude/skills/skill-rules.json`:
-
-```json
-{
-  "skills": {
-    "frontend-dev-guidelines": {
-      "fileTriggers": {
-        "pathPatterns": [
-          "apps/web/src/**/*.tsx",
-          "packages/ui/src/**/*.tsx"
-        ]
-      }
-    }
-  }
-}
-```
+If your project structure differs, update the skill's SKILL.md description to include your project-specific paths and keywords.
 
 ## Usage Examples
 
@@ -264,9 +249,9 @@ The frontend-dev-guidelines skill emphasizes:
 ### Skills not activating?
 
 **Check:**
-1. Path patterns in `skill-rules.json` match your project structure
-2. You're editing `.tsx` or `.ts` frontend files
-3. You're using trigger keywords in your prompts
+1. You're editing `.tsx` or `.ts` frontend files
+2. You're using trigger keywords in your prompts
+3. The skill's SKILL.md description includes relevant keywords
 
 ### Need help with specific patterns?
 
