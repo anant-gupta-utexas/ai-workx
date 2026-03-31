@@ -48,7 +48,7 @@ Personal financial coach with comprehensive company valuation analysis and YouTu
 
 ### Specialized Plugins (Install Based on Your Stack)
 
-#### [021BE](./plugins/021BE/) - Backend Development
+#### [021BE](./plugins/021BE/) - Backend Development (Python)
 Python/FastAPI Clean Architecture backend development guidelines with comprehensive technical requirement specification command.
 
 **Includes:**
@@ -62,6 +62,21 @@ Python/FastAPI Clean Architecture backend development guidelines with comprehens
 - Clean Architecture
 
 **Perfect for:** Python/FastAPI backend projects, creating backend TRS documents
+
+#### [021BE-GO](./plugins/021BE-GO/) - Backend Development (Go)
+Go/Chi Clean Architecture backend development guidelines with DDD patterns, sqlc + pgx database access, and gRPC support.
+
+**Includes:**
+- 1 Skill (backend-dev-guidelines)
+
+**Tech Stack:**
+- Go 1.24+
+- Chi router
+- sqlc + pgx
+- koanf, slog + OpenTelemetry
+- Clean Architecture / DDD
+
+**Perfect for:** Go backend projects, Clean Architecture in Go, gRPC services
 
 #### [021FE](./plugins/021FE/) - Frontend Development
 TanStack Start/React/TypeScript frontend development guidelines with modern SSR-ready patterns and comprehensive technical requirement specification command.
@@ -111,6 +126,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 # Backend plugin (if you have a Python/FastAPI backend)
 /plugin install 021BE@claude-workspace-plugins
+
+# Backend plugin (if you have a Go backend)
+/plugin install 021BE-GO@claude-workspace-plugins
 
 # Frontend plugin (if you have a TanStack Start/React/TypeScript frontend)
 /plugin install 021FE@claude-workspace-plugins
@@ -233,7 +251,7 @@ pip install youtube-transcript-api
 
 ---
 
-### 021BE Plugin (Backend Specialization)
+### 021BE Plugin (Python Backend Specialization)
 
 **When to install:** You're working on Python/FastAPI backend projects following Clean Architecture.
 
@@ -253,6 +271,29 @@ pip install youtube-transcript-api
 **Resources:** 12 comprehensive guides on Clean Architecture patterns
 
 [View Details →](./plugins/021BE/README.md)
+
+---
+
+### 021BE-GO Plugin (Go Backend Specialization)
+
+**When to install:** You're working on Go backend projects following Clean Architecture with DDD patterns.
+
+**Skill:**
+- **backend-dev-guidelines** - Go/Chi Clean Architecture with domain entities, services, repository patterns (sqlc + pgx)
+
+**Key Topics:**
+- Domain layer (unexported fields, constructors, value objects)
+- Application layer (services, DTOs, CQRS as advanced pattern)
+- Repository pattern with sqlc + pgx
+- Chi router and HTTP handlers
+- Configuration with koanf
+- Error handling and observability (slog + OpenTelemetry)
+- gRPC with buf and connect-go
+- Testing with testify, mockery, and testcontainers-go
+
+**Resources:** 13 comprehensive guides on Go Clean Architecture patterns
+
+[View Details →](./plugins/021BE-GO/README.md)
 
 ---
 
@@ -360,6 +401,7 @@ Use commands for workflows:
 ```bash
 /plugin update essentials
 /plugin update 021BE
+/plugin update 021BE-GO
 /plugin update 021FE
 ```
 
@@ -368,6 +410,7 @@ Use commands for workflows:
 ```bash
 /plugin uninstall essentials
 /plugin uninstall 021BE
+/plugin uninstall 021BE-GO
 /plugin uninstall 021FE
 ```
 
@@ -386,13 +429,15 @@ Use commands for workflows:
 ```bash
 /plugin install essentials@claude-workspace-plugins
 /plugin install learning-coach@claude-workspace-plugins
-/plugin install 021BE@claude-workspace-plugins
+/plugin install 021BE@claude-workspace-plugins       # Python/FastAPI
+# OR
+/plugin install 021BE-GO@claude-workspace-plugins    # Go/Chi
 /plugin install 021FE@claude-workspace-plugins
 ```
 
 **You get:** Complete development workflow with backend/frontend patterns, TRS documentation commands, planning agents, documentation tools, learning coach, and intelligent hooks.
 
-### For Backend-Only Projects
+### For Backend-Only Projects (Python)
 
 ```bash
 /plugin install essentials@claude-workspace-plugins
@@ -400,7 +445,17 @@ Use commands for workflows:
 /plugin install 021BE@claude-workspace-plugins
 ```
 
-**You get:** Backend Clean Architecture patterns, backend TRS command, planning agents, documentation tools, learning coach, and essential utilities.
+**You get:** Python/FastAPI Clean Architecture patterns, backend TRS command, planning agents, documentation tools, learning coach, and essential utilities.
+
+### For Backend-Only Projects (Go)
+
+```bash
+/plugin install essentials@claude-workspace-plugins
+/plugin install learning-coach@claude-workspace-plugins
+/plugin install 021BE-GO@claude-workspace-plugins
+```
+
+**You get:** Go/Chi Clean Architecture patterns with sqlc + pgx, gRPC support, planning agents, documentation tools, learning coach, and essential utilities.
 
 ### For Frontend-Only Projects
 
@@ -442,7 +497,8 @@ Use commands for workflows:
 - [essentials Plugin →](./plugins/essentials/README.md)
 - [learning-coach Plugin →](./plugins/learning-coach/README.md)
 - [financial-coach Plugin →](./plugins/financial-coach/README.md)
-- [021BE Plugin →](./plugins/021BE/README.md)
+- [021BE Plugin (Python) →](./plugins/021BE/README.md)
+- [021BE-GO Plugin (Go) →](./plugins/021BE-GO/README.md)
 - [021FE Plugin →](./plugins/021FE/README.md)
 
 ---
@@ -497,8 +553,8 @@ After installing these plugins, you get:
 - ✅ **Expert guidance** - Access to business strategist, documentation architect, tech lead, and UI/UX specialist agents
 - ✅ **TRS documentation commands** - Create comprehensive Technical Requirement Specifications for backend and frontend features
 - ✅ **Context management** - Update dev docs before context reset for seamless continuation
-- ✅ **Production patterns** - Best practices from real-world projects (Python/FastAPI, TanStack Start/React)
-- ✅ **Modern tech stacks** - SSR-ready React patterns, Clean Architecture backend, shadcn/ui, TanStack ecosystem
+- ✅ **Production patterns** - Best practices from real-world projects (Python/FastAPI, Go/Chi, TanStack Start/React)
+- ✅ **Modern tech stacks** - SSR-ready React patterns, Clean Architecture backends (Python + Go), shadcn/ui, TanStack ecosystem
 - ✅ **Comprehensive documentation** - Everything you need to know
 - ✅ **Modular installation** - Install only what you need for your project
 

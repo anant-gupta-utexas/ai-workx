@@ -1,0 +1,21 @@
+{
+  "name": "021BE-GO",
+  "version": "1.0.0",
+  "description": "Go/Chi Clean Architecture backend development guidelines with domain entities, services, and repository patterns (sqlc + pgx)",
+  "author": {
+    "name": "Anant Gupta"
+  },
+  "license": "MIT",
+  "keywords": [
+    "backend",
+    "go",
+    "golang",
+    "chi",
+    "clean-architecture",
+    "domain-driven-design",
+    "repository-pattern",
+    "sqlc",
+    "pgx",
+    "grpc"
+  ]
+}

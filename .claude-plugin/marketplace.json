@@ -30,6 +30,31 @@
       ]
     },
     {
+      "name": "021BE-GO",
+      "source": "./plugins/021BE-GO",
+      "description": "Go/Chi Clean Architecture backend development guidelines with domain entities, services, and repository patterns (sqlc + pgx). Includes DDD patterns, CQRS guidance, slog observability, and gRPC support.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anant Gupta",
+        "contact": "anant.gupta@utexas.edu"
+      },
+      "category": "development",
+      "keywords": [
+        "backend",
+        "go",
+        "golang",
+        "chi",
+        "clean-architecture",
+        "domain-driven-design",
+        "repository-pattern",
+        "sqlc",
+        "pgx",
+        "grpc",
+        "slog",
+        "opentelemetry"
+      ]
+    },
+    {
       "name": "021FE",
       "source": "./plugins/021FE",
       "description": "React/TypeScript/Tanstack Query/Tanstack Router frontend development guidelines. Includes dev-docs-fe command for creating comprehensive technical requirement specifications.",
