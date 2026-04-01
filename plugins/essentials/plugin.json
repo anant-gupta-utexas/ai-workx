@@ -16,6 +16,12 @@
     "research",
     "refactoring",
     "documentation",
-    "dev-docs"
+    "dev-docs",
+    "git",
+    "code-review",
+    "verify",
+    "security",
+    "commit",
+    "trs"
   ]
 }

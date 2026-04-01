@@ -1,12 +1,13 @@
 # Essentials Plugin
 
-Essential utilities for enhanced development workflow including specialized agents for planning and research, expert consultation skills, and skill development tools.
+Essential utilities for enhanced development workflow including specialized agents, expert consultation, git workflow patterns, code review and verification commands, backend TRS documentation, 8 development quality hooks, and skill development tools.
 
 ## What's Included
 
-### Skills (2)
-- **consult-experts** - Access specialized expert agents for business strategy, tech leadership, and UI/UX design
+### Skills (3)
+- **consult-experts** - Access specialized expert agents for business strategy, tech leadership, system design, and code review
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
+- **git-workflow** - Git workflow patterns including branching strategies, conventional commits, PR workflow, merge vs rebase, conflict resolution, and release management
 
 ### Agents (5)
 - **business-strategist** - Business strategy and product guidance for building products from 0 to 1
@@ -15,8 +16,21 @@ Essential utilities for enhanced development workflow including specialized agen
 - **refactor-planner** - Create comprehensive refactoring strategies
 - **web-research-specialist** - Research technical issues and solutions online
 
-### Commands (1)
+### Commands (4)
 - **dev-docs-update** - Update dev documentation before context compaction for seamless continuation
+- **dev-docs-be** - Create comprehensive Technical Requirement Specifications (TRS) for backend features
+- **code-review** - Run a security and quality review of uncommitted changes before committing
+- **verify** - Run comprehensive verification (build, types, lint, tests, secrets, debug statements)
+
+### Hooks (8)
+- **block-no-verify** - Blocks `git commit --no-verify` (PreToolUse, Bash)
+- **pre-commit-security** - Scans staged files for hardcoded secrets before commits (PreToolUse, Bash)
+- **commit-quality** - Validates conventional commit format, detects debugger/console.log in staged files (PreToolUse, Bash)
+- **suggest-compact** - Suggests `/compact` every ~50 tool calls to manage context window (PreToolUse, Edit|Write)
+- **large-file-blocker** - Blocks creation of files exceeding 800 lines (PreToolUse, Write)
+- **doc-file-warning** - Warns about non-standard doc files outside recognized locations (PreToolUse, Write)
+- **console-log-warning** - Warns about debug statements in edited files (PostToolUse, Edit)
+- **test-file-reminder** - Reminds to write tests when creating new source files (PostToolUse, Write)
 
 ## Installation
 
@@ -35,11 +49,18 @@ Essential utilities for enhanced development workflow including specialized agen
 "Get tech lead advice on my system architecture"
 ```
 
+**Git Workflow:**
+```bash
+"Help me set up a branching strategy for my project"
+"What's the conventional commit format?"
+"How should I resolve this merge conflict?"
+"Create a PR description for my changes"
+```
+
 **Skill Development:**
 ```bash
 "Help me create a new skill for code review"
 "How do I configure skill triggers?"
-"Show me how to add keywords to my skill"
 ```
 
 ### Using Agents Directly
@@ -47,49 +68,114 @@ Essential utilities for enhanced development workflow including specialized agen
 **Business Strategy:**
 ```bash
 "Use the business-strategist agent to help me plan my MVP features"
-"Use the business-strategist agent to analyze my product roadmap"
 ```
 
 **Documentation:**
 ```bash
 "Use the documentation-architect agent to document my new billing service"
-"Use the documentation-architect agent to create API docs for my endpoints"
 ```
 
 **Plan Review:**
 ```bash
 "Use the plan-reviewer agent to review my authentication implementation plan"
-"Use the plan-reviewer agent to check my database migration strategy"
 ```
 
 **Refactoring:**
 ```bash
 "Use the refactor-planner agent to plan breaking down this large service"
-"Use the refactor-planner agent to create a migration plan for Clean Architecture"
 ```
 
 **Research:**
 ```bash
 "Use the web-research-specialist agent to find best practices for file uploads"
-"Use the web-research-specialist agent to research WebSocket implementation patterns"
 ```
 
 ### Using Commands
 
+**Code Review (before committing):**
+```bash
+/code-review
+```
+Reviews uncommitted changes for security vulnerabilities, code quality issues, and best practice violations. Produces a severity report with verdict (Approve/Warning/Block).
+
+**Verification (before PRs):**
+```bash
+/verify              # Full check (default)
+/verify quick        # Build + types only
+/verify pre-commit   # Build + types + lint + secrets
+/verify pre-pr       # Full + security scan
+```
+
+**Backend TRS Documentation:**
+```bash
+/dev-docs-be refactor authentication system
+/dev-docs-be implement order processing microservice
+```
+Creates comprehensive Technical Requirement Specifications with implementation phases, database design, API specs, and task breakdown.
+
 **Update Documentation:**
 ```bash
-# Before context compaction/reset
 /dev-docs-update
-
-# With specific focus
 /dev-docs-update authentication system changes and new middleware
 ```
 
-The command will update:
-1. Active task documentation in `/dev/active/`
-2. Context files with current implementation state
-3. Task files with completed/pending status
-4. Capture session context and decisions
+## Hooks
+
+Hooks are event-driven automations that fire before or after Claude Code tool executions. They enforce code quality, catch mistakes early, and automate repetitive checks.
+
+### How Hooks Work
+
+```
+User request -> Claude picks a tool -> PreToolUse hook runs -> Tool executes -> PostToolUse hook runs
+```
+
+- **PreToolUse** hooks run before tool execution. They can **block** (exit code 2) or **warn** (stderr).
+- **PostToolUse** hooks run after tool completion. They can analyze output but cannot block.
+
+### PreToolUse Hooks
+
+| Hook | Matcher | What it does | Exit code |
+|------|---------|-------------|-----------|
+| block-no-verify | Bash | Blocks `git commit --no-verify` | 2 (block) |
+| pre-commit-security | Bash | Scans staged files for secrets (sk-, ghp_, AKIA, api_key, password) | 2 (block) |
+| commit-quality | Bash | Validates commit format, detects debugger/console.log in staged files | 0 (warn) or 2 (block) |
+| suggest-compact | Edit, Write | Suggests `/compact` every ~50 tool calls | 0 (warn) |
+| large-file-blocker | Write | Blocks files exceeding 800 lines | 2 (block) |
+| doc-file-warning | Write | Warns about non-standard doc files | 0 (warn) |
+
+### PostToolUse Hooks
+
+| Hook | Matcher | What it does |
+|------|---------|-------------|
+| console-log-warning | Edit | Warns about debug statements in edited files |
+| test-file-reminder | Write | Reminds to write tests for new source files |
+
+### Disabling Hooks
+
+**Method 1: Environment variable (recommended)**
+
+```bash
+# Disable specific hooks (comma-separated hook filenames without .js)
+export DISABLED_HOOKS="block-no-verify,suggest-compact,doc-file-warning"
+```
+
+**Method 2: Override in ~/.claude/settings.json**
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [],
+        "description": "Override: disable all Write PreToolUse hooks"
+      }
+    ]
+  }
+}
+```
+
+**Method 3:** Edit `hooks.json` directly after installing the plugin to remove or comment out specific hook entries.
 
 ## Component Details
 
@@ -100,218 +186,82 @@ The command will update:
 **Provides access to:**
 - Product Manager - Product strategy and roadmap planning
 - Tech Lead - Technical architecture and system design
-- Code Reviewer - Code quality and best practices review
+- Code Reviewer - Code quality and best practices review (deep architectural review)
 - System Design - Scalable system architecture
 
-**Activation keywords:**
-- `consult product`, `consult tech`, `consult code reviewer`
-- `expert advice`, `product strategy`, `tech leadership`
+**Activation keywords:** `consult product`, `consult tech`, `expert advice`, `product strategy`
 
 #### Skill Developer
 
 **Meta-skill for creating skills**
 
-**Topics:**
-- Skill creation and structure
-- Trigger patterns (keywords, intents, file paths)
-- Enforcement levels (block, suggest, warn)
-- Hook mechanisms
-- Testing and troubleshooting
+**Topics:** Skill creation and structure, trigger patterns, enforcement levels, hook mechanisms, testing
 
-**Activation keywords:**
-- `skill development`, `create new skill`
-- `skill triggers`, `configure skill`
+**Activation keywords:** `skill development`, `create new skill`, `skill triggers`
 
-**Resources:** 7 comprehensive guides on skill development
+#### Git Workflow
+
+**Covers:** Branching strategies (GitHub Flow, Trunk-Based, GitFlow), conventional commits, PR workflow, merge vs rebase, conflict resolution, release management, anti-patterns
+
+**Activation keywords:** `git workflow`, `commit convention`, `branching strategy`, `merge conflict`, `PR description`
 
 ### Agents
 
 #### Business Strategist
-
-**Specializes in:**
-- Product roadmap planning
-- Feature prioritization
-- Market analysis
-- Business model design
-- Go-to-market strategy
-- New product planning and strategy
-
-**When to use:**
-- Planning new products or features
-- Need help with product strategy
-- Feature prioritization decisions
-- Market analysis and validation
+Product roadmap planning, feature prioritization, market analysis, business model design.
 
 #### Documentation Architect
-
-**Specializes in:**
-- Comprehensive developer-focused documentation
-- Context gathering from code and existing docs
-- API documentation with examples
-- README files following best practices
-- Data flow diagrams and architecture overviews
-- Testing documentation
-
-**Methodology:**
-1. **Discovery Phase** - Queries memory MCP, scans `/docs/` and `/dev/`, identifies source files
-2. **Analysis Phase** - Understands implementation, identifies key concepts, recognizes patterns
-3. **Documentation Phase** - Structures content logically, includes code examples, adds diagrams
-4. **Quality Assurance** - Verifies accuracy, checks references, ensures consistency
-
-**When to use:**
-- Documenting new features or services
-- Creating API documentation
-- Updating existing documentation
-- Building comprehensive developer guides
-- Need architectural overviews
-- Onboarding documentation
-
-**Output includes:**
-- Developer guides with clear explanations
-- README files with setup and usage instructions
-- API docs with endpoints, parameters, examples
-- Data flow diagrams
-- Testing documentation
+Comprehensive developer-focused documentation with context gathering, API docs, README files, data flow diagrams.
 
 #### Plan Reviewer
-
-**Specializes in:**
-- Architecture review
-- Implementation plan analysis
-- Risk assessment
-- Identifying potential issues
-- Suggesting improvements
-- Best practices validation
-
-**When to use:**
-- Before starting major implementations
-- Review complex system designs
-- Validate database migration plans
-- Check security and performance considerations
+Architecture review, implementation plan analysis, risk assessment, best practices validation.
 
 #### Refactor Planner
-
-**Specializes in:**
-- Creating comprehensive refactoring strategies
-- Analyzing tech debt
-- SOLID violations detection
-- Mapping file dependencies
-- Safe code restructuring
-- Migration planning
-
-**When to use:**
-- Planning large-scale refactoring
-- Migrating to new architecture patterns
-- Breaking down large files/classes
-- Modernizing legacy code
+Refactoring strategies, tech debt analysis, SOLID violations detection, safe code restructuring.
 
 #### Web Research Specialist
+Technical solutions research, best practices, GitHub issues, library comparisons.
 
-**Specializes in:**
-- Researching technical solutions
-- Finding best practices
-- GitHub issues and discussions
-- Stack Overflow solutions
-- Community knowledge
-- Library comparisons
+### Command Details
 
-**When to use:**
-- Debugging unusual errors
-- Researching implementation approaches
-- Finding solutions to technical problems
-- Comparing libraries or frameworks
+#### /code-review
 
-## Command Details
+Fast pre-commit quality gate. Checks security (CRITICAL), code quality (HIGH), and best practices (MEDIUM). Produces a severity report with verdict.
 
-### dev-docs-update
+> For deep architectural reviews, use the consult-experts Code Reviewer persona instead.
 
-**Purpose:** Update development documentation before context compaction to ensure seamless continuation after context reset
+#### /verify
 
-**What it updates:**
+Comprehensive codebase verification: build, type check, lint, tests, secret scan, debug statement audit, git status. Supports `quick`, `full`, `pre-commit`, and `pre-pr` modes.
 
-1. **Active Task Documentation** (`/dev/active/[task-name]/`)
-   - `[task-name]-context.md` - Current state, decisions, files modified, blockers, next steps
-   - `[task-name]-tasks.md` - Mark completed tasks, add new tasks, update priorities
+#### /dev-docs-be
 
-2. **Session Context Capture**
-   - Complex problems solved
-   - Architectural decisions made
-   - Bugs found and fixed
-   - Integration points discovered
-   - Testing approaches
-   - Performance optimizations
+Creates comprehensive Technical Requirement Specifications (TRS) for backend features including component design, API specifications, database design, error handling, security considerations, testing strategy, and implementation phases with task breakdown.
 
-3. **Memory Updates** (if applicable)
-   - New patterns or solutions
-   - Entity relationships
-   - System behavior observations
+**Output files** (in `dev/active/[task-name]/`):
+- `[task-name]-plan.md` - Comprehensive technical specification
+- `[task-name]-context.md` - Key files, decisions, dependencies
+- `[task-name]-tasks.md` - Checklist for tracking progress
 
-4. **Unfinished Work Documentation**
-   - Current work state when context limit approached
-   - Partially completed features
-   - Commands to run on restart
-   - Temporary workarounds
+#### /dev-docs-update
 
-5. **Handoff Notes**
-   - Exact file and line being edited
-   - Goal of current changes
-   - Uncommitted changes
-   - Test commands
-
-**Usage:**
-```bash
-/dev-docs-update
-/dev-docs-update <optional focus area>
-```
-
-**Example:**
-```bash
-/dev-docs-update authentication system changes and middleware implementation
-```
-
-**When to use:**
-- Approaching context limits
-- Before taking a break from complex work
-- After major implementation milestones
-- When switching between different features
+Updates development documentation before context compaction for seamless continuation. Captures active task state, session context, and handoff notes.
 
 ## Perfect For
 
-- ✅ Product planning and strategy
-- ✅ Development plan review
-- ✅ Refactoring and code modernization
-- ✅ Technical research
-- ✅ Creating custom skills
-- ✅ New product development and planning
-- ✅ Documentation creation and maintenance
-- ✅ Context management across sessions
+- Product planning and strategy
+- Development plan review
+- Refactoring and code modernization
+- Technical research
+- Creating custom skills
+- Git workflow setup and management
+- Pre-commit code review and verification
+- Backend technical requirement specifications
+- Context management across sessions
 
 ## Not Designed For
 
-- ❌ Code execution or compilation
-- ❌ Deployment automation
-- ❌ Infrastructure management
-- ❌ Database administration
-
-## Troubleshooting
-
-### Skills not activating?
-
-**Check:**
-1. Using trigger keywords in prompts
-2. Keywords match your prompts
-
-### Agents not working?
-
-**Verify:**
-1. Using correct agent names
-2. Asking Claude to "Use the [agent-name] agent"
-3. Agent files exist in `.claude/agents/`
-
-## License
-
-MIT
-
----
-
-**Essential tools for better development!** ⚡
+- Code execution or compilation
+- Deployment automation
+- Infrastructure management
+- Database administration
