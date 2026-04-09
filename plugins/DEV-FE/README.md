@@ -1,4 +1,4 @@
-# 021FE - Frontend Development Plugin
+# DEV-FE - Frontend Development Plugin
 
 TanStack Start/React/TypeScript frontend development guidelines with modern patterns for building SSR-ready applications using Suspense, lazy loading, and shadcn/ui.
 
@@ -32,7 +32,7 @@ TanStack Start/React/TypeScript frontend development guidelines with modern patt
 
 ```bash
 # From your project directory
-/plugin install 021FE@claude-workspace-plugins
+/plugin install DEV-FE@claude-workspace-plugins
 ```
 
 ## How the Skill Activates
