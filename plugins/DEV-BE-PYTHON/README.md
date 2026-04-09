@@ -1,4 +1,4 @@
-# 021BE-PYTHON - Backend Development Plugin
+# DEV-BE-PYTHON - Backend Development Plugin
 
 Python/FastAPI Clean Architecture backend development guidelines with comprehensive patterns for building scalable, maintainable backend applications.
 
@@ -23,7 +23,7 @@ Python/FastAPI Clean Architecture backend development guidelines with comprehens
 
 ```bash
 # From your project directory
-/plugin install 021BE-PYTHON@claude-workspace-plugins
+/plugin install DEV-BE-PYTHON@claude-workspace-plugins
 ```
 
 ## How the Skill Activates

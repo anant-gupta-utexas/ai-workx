@@ -1,5 +1,5 @@
 {
-  "name": "021BE-PYTHON",
+  "name": "DEV-BE-PYTHON",
   "version": "1.0.0",
   "description": "Python/FastAPI Clean Architecture backend development guidelines with domain entities, use cases, and repository patterns",
   "author": {
