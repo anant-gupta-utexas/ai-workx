@@ -1,5 +1,5 @@
 {
-  "name": "021BE-GO",
+  "name": "DEV-BE-GO",
   "version": "1.0.0",
   "description": "Go/Chi Clean Architecture backend development guidelines with domain entities, services, and repository patterns (sqlc + pgx)",
   "author": {

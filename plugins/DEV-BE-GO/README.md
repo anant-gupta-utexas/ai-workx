@@ -1,4 +1,4 @@
-# 021BE-GO - Go Backend Development Plugin
+# DEV-BE-GO - Go Backend Development Plugin
 
 Go/Chi Clean Architecture backend development guidelines with comprehensive patterns for building scalable, maintainable backend applications in Go.
 
@@ -25,7 +25,7 @@ Go/Chi Clean Architecture backend development guidelines with comprehensive patt
 
 ```bash
 # From your project directory
-/plugin install 021BE-GO@claude-workspace-plugins
+/plugin install DEV-BE-GO@claude-workspace-plugins
 ```
 
 ## How the Skill Activates
