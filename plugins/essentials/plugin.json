@@ -1,27 +1,16 @@
 {
   "name": "essentials",
-  "version": "1.0.0",
-  "description": "Essential utilities including specialized agents, expert consultation skills, skill development tools, and intelligent hooks for enhanced development workflow",
+  "version": "2.0.0",
+  "description": "Expert consultation skills, skill development tools, and web research agent for enhanced development workflow",
   "author": {
     "name": "Anant Gupta"
   },
   "license": "MIT",
   "keywords": [
     "utilities",
-    "agents",
     "experts",
     "skill-development",
-    "hooks",
-    "planning",
     "research",
-    "refactoring",
-    "documentation",
-    "dev-docs",
-    "git",
-    "code-review",
-    "verify",
-    "security",
-    "commit",
-    "trs"
+    "consultation"
   ]
 }

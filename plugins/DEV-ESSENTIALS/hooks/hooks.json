@@ -1,0 +1,42 @@
+{
+  "hooks": [
+    {
+      "type": "preToolUse",
+      "matcher": "Bash",
+      "hooks": [
+        { "type": "command", "command": "node hooks/block-no-verify.js" },
+        { "type": "command", "command": "node hooks/pre-commit-security.js" },
+        { "type": "command", "command": "node hooks/commit-quality.js" }
+      ]
+    },
+    {
+      "type": "preToolUse",
+      "matcher": "Edit|Write",
+      "hooks": [
+        { "type": "command", "command": "node hooks/suggest-compact.js" }
+      ]
+    },
+    {
+      "type": "preToolUse",
+      "matcher": "Write",
+      "hooks": [
+        { "type": "command", "command": "node hooks/large-file-blocker.js" },
+        { "type": "command", "command": "node hooks/doc-file-warning.js" }
+      ]
+    },
+    {
+      "type": "postToolUse",
+      "matcher": "Edit",
+      "hooks": [
+        { "type": "command", "command": "node hooks/console-log-warning.js" }
+      ]
+    },
+    {
+      "type": "postToolUse",
+      "matcher": "Write",
+      "hooks": [
+        { "type": "command", "command": "node hooks/test-file-reminder.js" }
+      ]
+    }
+  ]
+}
