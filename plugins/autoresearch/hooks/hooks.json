@@ -1,0 +1,19 @@
+{
+  "hooks": [
+    {
+      "type": "preToolUse",
+      "matcher": "Bash",
+      "hooks": [
+        { "type": "command", "command": "node hooks/experiment-budget-guard.js" },
+        { "type": "command", "command": "node hooks/sky-auto-auth.js" }
+      ]
+    },
+    {
+      "type": "postToolUse",
+      "matcher": "Edit",
+      "hooks": [
+        { "type": "command", "command": "node hooks/result-regression-check.js" }
+      ]
+    }
+  ]
+}

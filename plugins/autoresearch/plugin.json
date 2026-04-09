@@ -1,0 +1,26 @@
+{
+  "name": "autoresearch",
+  "version": "1.0.0",
+  "description": "Autonomous ML research plugin covering Karpathy's experiment loops, SkyPilot parallel GPU scaling, and the AI Scientist's multi-phase research pipeline with tree search, manuscript generation, and automated peer review",
+  "author": {
+    "name": "Anant Gupta"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ml-research",
+    "autoresearch",
+    "ai-scientist",
+    "training",
+    "hyperparameter-tuning",
+    "architecture-search",
+    "skypilot",
+    "gpu",
+    "experiment",
+    "tree-search",
+    "manuscript",
+    "peer-review",
+    "val-bpb",
+    "transformer",
+    "optimizer"
+  ]
+}

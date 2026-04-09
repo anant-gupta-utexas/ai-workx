@@ -1,0 +1,65 @@
+# Autoresearch Configuration Template
+#
+# Copy this file to your project root as `.autoresearch/config.yaml`
+# and customize for your research setup.
+#
+# The /research-pipeline and /experiment commands will create this
+# automatically if it doesn't exist, using sensible defaults.
+
+# Research topic or scope
+topic: "improving transformer training efficiency"
+
+# Primary evaluation metric (lower is better for val_bpb)
+metric: val_bpb
+
+# Per-experiment time budget in seconds (wall clock, excluding startup)
+time_budget: 300
+
+# Training script to modify
+training_script: train.py
+
+# Parallel execution mode: auto | agent-teams | skypilot | sequential
+# auto: detect available infrastructure
+parallel: auto
+
+# SkyPilot configuration (used when parallel: skypilot or auto)
+skypilot:
+  # Number of GPU clusters to provision
+  num_clusters: 16
+  # Preferred GPU types (SkyPilot picks cheapest available)
+  accelerators: "{H100:1, H200:1}"
+  # Infrastructure backend
+  infra: k8s
+  # experiment.yaml path (relative to project root)
+  experiment_yaml: experiment.yaml
+
+# Tree search configuration
+tree_search:
+  # Probability of selecting a buggy node for debugging
+  bug_fix_probability: 0.3
+  # Maximum nodes per stage
+  stage_budgets:
+    preliminary: 5
+    hyperparameter: 20
+    research_agenda: 50
+    ablation: 20
+  # Replication seeds
+  replication_count: 5
+
+# Review configuration
+review:
+  # Number of independent reviews
+  num_reviews: 5
+  # Review format: neurips | icml | workshop
+  format: neurips
+
+# MCP servers (configure in Claude Code settings, not here)
+# These are documented for reference:
+#
+# Recommended:
+#   - Semantic Scholar MCP: literature search and novelty checking
+#   - HuggingFace Hub MCP: dataset discovery and loading
+#
+# Optional:
+#   - Exa MCP: broader web research during ideation
+#   - Context7 MCP: library documentation lookup
