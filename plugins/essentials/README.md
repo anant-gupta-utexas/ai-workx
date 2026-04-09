@@ -31,7 +31,7 @@ Expert consultation skills, skill development tools, and web research agent for 
 **Skill Development:**
 ```bash
 "Help me create a new skill for code review"
-"How do I configure skill triggers?"
+"How do I write a good skill description?"
 ```
 
 ### Using Agents Directly
@@ -59,9 +59,9 @@ Expert consultation skills, skill development tools, and web research agent for 
 
 **Meta-skill for creating skills**
 
-**Topics:** Skill creation and structure, trigger patterns, enforcement levels, hook mechanisms, testing
+**Topics:** Skill creation, SKILL.md structure, frontmatter, progressive disclosure, description optimization, writing best practices, testing
 
-**Activation keywords:** `skill development`, `create new skill`, `skill triggers`
+**Activation keywords:** `create skill`, `skill development`, `SKILL.md`, `skill description`, `progressive disclosure`
 
 ### Agents
 

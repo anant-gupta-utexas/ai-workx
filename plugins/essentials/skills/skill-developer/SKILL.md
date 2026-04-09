@@ -1,375 +1,239 @@
 ---
 name: skill-developer
-description: Create and manage Claude Code skills following Anthropic best practices. Use when creating new skills, understanding trigger patterns, working with hooks, debugging skill activation, or implementing progressive disclosure. Covers skill structure, YAML frontmatter, trigger types (keywords, intent patterns, file paths, content patterns), enforcement levels (block, suggest, warn), hook mechanisms (UserPromptSubmit, PreToolUse), session tracking, and the 500-line rule.
+description: Create, improve, and optimize Claude Code skills. Use when building a new skill, editing an existing skill, structuring a SKILL.md, writing skill descriptions for better triggering, organizing reference files, understanding progressive disclosure, or optimizing skill performance. Also use when asking about skill anatomy, frontmatter fields, the 500-line rule, bundled resources, or how skills trigger in Claude Code.
 ---
 
 # Skill Developer Guide
 
-## Purpose
+Guide for creating and improving skills in Claude Code, following Anthropic's best practices.
 
-Comprehensive guide for creating and managing skills in Claude Code with auto-activation system, following Anthropic's official best practices including the 500-line rule and progressive disclosure pattern.
+## Skill Anatomy
 
-## When to Use This Skill
+```
+skill-name/
+├── SKILL.md              (required — frontmatter + instructions)
+└── Bundled Resources      (optional)
+    ├── scripts/           Executable code for deterministic/repetitive tasks
+    ├── references/        Docs loaded into context as needed
+    └── assets/            Templates, icons, fonts used in output
+```
 
-Automatically activates when you mention:
-- Creating or adding skills
-- Modifying skill triggers or rules
-- Understanding how skill activation works
-- Debugging skill activation issues
-- Hook system mechanics
-- Claude Code best practices
-- Progressive disclosure
-- YAML frontmatter
-- 500-line rule
+### Progressive Disclosure
 
----
+Skills use a three-tier loading system to manage context efficiently:
 
-## System Overview
+1. **Metadata** (name + description) — Always in context (~100 words). This is the primary trigger mechanism.
+2. **SKILL.md body** — Loaded when skill activates. Keep under 500 lines.
+3. **Bundled resources** — Loaded on demand. Unlimited size. Scripts can execute without being loaded into context.
 
-### Two-Hook Architecture
+Keep SKILL.md under 500 lines. When approaching this limit, move detailed content into `references/` with clear pointers about when to read each file. For large reference files (>300 lines), include a table of contents.
 
-**1. UserPromptSubmit Hook** (Proactive Suggestions)
-- **File**: `.claude/hooks/skill-activation-prompt.ts`
-- **Trigger**: BEFORE Claude sees user's prompt
-- **Purpose**: Suggest relevant skills based on keywords + intent patterns
-- **Method**: Injects formatted reminder as context (stdout → Claude's input)
-- **Use Cases**: Topic-based skills, implicit work detection
+**Multi-domain organization** — when a skill supports multiple frameworks or variants, organize by domain so only the relevant reference is loaded:
 
-**2. Stop Hook - Error Handling Reminder** (Gentle Reminders)
-- **File**: `.claude/hooks/error-handling-reminder.ts`
-- **Trigger**: AFTER Claude finishes responding
-- **Purpose**: Gentle reminder to self-assess error handling in code written
-- **Method**: Analyzes edited files for risky patterns, displays reminder if needed
-- **Use Cases**: Error handling awareness without blocking friction
+```
+cloud-deploy/
+├── SKILL.md              (workflow + selection logic)
+└── references/
+    ├── aws.md
+    ├── gcp.md
+    └── azure.md
+```
 
 ---
 
-## Claude Code 2.1.x Features
+## Creating a Skill
 
-### Skill Hot-Reload (2.1.0+)
-Skills in `~/.claude/skills` or `.claude/skills` are automatically hot-reloaded when modified. No session restart required.
+### Step 1: Capture Intent
 
-### New Frontmatter Fields (2.1.0+)
+Start by understanding what the skill should do. If the conversation already contains a workflow to capture, extract answers from context first.
+
+1. What should this skill enable Claude to do?
+2. When should it trigger? (what user phrases/contexts)
+3. What's the expected output format?
+4. Should we set up test cases? Skills with objectively verifiable outputs (file transforms, data extraction, code generation) benefit from test cases. Subjective skills (writing style, design) often don't.
+
+Proactively ask about edge cases, input/output formats, example files, and dependencies before writing the skill.
+
+### Step 2: Write the SKILL.md
+
+**Frontmatter** (required fields):
+
+```yaml
+---
+name: my-skill
+description: What it does and when to trigger. Include specific contexts and phrases.
+---
+```
+
+**Optional frontmatter fields** (Claude Code 2.1.0+):
 
 | Field | Description |
 |-------|-------------|
-| `context: fork` | Run skill in forked sub-agent (isolated context) |
-| `agent` | Specify which agent type executes the skill |
+| `context: fork` | Run in isolated forked sub-agent |
+| `agent: agent-name` | Specify which agent executes this skill |
 | `once: true` | Execute only once per session |
-| `allowed-tools` | YAML-style list of allowed tools |
+| `allowed-tools` | YAML list of permitted tools |
 
-### Merged Commands & Skills (2.1.3+)
-Slash commands and skills are now conceptually merged, simplifying the mental model. Both are auto-discovered from their respective directories.
+**Body** — the actual instructions. Use imperative form. Structure with clear headings, lists, and code blocks.
 
-### Hook Timeout (2.1.3+)
-Hook execution timeout increased from 60 seconds to **10 minutes**, allowing complex analysis hooks.
+### Step 3: Test and Iterate
 
----
+Come up with 2-3 realistic test prompts — the kind of thing a real user would say, not sanitized one-liners. Share them with the user for confirmation, then run them.
 
-## Skill Types
+After reviewing results:
+- Improve the skill based on feedback
+- Rerun test cases
+- Repeat until the user is satisfied or feedback is empty
 
-### 1. Guardrail Skills
+### Step 4: Optimize the Description
 
-**Purpose:** Enforce critical best practices that prevent errors
+The `description` field is the primary mechanism that determines whether Claude invokes a skill. Claude tends to "undertrigger" — to not use skills when they'd be useful. Combat this by making descriptions slightly pushy:
 
-**Characteristics:**
-- Type: `"guardrail"`
-- Enforcement: `"block"`
-- Priority: `"critical"` or `"high"`
-- Block file edits until skill used
-- Prevent common mistakes (column names, critical errors)
-- Session-aware (don't repeat nag in same session)
+**Weak:** "How to build dashboards to display data."
 
-**Examples:**
-- `database-verification` - Verify table/column names before Prisma queries
-- `frontend-dev-guidelines` - Enforce React/TypeScript patterns
+**Strong:** "How to build dashboards to display data. Use this skill whenever the user mentions dashboards, data visualization, internal metrics, or wants to display any kind of data, even if they don't explicitly ask for a 'dashboard.'"
 
-**When to Use:**
-- Mistakes that cause runtime errors
-- Data integrity concerns
-- Critical compatibility issues
-
-### 2. Domain Skills
-
-**Purpose:** Provide comprehensive guidance for specific areas
-
-**Characteristics:**
-- Type: `"domain"`
-- Enforcement: `"suggest"`
-- Priority: `"high"` or `"medium"`
-- Advisory, not mandatory
-- Topic or domain-specific
-- Comprehensive documentation
-
-**Examples:**
-- `backend-dev-guidelines` - Node.js/Express/TypeScript patterns
-- `frontend-dev-guidelines` - React/TypeScript best practices
-- `error-tracking` - Sentry integration guidance
-
-**When to Use:**
-- Complex systems requiring deep knowledge
-- Best practices documentation
-- Architectural patterns
-- How-to guides
+Include both what the skill does AND specific contexts for when to use it. All "when to use" info belongs in the description, not in the body.
 
 ---
 
-## Quick Start: Creating a New Skill
+## Writing Guide
 
-### Step 1: Create Skill File
+### Explain the Why
 
-**Location:** `.claude/skills/{skill-name}/SKILL.md`
+Today's LLMs are smart. They respond better to understanding intent than to rigid instructions. If you find yourself writing ALWAYS or NEVER in all caps, reframe it — explain the reasoning so the model understands why something matters. That's more effective than heavy-handed directives.
 
-**Template (basic):**
+### Keep It Lean
+
+Remove instructions that aren't pulling their weight. Read transcripts from test runs — if the skill makes the model waste time on unproductive steps, cut those parts.
+
+### Generalize, Don't Overfit
+
+When iterating on test cases, resist making fiddly changes that only fix specific examples. Skills are used across many prompts. If there's a stubborn issue, try different metaphors or recommend different working patterns rather than adding narrow constraints.
+
+### Bundle Repeated Work
+
+Read transcripts from test runs. If multiple runs independently create similar helper scripts or take the same multi-step approach, that's a signal to bundle the script in `scripts/` and tell the skill to use it.
+
+### Output Format Pattern
+
 ```markdown
----
-name: my-new-skill
-description: Brief description including keywords that trigger this skill. Mention topics, file types, and use cases. Be explicit about trigger terms.
----
-
-# My New Skill
-
-## Purpose
-What this skill helps with
-
-## When to Use
-Specific scenarios and conditions
-
-## Key Information
-The actual guidance, documentation, patterns, examples
+## Report structure
+ALWAYS use this exact template:
+# [Title]
+## Executive summary
+## Key findings
+## Recommendations
 ```
 
-**Template (with optional fields - Claude Code 2.1.0+):**
+### Examples Pattern
+
+```markdown
+## Commit message format
+**Example 1:**
+Input: Added user authentication with JWT tokens
+Output: feat(auth): implement JWT-based authentication
+```
+
+---
+
+## Frontmatter Reference
+
+### Required Fields
+
+| Field | Rules |
+|-------|-------|
+| `name` | Lowercase, hyphens. Prefer gerund form (e.g., `processing-pdfs`) |
+| `description` | Max 1024 chars. Include all trigger keywords/phrases. Be pushy about when to trigger |
+
+### Optional Fields (Claude Code 2.1.0+)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `context` | `fork` | Run skill in isolated forked sub-agent context |
+| `agent` | string | Specify which agent type executes the skill |
+| `once` | boolean | Execute only once per session |
+| `allowed-tools` | YAML list | Restrict which tools the skill can use |
+
+### Platform Notes
+
+- **Hot-reload**: Skills in `~/.claude/skills` or `.claude/skills` auto-reload when modified. No restart needed.
+- **Merged model**: Slash commands and skills are conceptually merged (auto-discovered from their directories).
+- **Hooks**: Hook execution timeout is 10 minutes, allowing complex analysis hooks.
+
+---
+
+## Templates
+
+### Basic Skill
+
 ```markdown
 ---
-name: my-new-skill
-description: Brief description with trigger keywords
-context: fork        # Run in forked sub-agent (isolated context)
-agent: agent-name    # Specify which agent executes this skill
-once: true           # Execute only once per session
-allowed-tools:       # YAML-style tool list
+name: my-skill
+description: What this skill does. Use when the user mentions X, Y, or Z, or when working with A or B files, even if they don't explicitly ask for this skill.
+---
+
+# My Skill
+
+## Purpose
+What this skill helps accomplish and why it exists.
+
+## Instructions
+Step-by-step guidance in imperative form.
+
+## Examples
+Real code examples showing expected inputs and outputs.
+```
+
+### Skill with Optional Fields
+
+```markdown
+---
+name: my-skill
+description: What this skill does with trigger contexts.
+context: fork
+agent: specialist-agent
+once: true
+allowed-tools:
   - Read
   - Grep
   - Glob
 ---
 ```
 
-**Best Practices:**
-- ✅ **Name**: Lowercase, hyphens, gerund form (verb + -ing) preferred
-- ✅ **Description**: Include ALL trigger keywords/phrases (max 1024 chars)
-- ✅ **Content**: Under 500 lines - use reference files for details
-- ✅ **Examples**: Real code examples
-- ✅ **Structure**: Clear headings, lists, code blocks
+### Multi-Domain Skill
 
-### Step 2: Test & Refine
-
-Test your triggers and refine patterns. See `REFERENCE.md - Testing Your Skills` for test commands.
-
-### Step 3: Refine Patterns
-
-Based on testing:
-- Add missing keywords
-- Refine intent patterns to reduce false positives
-- Adjust file path patterns
-- Test content patterns against actual files
-
-### Step 4: Follow Anthropic Best Practices
-
-✅ Keep SKILL.md under 500 lines
-✅ Use progressive disclosure with reference files
-✅ Add table of contents to reference files > 100 lines
-✅ Write detailed description with trigger keywords
-✅ Test with 3+ real scenarios before documenting
-✅ Iterate based on actual usage
-
+```markdown
+---
+name: cloud-deploy
+description: Deploy applications to cloud providers. Use when deploying to AWS, GCP, or Azure, setting up infrastructure, or configuring cloud services.
 ---
 
-## Enforcement Levels
+# Cloud Deploy
 
-### BLOCK (Critical Guardrails)
+## Provider Selection
+Determine which cloud provider the user needs, then read the appropriate reference:
+- AWS: Read `references/aws.md`
+- GCP: Read `references/gcp.md`
+- Azure: Read `references/azure.md`
 
-- Physically prevents Edit/Write tool execution
-- Exit code 2 from hook, stderr → Claude
-- Claude sees message and must use skill to proceed
-- **Use For**: Critical mistakes, data integrity, security issues
-
-**Example:** Database column name verification
-
-### SUGGEST (Recommended)
-
-- Reminder injected before Claude sees prompt
-- Claude is aware of relevant skills
-- Not enforced, just advisory
-- **Use For**: Domain guidance, best practices, how-to guides
-
-**Example:** Frontend development guidelines
-
-### WARN (Optional)
-
-- Low priority suggestions
-- Advisory only, minimal enforcement
-- **Use For**: Nice-to-have suggestions, informational reminders
-
-**Rarely used** - most skills are either BLOCK or SUGGEST.
-
----
-
-## Skip Conditions & User Control
-
-### 1. Session Tracking
-
-**Purpose:** Don't nag repeatedly in same session
-
-**How it works:**
-- First edit → Hook blocks, updates session state
-- Second edit (same session) → Hook allows
-- Different session → Blocks again
-
-**State File:** `.claude/hooks/state/skills-used-{session_id}.json`
-
-### 2. File Markers
-
-**Purpose:** Permanent skip for verified files
-
-**Marker:** `// @skip-validation`
-
-**Usage:**
-```typescript
-// @skip-validation
-import { PrismaService } from './prisma';
-// This file has been manually verified
-```
-
-**NOTE:** Use sparingly - defeats the purpose if overused
-
-### 3. Environment Variables
-
-**Purpose:** Emergency disable, temporary override
-
-**Global disable:**
-```bash
-export SKIP_SKILL_GUARDRAILS=true  # Disables ALL PreToolUse blocks
-```
-
-**Skill-specific:**
-```bash
-export SKIP_DB_VERIFICATION=true
-export SKIP_ERROR_REMINDER=true
+## Common Steps
+Steps that apply regardless of provider.
 ```
 
 ---
 
-## Testing Checklist
+## Checklist
 
-When creating a new skill, verify:
+When creating or reviewing a skill, verify:
 
-- [ ] Skill file created in `.claude/skills/{name}/SKILL.md`
-- [ ] Proper frontmatter with name and description
-- [ ] Keywords tested with real prompts
-- [ ] Intent patterns tested with variations
-- [ ] File path patterns tested with actual files
-- [ ] Content patterns tested against file contents
-- [ ] Block message is clear and actionable (if guardrail)
-- [ ] Skip conditions configured appropriately
-- [ ] Priority level matches importance
-- [ ] No false positives in testing
-- [ ] No false negatives in testing
-- [ ] Performance is acceptable (<100ms or <200ms)
-- [ ] **SKILL.md under 500 lines** ⭐
-- [ ] Reference files created if needed
-- [ ] Table of contents added to files > 100 lines
-
----
-
-## Reference Files
-
-For detailed information on specific topics, see:
-
-### `REFERENCE.md` - Complete Configuration Guide
-- All trigger types (keywords, intent patterns, file paths, content patterns)
-- Ready-to-use pattern library (regex and glob patterns)
-- Complete guardrail and domain skill examples
-- Testing commands and best practices
-- Validation guide and common errors
-
-### `INTERNALS.md` - Technical Deep Dive
-- UserPromptSubmit flow (detailed)
-- PreToolUse flow (detailed)
-- Exit code behavior table (CRITICAL)
-- Session state management
-- Performance considerations
-
-### `TROUBLESHOOTING.md` - Debugging Guide
-- Skill not triggering (UserPromptSubmit)
-- PreToolUse not blocking
-- False positives (too many triggers)
-- Hook not executing at all
-- Performance issues
-
-### `ADVANCED.md` - Future Ideas
-- Dynamic rule updates
-- Skill dependencies
-- Conditional enforcement
-- Skill analytics
-- Skill versioning
-
----
-
-## Quick Reference Summary
-
-### Create New Skill (5 Steps)
-
-1. Create `.claude/skills/{name}/SKILL.md` with frontmatter
-2. Test with real prompts and scenarios
-3. Refine patterns based on testing
-4. Keep SKILL.md under 500 lines
-
-### Trigger Types
-
-- **Keywords**: Explicit topic mentions
-- **Intent**: Implicit action detection
-- **File Paths**: Location-based activation
-- **Content**: Technology-specific detection
-
-See `REFERENCE.md - Trigger Types Guide` for complete details.
-
-### Enforcement
-
-- **BLOCK**: Exit code 2, critical only
-- **SUGGEST**: Inject context, most common
-- **WARN**: Advisory, rarely used
-
-### Skip Conditions
-
-- **Session tracking**: Automatic (prevents repeated nags)
-- **File markers**: `// @skip-validation` (permanent skip)
-- **Env vars**: `SKIP_SKILL_GUARDRAILS` (emergency disable)
-
-### Anthropic Best Practices
-
-✅ **500-line rule**: Keep SKILL.md under 500 lines
-✅ **Progressive disclosure**: Use reference files for details
-✅ **Table of contents**: Add to reference files > 100 lines
-✅ **One level deep**: Don't nest references deeply
-✅ **Rich descriptions**: Include all trigger keywords (max 1024 chars)
-✅ **Test first**: Build 3+ evaluations before extensive documentation
-✅ **Gerund naming**: Prefer verb + -ing (e.g., "processing-pdfs")
-
-### Troubleshoot
-
-See `TROUBLESHOOTING.md` for complete debugging guide and `REFERENCE.md - Testing` for test commands.
-
----
-
-## Related Files
-
-**Configuration:**
-- `.claude/hooks/state/` - Session tracking
-- `.claude/settings.json` - Hook registration
-
-**Hooks:**
-- `.claude/hooks/skill-activation-prompt.ts` - UserPromptSubmit
-- `.claude/hooks/error-handling-reminder.ts` - Stop event (gentle reminders)
-
-**All Skills:**
-- `.claude/skills/*/SKILL.md` - Skill content files
+- [ ] `SKILL.md` exists with proper frontmatter (`name` + `description`)
+- [ ] Description is pushy — includes trigger phrases and contexts (max 1024 chars)
+- [ ] SKILL.md body is under 500 lines
+- [ ] Instructions use imperative form and explain "why" over rigid rules
+- [ ] Reference files created for overflow content, with table of contents if >300 lines
+- [ ] Real code examples included where appropriate
+- [ ] Tested with 2-3 realistic user prompts
+- [ ] No overfitting to specific test cases
+- [ ] Repeated helper scripts bundled in `scripts/` if applicable
+- [ ] Naming uses lowercase-hyphens, gerund form preferred
