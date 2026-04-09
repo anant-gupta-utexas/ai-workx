@@ -1,0 +1,33 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Claude Workspace Plugins -- Codex Reference Configuration
+#
+# Copy to ~/.codex/config.toml for global defaults, or keep in
+# the project root as .codex/config.toml for project-local settings.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+persistent_instructions = "Follow project AGENTS.md guidelines. Use conventional commits."
+
+[mcp_servers.github]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-github"]
+startup_timeout_sec = 30
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+startup_timeout_sec = 30
+
+# Profiles
+[profiles.strict]
+approval_policy = "on-request"
+sandbox_mode = "read-only"
+web_search = "cached"
+
+[profiles.yolo]
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+web_search = "live"
