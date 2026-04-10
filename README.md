@@ -18,13 +18,13 @@ Development essentials with specialized agents for planning, documentation, and 
 **Perfect for:** Planning, refactoring, documentation, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Expert consultation skills, skill development tools, and web research agent for enhanced development workflow.
+Expert consultation skills, skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
 
 **Includes:**
-- 2 Skills (consult-experts, skill-developer)
+- 3 Skills (consult-experts, skill-developer, maintaining-wiki)
 - 1 Agent (web-research-specialist)
 
-**Perfect for:** Expert consultation, technical research, creating custom skills
+**Perfect for:** Expert consultation, technical research, creating custom skills, managing a personal knowledge base
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
@@ -198,13 +198,14 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ---
 
-### essentials Plugin (Expert Consultation & Skills)
+### essentials Plugin (Expert Consultation, Skills & Wiki)
 
-**Why install:** Provides expert consultation skills, skill development tools, and web research capabilities.
+**Why install:** Provides expert consultation skills, skill development tools, wiki maintenance, and web research capabilities.
 
 **Skills:**
 - **consult-experts** - Access specialized expert agents (Product Manager, Tech Lead, Code Reviewer, System Design)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
+- **maintaining-wiki** - Ingest, query, lint, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/` with Obsidian-compatible output
 
 **Agents:**
 - **web-research-specialist** - Research technical issues and solutions online

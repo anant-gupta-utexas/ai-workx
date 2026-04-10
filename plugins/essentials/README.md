@@ -1,12 +1,13 @@
 # Essentials Plugin
 
-Expert consultation skills, skill development tools, and web research agent for enhanced development workflow.
+Expert consultation skills, skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
 
 ## What's Included
 
-### Skills (2)
+### Skills (3)
 - **consult-experts** - Access specialized expert agents for business strategy, tech leadership, system design, and code review
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
+- **maintaining-wiki** - Ingest, query, lint, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`
 
 ### Agents (1)
 - **web-research-specialist** - Research technical issues and solutions online
@@ -32,6 +33,14 @@ Expert consultation skills, skill development tools, and web research agent for 
 ```bash
 "Help me create a new skill for code review"
 "How do I write a good skill description?"
+```
+
+**Wiki Maintenance:**
+```bash
+"Ingest this article into my wiki"
+"What does my wiki say about transformers?"
+"Lint my wiki for contradictions"
+"Wiki status report"
 ```
 
 ### Using Agents Directly
@@ -63,6 +72,16 @@ Expert consultation skills, skill development tools, and web research agent for 
 
 **Activation keywords:** `create skill`, `skill development`, `SKILL.md`, `skill description`, `progressive disclosure`
 
+#### Maintaining Wiki
+
+**Personal knowledge base / second-brain management under `docs/02_learning/`**
+
+**Operations:** ingest (absorb articles/papers into wiki pages), query (answer questions from notes with citations), lint (audit for contradictions, orphans, broken citations), status (counts and health report)
+
+**Architecture:** Three-layer `raw/` → `wiki/` → `outputs/` with Obsidian-compatible frontmatter, `[[wiki-links]]`, and `[Source:]` citations
+
+**Activation keywords:** `ingest into my wiki`, `add to knowledge base`, `absorb this paper`, `what does my wiki say`, `query my notes`, `wiki lint`, `check my wiki for contradictions`, `wiki status`, `add to second brain`
+
 ### Agents
 
 #### Web Research Specialist
@@ -74,6 +93,7 @@ Technical solutions research, best practices, GitHub issues, library comparisons
 - Technical research and best practices discovery
 - Creating custom skills
 - Learning skill development patterns
+- Managing a personal knowledge base / second-brain wiki
 
 ## Not Designed For
 

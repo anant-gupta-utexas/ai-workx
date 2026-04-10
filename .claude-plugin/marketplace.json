@@ -103,8 +103,8 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Expert consultation skills, skill development tools, and web research agent for enhanced development workflow",
-      "version": "2.0.0",
+      "description": "Expert consultation skills, skill development tools, wiki maintenance, and web research agent for enhanced development workflow",
+      "version": "2.1.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -115,7 +115,11 @@
         "experts",
         "skill-development",
         "research",
-        "consultation"
+        "consultation",
+        "wiki",
+        "knowledge-base",
+        "second-brain",
+        "obsidian"
       ]
     },
     {
