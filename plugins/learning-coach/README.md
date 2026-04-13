@@ -8,7 +8,10 @@ Your personal learning and system design coach for mastering complex topics, pra
   - General learning for any topic
   - SWE System Design (20 LLD + 15 HLD problems)
   - ML System Design (10 MLE interview problems with 9-step framework)
-- **1 Command**: `learning-plan` - Create a personalized learning plan through 3-phase diagnostic assessment
+- **3 Commands**:
+  - `learning-plan` - Create a personalized learning plan through 3-phase diagnostic assessment
+  - `feynman` - Learn deeply using the Feynman Technique (analogy, simplification, teach-back)
+  - `socratic` - Learn through guided discovery using Socratic questioning (no direct answers)
 
 ## Features
 
@@ -84,18 +87,47 @@ A specialized coach for ML system design interviews using the **9-step framework
 
 ## How to Use
 
-### Learning Plan Command
-Create a personalized learning plan for any concept:
+### Commands
+
+#### `/learning-plan` — Structured Assessment + Roadmap
 ```
 /learning-plan "CSS Flexbox" intermediate
 /learning-plan "Python Dictionaries" novice
 /learning-plan
 ```
-
-The command runs a 3-phase assessment:
+Runs a 3-phase assessment:
 1. **Phase 1** — 10 foundational diagnostic questions
 2. **Phase 2** — 10 applied/practical questions
 3. **Phase 3** — Personalized roadmap with 5-7 targeted tasks
+
+#### `/feynman` — Feynman Technique
+```
+/feynman "Database Indexing" intermediate
+/feynman "Recursion"
+/feynman
+```
+Iterative simplification through analogy:
+1. Simple explanation with a concrete analogy
+2. Identify common misconceptions, ask probing questions
+3. 2-3 refinement cycles (each clearer than the last)
+4. Teach-back challenge — you explain it in your own words
+5. Teaching snapshot — compressed, memorable summary
+
+**Best for:** Building intuition for unfamiliar topics.
+
+#### `/socratic` — Socratic Tutor
+```
+/socratic "React Hooks" intermediate
+/socratic "Distributed Consensus"
+/socratic
+```
+Guided discovery through questions only — no direct answers:
+1. Foundational probing to map your baseline
+2. Misconception discovery through contradicting questions
+3. Deep understanding via increasingly challenging questions
+4. Synthesis — you summarize what you discovered
+
+**Best for:** Strengthening and pressure-testing existing knowledge.
 
 ### Skills (Auto-Activate)
 
@@ -142,6 +174,8 @@ The skill activates automatically based on your request. Examples:
 ```
 commands/
   learning-plan.md     # Personalized learning plan command
+  feynman.md           # Feynman Technique learning command
+  socratic.md          # Socratic Tutor learning command
 skills/
   technical_coach/
     SKILL.md           # Main skill with mode detection and overview
