@@ -125,7 +125,7 @@
     {
       "name": "learning-coach",
       "source": "./plugins/learning-coach",
-      "description": "Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD with 35 problems), and ML system design (9-step framework with 10 MLE interview problems including visual search, recommendations, and content moderation).",
+      "description": "Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD with 35 problems), ML system design (9-step framework with 10 MLE interview problems), and personalized learning plan generation through diagnostic assessments.",
       "version": "2.0.0",
       "author": {
         "name": "Anant Gupta",
@@ -146,7 +146,9 @@
         "visual-search",
         "content-moderation",
         "interview-prep",
-        "architecture"
+        "architecture",
+        "learning-plan",
+        "assessment"
       ]
     },
     {

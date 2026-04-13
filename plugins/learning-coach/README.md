@@ -8,6 +8,7 @@ Your personal learning and system design coach for mastering complex topics, pra
   - General learning for any topic
   - SWE System Design (20 LLD + 15 HLD problems)
   - ML System Design (10 MLE interview problems with 9-step framework)
+- **1 Command**: `learning-plan` - Create a personalized learning plan through 3-phase diagnostic assessment
 
 ## Features
 
@@ -83,6 +84,21 @@ A specialized coach for ML system design interviews using the **9-step framework
 
 ## How to Use
 
+### Learning Plan Command
+Create a personalized learning plan for any concept:
+```
+/learning-plan "CSS Flexbox" intermediate
+/learning-plan "Python Dictionaries" novice
+/learning-plan
+```
+
+The command runs a 3-phase assessment:
+1. **Phase 1** — 10 foundational diagnostic questions
+2. **Phase 2** — 10 applied/practical questions
+3. **Phase 3** — Personalized roadmap with 5-7 targeted tasks
+
+### Skills (Auto-Activate)
+
 The skill activates automatically based on your request. Examples:
 
 ### General Learning
@@ -124,6 +140,8 @@ The skill activates automatically based on your request. Examples:
 ## File Structure
 
 ```
+commands/
+  learning-plan.md     # Personalized learning plan command
 skills/
   technical_coach/
     SKILL.md           # Main skill with mode detection and overview

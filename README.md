@@ -34,6 +34,7 @@ Personal learning and system design coach with comprehensive coverage of general
   - General Learning for any topic
   - SWE System Design (20 LLD + 15 HLD problems)
   - ML System Design (10 MLE interview problems with 9-step framework)
+- 1 Command (learning-plan) - Personalized learning plan via 3-phase diagnostic assessment
 
 **Perfect for:**
 - Learning new topics and complex concepts
@@ -221,6 +222,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 **Skill:**
 - **technical_coach** - Unified skill with automatic mode detection based on your request
 
+**Command:**
+- **learning-plan** - Create a personalized learning plan through 3-phase diagnostic assessment
+
 **Three Modes:**
 
 **1. General Learning Mode:**
@@ -244,6 +248,8 @@ This opens an interactive UI showing all available plugins from this marketplace
 "Design Netflix architecture"                     # SWE HLD
 "Design a video recommendation system"            # ML System Design
 "Practice harmful content detection for MLE"      # ML System Design
+/learning-plan "CSS Flexbox" intermediate          # Learning Plan
+/learning-plan                                     # Interactive mode
 ```
 
 **Perfect For:**
