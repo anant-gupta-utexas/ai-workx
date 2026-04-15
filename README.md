@@ -7,24 +7,24 @@ Production-tested Claude Code plugins for modern development workflows with spec
 ### Core Plugins (Recommended)
 
 #### [DEV-ESSENTIALS](./plugins/DEV-ESSENTIALS/)
-Development essentials with specialized agents for planning, documentation, and refactoring, git workflow patterns, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
+Development essentials with specialized agents for planning, documentation, and refactoring, git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
 
 **Includes:**
-- 1 Skill (git-workflow)
+- 3 Skills (git-workflow, lateral-thinking, consult-experts)
 - 4 Agents (business-strategist, documentation-architect, plan-reviewer, refactor-planner)
 - 4 Commands (dev-docs-update, dev-docs-be, code-review, verify)
 - 8 Hooks (security scan, commit quality, file size guard, debug statement warnings, and more)
 
-**Perfect for:** Planning, refactoring, documentation, git workflow, code review, pre-commit verification, context management
+**Perfect for:** Planning, expert consultation, lateral thinking, refactoring, documentation, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Expert consultation skills, skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
 
 **Includes:**
-- 3 Skills (consult-experts, skill-developer, maintaining-wiki)
+- 2 Skills (skill-developer, maintaining-wiki)
 - 1 Agent (web-research-specialist)
 
-**Perfect for:** Expert consultation, technical research, creating custom skills, managing a personal knowledge base
+**Perfect for:** Technical research, creating custom skills, managing a personal knowledge base
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
@@ -179,16 +179,18 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ### DEV-ESSENTIALS Plugin (Core)
 
-**Why install:** Provides fundamental development utilities including git workflow patterns, code review, verification, backend TRS documentation, 8 quality hooks, and planning agents.
+**Why install:** Provides fundamental development utilities including git workflow patterns, lateral thinking for breaking through blocks, expert consultation, code review, verification, backend TRS documentation, 8 quality hooks, and planning agents.
 
 **Skills:**
 - **git-workflow** - Branching strategies, conventional commits, PR workflow, merge vs rebase, conflict resolution, release management
+- **lateral-thinking** - 5 thinking personas (Contrarian, Hacker, Simplifier, Researcher, Architect) that diagnose stagnation patterns and reframe problems
+- **consult-experts** - Access specialized expert personas (Product Manager, Tech Lead, System Design Specialist, Code Reviewer)
 
 **Agents:**
 - **business-strategist** - Business strategy and product guidance for new products
 - **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering
 - **plan-reviewer** - Review development plans before implementation
-- **refactor-planner** - Create comprehensive refactoring strategies
+- **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
 
 **Commands:**
 - **/dev-docs-update** - Update dev documentation before context compaction for seamless continuation
@@ -202,14 +204,15 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ---
 
-### essentials Plugin (Expert Consultation, Skills & Wiki)
+### essentials Plugin (Skills, Wiki & Research)
 
-**Why install:** Provides expert consultation skills, skill development tools, wiki maintenance, and web research capabilities.
+**Why install:** Provides skill development tools, wiki maintenance, and web research capabilities.
 
 **Skills:**
-- **consult-experts** - Access specialized expert agents (Product Manager, Tech Lead, Code Reviewer, System Design)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - Ingest, query, lint, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/` with Obsidian-compatible output
+
+> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin.
 
 **Agents:**
 - **web-research-specialist** - Research technical issues and solutions online
@@ -456,6 +459,7 @@ Invoke agents for complex tasks:
 "Use the business-strategist agent to help me plan my product strategy"
 "Use the documentation-architect agent to document my REST API"
 "Use the plan-reviewer agent to review my authentication implementation plan"
+"Consult product expert for help with my roadmap"
 
 # essentials agents
 "Use the web-research-specialist agent to find best practices for WebSockets"
@@ -593,7 +597,7 @@ Use commands for workflows:
 /plugin install learning-coach@claude-workspace-plugins
 ```
 
-**You get:** Business strategy, planning, documentation architect, context management, learning coach, and essential utilities without tech-specific development patterns.
+**You get:** Business strategy, expert consultation, lateral thinking, planning, documentation architect, context management, learning coach, and essential utilities without tech-specific development patterns.
 
 ### For ML Research & Experimentation
 
@@ -681,7 +685,8 @@ After installing these plugins, you get:
 
 - **Intelligent skill activation** - Skills suggest themselves when relevant
 - **Specialized agents** - AI assistants for business strategy, documentation, planning, UI/UX, research, and error fixing
-- **Expert guidance** - Access to business strategist, documentation architect, tech lead, and UI/UX specialist agents
+- **Expert guidance** - Access to business strategist, documentation architect, tech lead, UI/UX specialist, and 4 expert consultation personas
+- **Lateral thinking** - 5 thinking personas to break through development blocks (Contrarian, Hacker, Simplifier, Researcher, Architect)
 - **Git workflow patterns** - Branching strategies, conventional commits, PR workflow, conflict resolution
 - **Code review and verification** - Pre-commit quality gates and comprehensive PR-readiness checks
 - **8 development hooks** - Automated security scanning, commit quality, file size guards, debug statement detection

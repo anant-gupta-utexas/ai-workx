@@ -1,13 +1,14 @@
 # Essentials Plugin
 
-Expert consultation skills, skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
 
 ## What's Included
 
-### Skills (3)
-- **consult-experts** - Access specialized expert agents for business strategy, tech leadership, system design, and code review
+### Skills (2)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - Ingest, query, lint, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`
+
+> **Note:** The consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer) has moved to the DEV-ESSENTIALS plugin.
 
 ### Agents (1)
 - **web-research-specialist** - Research technical issues and solutions online
@@ -22,12 +23,6 @@ Expert consultation skills, skill development tools, wiki maintenance, and web r
 ## Usage Examples
 
 ### Using Skills
-
-**Consult Experts:**
-```bash
-"Consult product expert for help with my roadmap"
-"Get tech lead advice on my system architecture"
-```
 
 **Skill Development:**
 ```bash
@@ -54,16 +49,6 @@ Expert consultation skills, skill development tools, wiki maintenance, and web r
 
 ### Skills
 
-#### Consult Experts
-
-**Provides access to:**
-- Product Manager - Product strategy and roadmap planning
-- Tech Lead - Technical architecture and system design
-- Code Reviewer - Code quality and best practices review (deep architectural review)
-- System Design - Scalable system architecture
-
-**Activation keywords:** `consult product`, `consult tech`, `expert advice`, `product strategy`
-
 #### Skill Developer
 
 **Meta-skill for creating skills**
@@ -89,7 +74,6 @@ Technical solutions research, best practices, GitHub issues, library comparisons
 
 ## Perfect For
 
-- Expert consultation and technical guidance
 - Technical research and best practices discovery
 - Creating custom skills
 - Learning skill development patterns

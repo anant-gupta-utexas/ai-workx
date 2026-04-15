@@ -4,14 +4,16 @@ Development essentials with specialized agents for planning, documentation, and 
 
 ## What's Included
 
-### Skills (1)
+### Skills (3)
 - **git-workflow** - Git workflow patterns including branching strategies, conventional commits, PR workflow, merge vs rebase, conflict resolution, and release management
+- **lateral-thinking** - Break through development blocks with 5 thinking personas (Contrarian, Hacker, Simplifier, Researcher, Architect) that diagnose your stagnation pattern and reframe the problem
+- **consult-experts** - Access specialized expert personas for product requirements (PRDs), technical requirements (TRDs), system design (SDDs), and code review
 
 ### Agents (4)
 - **business-strategist** - Business strategy and product guidance for building products from 0 to 1
 - **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering from code and existing docs
 - **plan-reviewer** - Review development plans before implementation
-- **refactor-planner** - Create comprehensive refactoring strategies
+- **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
 
 ### Commands (4)
 - **dev-docs-update** - Update dev documentation before context compaction for seamless continuation
@@ -46,6 +48,22 @@ Development essentials with specialized agents for planning, documentation, and 
 "What's the conventional commit format?"
 "How should I resolve this merge conflict?"
 "Create a PR description for my changes"
+```
+
+**Lateral Thinking (when stuck):**
+```bash
+"I'm stuck on this caching problem, nothing I try works"
+"I keep going in circles on this auth flow"
+"I need a different perspective on this architecture"
+"Help me think about this from the contrarian angle"
+```
+
+**Consult Experts:**
+```bash
+"Consult product expert for help with my roadmap"
+"Get tech lead advice on my system architecture"
+"I need a code review from the expert reviewer"
+"Consult system design expert for my distributed system"
 ```
 
 ### Using Agents Directly
@@ -167,6 +185,30 @@ export DISABLED_HOOKS="block-no-verify,suggest-compact,doc-file-warning"
 
 **Activation keywords:** `git workflow`, `commit convention`, `branching strategy`, `merge conflict`, `PR description`
 
+#### Lateral Thinking
+
+**5 thinking personas** that diagnose your stagnation pattern and reframe the problem from a fresh angle:
+
+| Persona | Core Question | Best For |
+|---------|--------------|----------|
+| Contrarian | "What if the opposite were true?" | Challenging assumptions, inverting requirements |
+| Hacker | "What constraints are actually real?" | Creative workarounds, prototype-first solutions |
+| Simplifier | "What's the simplest thing that could work?" | Reducing complexity, removing unnecessary layers |
+| Researcher | "What evidence do we actually have?" | Gathering facts, investigating root causes |
+| Architect | "If we started over, would we build it this way?" | Structural problems, wrong decomposition |
+
+**Activation keywords:** `stuck`, `blocked`, `can't figure out`, `lateral thinking`, `different perspective`, `unstuck`, `going in circles`
+
+#### Consult Experts
+
+**Provides access to 4 expert personas:**
+- **Product Manager** - Product strategy, PRDs, user stories, success metrics
+- **Tech Lead** - Technical requirements (TRDs), technical guidance, architecture decisions
+- **System Design Specialist** - System architecture, SDDs, scalability, component design
+- **Code Reviewer** - Code quality analysis, design decisions, system integration review
+
+**Activation keywords:** `consult product`, `consult tech`, `expert advice`, `product strategy`, `code review expert`
+
 ### Agents
 
 #### Business Strategist
@@ -179,7 +221,7 @@ Comprehensive developer-focused documentation with context gathering, API docs, 
 Architecture review, implementation plan analysis, risk assessment, best practices validation.
 
 #### Refactor Planner
-Refactoring strategies, tech debt analysis, SOLID violations detection, safe code restructuring.
+Refactoring strategies, tech debt analysis, SOLID violations detection, safe code restructuring. Includes brownfield-aware convention detection — scans for existing project conventions, config files, and established abstractions before recommending changes.
 
 ### Command Details
 
@@ -187,7 +229,7 @@ Refactoring strategies, tech debt analysis, SOLID violations detection, safe cod
 
 Fast pre-commit quality gate. Checks security (CRITICAL), code quality (HIGH), and best practices (MEDIUM). Produces a severity report with verdict.
 
-> For deep architectural reviews, use the consult-experts Code Reviewer persona from the essentials plugin.
+> For deep architectural reviews, use the consult-experts Code Reviewer persona.
 
 #### /verify
 
@@ -209,7 +251,9 @@ Updates development documentation before context compaction for seamless continu
 ## Perfect For
 
 - Product planning and strategy
+- Expert consultation (Product Manager, Tech Lead, System Design, Code Reviewer)
 - Development plan review
+- Breaking through development blocks with lateral thinking
 - Refactoring and code modernization
 - Git workflow setup and management
 - Pre-commit code review and verification
