@@ -4,8 +4,8 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "node hooks/experiment-budget-guard.js" },
-          { "type": "command", "command": "node hooks/sky-auto-auth.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/experiment-budget-guard.js" },
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/sky-auto-auth.js" }
         ]
       }
     ],
@@ -13,7 +13,7 @@
       {
         "matcher": "Edit",
         "hooks": [
-          { "type": "command", "command": "node hooks/result-regression-check.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/result-regression-check.js" }
         ]
       }
     ]

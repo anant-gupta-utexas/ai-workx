@@ -4,22 +4,22 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "node hooks/block-no-verify.js" },
-          { "type": "command", "command": "node hooks/pre-commit-security.js" },
-          { "type": "command", "command": "node hooks/commit-quality.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/block-no-verify.js" },
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/pre-commit-security.js" },
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/commit-quality.js" }
         ]
       },
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": "node hooks/suggest-compact.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/suggest-compact.js" }
         ]
       },
       {
         "matcher": "Write",
         "hooks": [
-          { "type": "command", "command": "node hooks/large-file-blocker.js" },
-          { "type": "command", "command": "node hooks/doc-file-warning.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/large-file-blocker.js" },
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/doc-file-warning.js" }
         ]
       }
     ],
@@ -27,13 +27,13 @@
       {
         "matcher": "Edit",
         "hooks": [
-          { "type": "command", "command": "node hooks/console-log-warning.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/console-log-warning.js" }
         ]
       },
       {
         "matcher": "Write",
         "hooks": [
-          { "type": "command", "command": "node hooks/test-file-reminder.js" }
+          { "type": "command", "command": "sh hooks/run-hook.sh hooks/test-file-reminder.js" }
         ]
       }
     ]
