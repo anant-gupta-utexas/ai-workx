@@ -19,7 +19,7 @@ Combines patterns from:
 
 | Component | Count | Details |
 | --- | --- | --- |
-| Skills | 1 | ml-research-guidelines (11 resource guides) |
+| Skills | 1 | ml-research-guidelines (12 resource guides) |
 | Agents | 4 | research-orchestrator, ml-researcher, experiment-reviewer, paper-writer |
 | Commands | 7 | experiment, sweep, research-report, research-pipeline, tree-search, review-paper, orchestrate |
 | Hooks | 3 | experiment-budget-guard, result-regression-check, sky-auto-auth |
@@ -80,7 +80,7 @@ Combines patterns from:
 
 Auto-activates when working with training experiments, hyperparameters, model architectures, optimizers, validation metrics, GPU clusters, research pipelines, or manuscript writing.
 
-**Resource Guides (10):**
+**Resource Guides (12):**
 
 | Guide | Topics |
 | --- | --- |
@@ -95,6 +95,7 @@ Auto-activates when working with training experiments, hyperparameters, model ar
 | tree-search-protocol | 4-stage progress manager, node types, best-first selection |
 | review-protocol | Ensemble peer review, scoring rubric, meta-review aggregation |
 | orchestration-protocol | Queue-based phase management, handoff files, context isolation |
+| lab-notebook | Human-readable research log, resume protocol, session continuity |
 
 ## Agents
 

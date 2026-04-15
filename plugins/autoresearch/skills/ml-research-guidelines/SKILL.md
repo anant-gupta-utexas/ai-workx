@@ -165,5 +165,6 @@ All state lives in `.autoresearch/` at the project root:
 | Run 4-stage tree search over experiments | `./resources/tree-search-protocol.md` |
 | Run ensemble peer review on a paper | `./resources/review-protocol.md` |
 | Orchestrate phases with fresh context isolation | `./resources/orchestration-protocol.md` |
+| Maintain a human-readable research log | `./resources/lab-notebook.md` |
 
 ---
