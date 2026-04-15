@@ -4,8 +4,8 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/experiment-budget-guard.js" },
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/sky-auto-auth.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/experiment-budget-guard.py" },
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/sky-auto-auth.py" }
         ]
       }
     ],
@@ -13,7 +13,7 @@
       {
         "matcher": "Edit",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/result-regression-check.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/result-regression-check.py" }
         ]
       }
     ]

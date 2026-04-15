@@ -4,22 +4,22 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/block-no-verify.js" },
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/pre-commit-security.js" },
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/commit-quality.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/block-no-verify.py" },
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/pre-commit-security.py" },
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/commit-quality.py" }
         ]
       },
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/suggest-compact.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/suggest-compact.py" }
         ]
       },
       {
         "matcher": "Write",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/large-file-blocker.js" },
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/doc-file-warning.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/large-file-blocker.py" },
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/doc-file-warning.py" }
         ]
       }
     ],
@@ -27,13 +27,13 @@
       {
         "matcher": "Edit",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/console-log-warning.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/console-log-warning.py" }
         ]
       },
       {
         "matcher": "Write",
         "hooks": [
-          { "type": "command", "command": "sh hooks/run-hook.sh hooks/test-file-reminder.js" }
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/test-file-reminder.py" }
         ]
       }
     ]
