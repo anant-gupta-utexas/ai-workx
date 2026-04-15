@@ -21,6 +21,8 @@
     "peer-review",
     "val-bpb",
     "transformer",
-    "optimizer"
+    "optimizer",
+    "orchestration",
+    "fresh-context"
   ]
 }

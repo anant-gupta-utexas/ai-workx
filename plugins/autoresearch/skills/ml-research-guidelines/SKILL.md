@@ -1,6 +1,6 @@
 ---
 name: ml-research-guidelines
-description: Comprehensive guide for autonomous ML research workflows including single-agent experiment loops, parallel GPU experimentation, tree search, manuscript generation, and automated peer review. Use when running training experiments, hyperparameter sweeps, optimizing neural network architectures, interpreting val_bpb or validation metrics, managing SkyPilot GPU clusters, writing research papers, or running the full AI Scientist pipeline. Covers Karpathy's autoresearch protocol, SkyPilot parallel scaling, and the AI Scientist's multi-phase research lifecycle.
+description: Comprehensive guide for autonomous ML research workflows including single-agent experiment loops, parallel GPU experimentation, tree search, manuscript generation, automated peer review, and queue-based orchestration with fresh context per phase. Use when running training experiments, hyperparameter sweeps, optimizing neural network architectures, interpreting val_bpb or validation metrics, managing SkyPilot GPU clusters, writing research papers, running the full AI Scientist pipeline, or orchestrating multi-phase research with context isolation. Covers Karpathy's autoresearch protocol, SkyPilot parallel scaling, the AI Scientist's multi-phase research lifecycle, and fresh-context orchestration patterns.
 ---
 
 # ML Research Guidelines
@@ -23,6 +23,8 @@ Automatically activates when working on:
 - Writing research manuscripts from experiment results
 - Running automated peer review on papers
 - Tree search over experiment configurations
+- Orchestrating multi-phase research with fresh context per phase
+- Queue-based task management across research topics
 
 ---
 
@@ -141,6 +143,9 @@ All state lives in `.autoresearch/` at the project root:
   tree/                    # Tree search state (stages 1-4)
   manuscripts/             # Phase 3: generated papers
   reviews/                 # Phase 4: review results
+  queue/                   # Orchestration state (fresh-context per phase)
+    queue.json             # Task list with phase tracking
+    tasks/                 # Per-task handoff files
 ```
 
 ---
@@ -159,5 +164,6 @@ All state lives in `.autoresearch/` at the project root:
 | Generate a research manuscript | `./resources/manuscript-writing.md` |
 | Run 4-stage tree search over experiments | `./resources/tree-search-protocol.md` |
 | Run ensemble peer review on a paper | `./resources/review-protocol.md` |
+| Orchestrate phases with fresh context isolation | `./resources/orchestration-protocol.md` |
 
 ---

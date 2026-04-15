@@ -19,9 +19,9 @@ Combines patterns from:
 
 | Component | Count | Details |
 | --- | --- | --- |
-| Skills | 1 | ml-research-guidelines (10 resource guides) |
+| Skills | 1 | ml-research-guidelines (11 resource guides) |
 | Agents | 4 | research-orchestrator, ml-researcher, experiment-reviewer, paper-writer |
-| Commands | 6 | experiment, sweep, research-report, research-pipeline, tree-search, review-paper |
+| Commands | 7 | experiment, sweep, research-report, research-pipeline, tree-search, review-paper, orchestrate |
 | Hooks | 3 | experiment-budget-guard, result-regression-check, sky-auto-auth |
 | Infrastructure | 2 | experiment-wrapper.sh, config-template.yaml |
 
@@ -65,6 +65,15 @@ Combines patterns from:
 /review-paper --format workshop --reviews 5
 ```
 
+### Orchestrate with Fresh Context
+
+```bash
+/orchestrate 4                       # Process 4 phases from queue (fresh context each)
+/orchestrate --phase experimentation # Run just one phase in isolation
+/orchestrate status                  # Show queue state
+/orchestrate resume                  # Resume from last incomplete phase
+```
+
 ## Skills
 
 ### ml-research-guidelines
@@ -85,6 +94,7 @@ Auto-activates when working with training experiments, hyperparameters, model ar
 | manuscript-writing | LaTeX generation, section-by-section protocol, figure quality |
 | tree-search-protocol | 4-stage progress manager, node types, best-first selection |
 | review-protocol | Ensemble peer review, scoring rubric, meta-review aggregation |
+| orchestration-protocol | Queue-based phase management, handoff files, context isolation |
 
 ## Agents
 
@@ -105,6 +115,7 @@ Auto-activates when working with training experiments, hyperparameters, model ar
 | **/research-pipeline** | Full 4-phase AI Scientist pipeline |
 | **/tree-search** | Parallelized experiment tree search with 4 stages |
 | **/review-paper** | Ensemble peer review (5 reviews + meta-review) |
+| **/orchestrate** | Queue-based orchestrator with fresh context per phase |
 
 ## Hooks
 
@@ -137,6 +148,9 @@ All pipeline state lives in `.autoresearch/` at the project root (created at run
   reviews/                 # Phase 4: review results
     individual/
     meta-review.json
+  queue/                   # Orchestration state (fresh-context per phase)
+    queue.json             # Task list with phase tracking
+    tasks/                 # Per-task handoff files
 ```
 
 Copy `config-template.yaml` to `.autoresearch/config.yaml` to customize, or let the commands create defaults.
