@@ -153,7 +153,7 @@ User request -> Claude picks a tool -> PreToolUse hook runs -> Tool executes -> 
 **Method 1: Environment variable (recommended)**
 
 ```bash
-# Disable specific hooks (comma-separated hook filenames without .js)
+# Disable specific hooks (comma-separated hook names)
 export DISABLED_HOOKS="block-no-verify,suggest-compact,doc-file-warning"
 ```
 

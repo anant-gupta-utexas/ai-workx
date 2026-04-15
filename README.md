@@ -655,12 +655,14 @@ You can create custom plugins following the same structure:
 
 ```
 my-plugin/
-├── plugin.json          # Plugin manifest
+├── plugin.json          # Plugin manifest (metadata only, components auto-discovered)
 ├── README.md           # Documentation
-├── skills/             # Skill files
-├── agents/             # Agent files
-├── hooks/              # Hook files
-└── commands/           # Command files
+├── skills/             # Skill directories (SKILL.md + resources/)
+├── agents/             # Agent markdown files
+├── hooks/              # hooks.json config + Python hook scripts
+│   ├── hooks.json      # Record format: { "hooks": { "PreToolUse": [...], "PostToolUse": [...] } }
+│   └── *.py            # Python scripts (stdlib only, use python3 + ${CLAUDE_PLUGIN_ROOT})
+└── commands/           # Command markdown files
 ```
 
 Then add to `.claude-plugin/marketplace.json`.

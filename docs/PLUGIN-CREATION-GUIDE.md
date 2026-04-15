@@ -10,16 +10,18 @@ Comprehensive guide for creating Claude Code plugins in this marketplace.
 4. [Creating Agents](#creating-agents)
 5. [Creating Commands](#creating-commands)
 6. [Creating Skills](#creating-skills)
-7. [Testing Plugins](#testing-plugins)
-8. [Publishing Updates](#publishing-updates)
+7. [Creating Hooks](#creating-hooks)
+8. [Testing Plugins](#testing-plugins)
+9. [Publishing Updates](#publishing-updates)
 
 ## Plugin Basics
 
-A plugin is a collection of agents, commands, and/or skills packaged together. Each plugin:
+A plugin is a collection of agents, commands, skills, and/or hooks packaged together. Each plugin:
 - Lives in its own directory under `plugins/`
-- Has a `.claude-plugin/plugin.json` manifest
-- Can contain any combination of agents, commands, and skills
+- Has a `plugin.json` manifest at the plugin root (not in `.claude-plugin/`)
+- Can contain any combination of agents, commands, skills, and hooks
 - Is registered in the marketplace's `.claude-plugin/marketplace.json`
+- Components are **auto-discovered** from the directory structure — no need to list them in `plugin.json`
 
 ## Directory Structure
 
@@ -27,14 +29,17 @@ A plugin is a collection of agents, commands, and/or skills packaged together. E
 
 ```
 plugins/my-plugin/
-├── .claude-plugin/
-│   └── plugin.json           # Required: Plugin metadata
+├── plugin.json                # Required: Plugin metadata (at root, NOT in .claude-plugin/)
 ├── agents/                    # Optional: Agent definitions
 │   ├── agent-one.md
 │   └── agent-two.md
 ├── commands/                  # Optional: Slash commands
 │   ├── command-one.md
 │   └── command-two.md
+├── hooks/                     # Optional: Hook scripts + config
+│   ├── hooks.json             # Hook configuration (record format)
+│   ├── my-pre-hook.py         # Python hook scripts
+│   └── my-post-hook.py
 ├── skills/                    # Optional: Skills
 │   ├── skill-one/
 │   │   ├── SKILL.md
@@ -55,30 +60,34 @@ plugins/my-plugin/
 
 ### plugin.json Schema
 
+The `plugin.json` lives at the **plugin root** (e.g., `plugins/my-plugin/plugin.json`), not inside a `.claude-plugin/` subdirectory. Claude Code auto-discovers all components from the directory structure, so `plugin.json` is purely metadata.
+
 ```json
 {
   "name": "my-plugin",
-  "description": "Brief description of plugin purpose and capabilities",
   "version": "1.0.0",
-  "author": "Your Name <email@example.com>",
-  "tags": ["python", "testing", "development"],
-  "dependencies": [],
-  "repository": "https://github.com/username/claude-workspace-plugins",
-  "license": "MIT"
+  "description": "Brief description of plugin purpose and capabilities",
+  "author": {
+    "name": "Your Name",
+    "email": "email@example.com",
+    "url": "https://github.com/username"
+  },
+  "license": "MIT",
+  "keywords": ["python", "testing", "development"]
 }
 ```
 
 **Required Fields:**
 - `name`: Unique plugin identifier (lowercase, hyphens)
-- `description`: Clear, concise description (1-2 sentences)
-- `version`: Semantic version (MAJOR.MINOR.PATCH)
 
 **Optional Fields:**
-- `author`: Your name and/or email
-- `tags`: Categorization and discoverability
-- `dependencies`: Other plugins this depends on
-- `repository`: Link to source
-- `license`: License identifier
+- `version`: Semantic version (MAJOR.MINOR.PATCH)
+- `description`: Clear, concise description (1-2 sentences)
+- `author`: Object with optional `name`, `email`, `url` fields
+- `license`: License identifier (e.g., "MIT")
+- `keywords`: Array of search/discovery keywords
+
+**Important:** Do NOT include `category`, `components`, `post_install`, `tags`, or `dependencies` — Claude Code auto-discovers components and these fields cause validation errors.
 
 ### Marketplace Registration
 
@@ -332,6 +341,153 @@ Skills can activate based on:
 
 **Note**: Auto-activation is driven by the skill's SKILL.md description field. Include trigger keywords in the description for Claude Code to auto-discover and activate skills.
 
+## Creating Hooks
+
+Hooks are Python scripts that run automatically before or after Claude Code tool invocations. They can inspect, warn, or block actions.
+
+### Hook Architecture
+
+Hooks consist of two parts:
+1. **`hooks.json`** — Configuration file in `plugins/{plugin}/hooks/` that maps events and tool matchers to scripts
+2. **Python scripts** — Executable scripts that implement the hook logic
+
+### hooks.json Format
+
+**Critical:** The `hooks` field must be a **record/object** keyed by PascalCase event type, NOT an array.
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/my-guard.py" }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/file-check.py" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/post-edit.py" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Key rules:**
+- Use `python3` (not `node`) — `/usr/bin/python3` is reliably available from `/bin/sh` on macOS/Linux
+- Use `${CLAUDE_PLUGIN_ROOT}` for all script paths — hooks run with CWD = user's project directory
+- Matcher supports `|` for multiple tools: `"Edit|Write"`
+- Supported event keys: `PreToolUse`, `PostToolUse`, `SessionStart`, `SessionEnd`, `Stop`, `Notification`, `SubagentStart`, `SubagentStop`, `PreCompact`, `PostCompact`, `UserPromptSubmit`
+
+### Hook Script Protocol
+
+Every hook script follows the same stdin/stdout/stderr + exit code protocol:
+
+```python
+#!/usr/bin/env python3
+"""
+PreToolUse Hook: Describe What It Does
+
+Exit codes:
+  0 - Allow
+  2 - Block
+"""
+
+import json
+import os
+import sys
+
+MAX_STDIN = 1024 * 1024
+
+def main():
+    data = sys.stdin.read(MAX_STDIN)
+
+    try:
+        # Support per-hook opt-out via DISABLED_HOOKS env var
+        disabled = os.environ.get("DISABLED_HOOKS", "").split(",")
+        if "my-hook-name" in disabled:
+            sys.stdout.write(data)
+            return
+
+        inp = json.loads(data)
+        command = inp.get("tool_input", {}).get("command", "")
+
+        # Inspection logic here...
+
+        if should_block:
+            print("[Hook] BLOCKED: reason", file=sys.stderr)
+            sys.stdout.write(data)
+            sys.exit(2)
+
+        sys.stdout.write(data)
+    except Exception as err:
+        print(f"[Hook] my-hook-name error: {err}", file=sys.stderr)
+        sys.stdout.write(data)
+
+if __name__ == "__main__":
+    main()
+```
+
+### Hook Input Fields
+
+The JSON piped to stdin includes:
+
+| Field | Description |
+|-------|-------------|
+| `tool_name` | Name of the tool (e.g., "Bash", "Write", "Edit") |
+| `tool_input` | Tool-specific arguments (e.g., `command`, `file_path`, `content`, `new_string`) |
+| `session_id` | Current session identifier |
+| `cwd` | Current working directory |
+
+### Hook Best Practices
+
+- **Use only Python stdlib** — no pip dependencies, for maximum portability across user machines
+- **Always echo stdin to stdout** — even on error, write the data back so Claude Code can proceed
+- **Support `DISABLED_HOOKS`** — let users opt out of individual hooks via environment variable
+- **Prefix stderr with `[Hook]`** — makes it clear which messages come from hooks
+- **Keep hooks fast** — they run on every matching tool invocation; avoid expensive I/O
+- **Use exit code 2 to block, 0 to allow** — other exit codes are treated as errors
+
+### Common Patterns
+
+**Blocking a dangerous command:**
+```python
+if "git push --force" in command:
+    print("[Hook] BLOCKED: force push not allowed", file=sys.stderr)
+    sys.stdout.write(data)
+    sys.exit(2)
+```
+
+**Warning without blocking:**
+```python
+if "console.log" in new_string:
+    print("[Hook] WARNING: debug statement detected", file=sys.stderr)
+sys.stdout.write(data)  # exit 0, allow
+```
+
+**Auto-approving a permission (PreToolUse):**
+```python
+auth_response = json.dumps({
+    "hookSpecificOutput": {
+        "hookEventName": "PreToolUse",
+        "permissionDecision": "allow",
+        "permissionDecisionReason": "Auto-approved by plugin"
+    }
+})
+sys.stdout.write(auth_response)
+```
+
 ## Testing Plugins
 
 ### Local Testing
@@ -362,10 +518,13 @@ Skills can activate based on:
 - [ ] All agents load correctly
 - [ ] All commands execute as expected
 - [ ] Skills contain valid frontmatter
+- [ ] Hooks load without errors (`/reload-plugins` shows no hook errors)
+- [ ] Hook scripts work from `/bin/sh`: `/bin/sh -c "python3 hooks/my-hook.py" < test-input.json`
+- [ ] `hooks.json` uses record format (object, not array) with PascalCase keys
+- [ ] Hook scripts use `${CLAUDE_PLUGIN_ROOT}` paths, not relative paths
 - [ ] README.md is clear and helpful
-- [ ] plugin.json has correct metadata
+- [ ] `plugin.json` has correct metadata (no `tags`, `dependencies`, or `components` fields)
 - [ ] No file path or naming issues
-- [ ] Dependencies are satisfied
 
 ## Publishing Updates
 
@@ -377,7 +536,7 @@ Follow semantic versioning:
 - **PATCH** (1.0.0 → 1.0.1): Bug fixes
 
 Update version in:
-1. `plugins/my-plugin/.claude-plugin/plugin.json`
+1. `plugins/my-plugin/plugin.json`
 2. `.claude-plugin/marketplace.json` (for that plugin entry)
 
 ### Git Workflow
@@ -442,8 +601,7 @@ Simple command-only plugin:
 
 ```
 plugins/quick-deploy/
-├── .claude-plugin/
-│   └── plugin.json
+├── plugin.json
 ├── commands/
 │   ├── deploy-staging.md
 │   └── deploy-production.md
@@ -452,12 +610,11 @@ plugins/quick-deploy/
 
 ### Comprehensive Plugin
 
-Full-featured plugin:
+Full-featured plugin with all component types:
 
 ```
 plugins/python-development/
-├── .claude-plugin/
-│   └── plugin.json
+├── plugin.json
 ├── agents/
 │   ├── python-expert.md
 │   └── testing-specialist.md
@@ -465,6 +622,10 @@ plugins/python-development/
 │   ├── run-tests.md
 │   ├── check-types.md
 │   └── lint-code.md
+├── hooks/
+│   ├── hooks.json
+│   ├── block-dangerous-commands.py
+│   └── warn-debug-statements.py
 ├── skills/
 │   ├── python-testing/
 │   │   ├── SKILL.md
@@ -482,5 +643,5 @@ plugins/python-development/
 
 ---
 
-**Last Updated**: 2024-11-06
-**Maintainer**: Your Name
+**Last Updated**: 2026-04-15
+**Maintainer**: Anant Gupta

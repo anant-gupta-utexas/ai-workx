@@ -21,7 +21,7 @@ Guide for moving skills, agents, commands, and hooks between plugins.
 | Skill | Directory with `SKILL.md` | `plugins/{plugin}/skills/{skill-name}/` | `name`, `description` + optional: `context`, `agent`, `once`, `allowed-tools` |
 | Agent | `.md` | `plugins/{plugin}/agents/{agent-name}.md` | `name`, `description`, `color` |
 | Command | `.md` | `plugins/{plugin}/commands/{command-name}.md` | `description`, `argument-hint` |
-| Hook | `.ts` or `.json` | `plugins/{plugin}/hooks/{hook-name}.ts` | N/A (TypeScript/JSON) |
+| Hook | `.py` + `hooks.json` | `plugins/{plugin}/hooks/{hook-name}.py` | N/A (Python scripts + JSON config) |
 
 > **Note (Claude Code 2.1.3+):** Slash commands and skills are now conceptually merged. Both are auto-discovered from their respective directories.
 
@@ -101,10 +101,35 @@ Claude Code auto-discovers skills, agents, commands, and hooks from the director
 - Check that the skill directory is in `plugins/{plugin}/skills/{skill-name}/`
 - Claude Code auto-discovers skills—no `plugin.json` entries needed
 
+**Hooks not loading (schema error):**
+- `hooks.json` must use the **record format** with PascalCase event keys, not an array:
+  ```json
+  {
+    "hooks": {
+      "PreToolUse": [{ "matcher": "Bash", "hooks": [{ "type": "command", "command": "..." }] }],
+      "PostToolUse": [...]
+    }
+  }
+  ```
+- Common mistake: `"hooks": [...]` (array) instead of `"hooks": {...}` (record/object)
+
+**Hooks not found at runtime (path error):**
+- Hook commands run with CWD set to the **user's project**, not the plugin directory
+- Always use `${CLAUDE_PLUGIN_ROOT}` to reference scripts within the plugin:
+  ```json
+  { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/my-hook.py" }
+  ```
+- Note: `CLAUDE_PLUGIN_ROOT` has a known bug where it's sometimes unset. If hit, use a fallback: `${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/cache/...}`
+
+**Hook command "node not found":**
+- `/bin/sh` doesn't inherit nvm/fnm/volta PATH. Use `python3` instead of `node` for hook scripts — `python3` is available at `/usr/bin/python3` on macOS and most Linux systems
+- All hook scripts in this repo use Python (stdlib only, no dependencies)
+
 **JSON validation:**
 ```bash
 jq empty plugins/*/plugin.json && echo "✓ All plugins valid"
 jq empty .claude-plugin/marketplace.json && echo "✓ Marketplace valid"
+jq empty plugins/*/hooks/hooks.json 2>/dev/null && echo "✓ All hooks.json valid"
 ```
 
 ---
@@ -170,6 +195,70 @@ allowed-tools:       # YAML-style tool list
 
 **Note:** Skills are directories with `SKILL.md` + optional `resources/` folder. Skills hot-reload automatically when modified (no restart needed).
 
+### Hook (hooks.json + Python scripts)
+
+Hooks are configured via `plugins/{plugin}/hooks/hooks.json` and executed as Python scripts. Claude Code auto-discovers `hooks.json` from the hooks directory.
+
+**hooks.json format (record-based, PascalCase keys):**
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/my-hook.py" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          { "type": "command", "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/another-hook.py" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Hook script protocol (stdin/stdout/stderr + exit code):**
+- Reads JSON from **stdin** (tool invocation context)
+- Writes to **stderr** for warnings/errors shown to user
+- Echoes input back to **stdout** (or writes custom JSON for permission decisions)
+- Exit **0** to allow, exit **2** to block
+
+**Hook script template:**
+```python
+#!/usr/bin/env python3
+import json, os, sys
+
+def main():
+    data = sys.stdin.read(1024 * 1024)
+    try:
+        disabled = os.environ.get("DISABLED_HOOKS", "").split(",")
+        if "my-hook" in disabled:
+            sys.stdout.write(data)
+            return
+        inp = json.loads(data)
+        # ... inspection logic ...
+        sys.stdout.write(data)
+    except Exception as err:
+        print(f"[Hook] my-hook error: {err}", file=sys.stderr)
+        sys.stdout.write(data)
+
+if __name__ == "__main__":
+    main()
+```
+
+**Important conventions:**
+- Use `python3` (not `node`) — available at `/usr/bin/python3` without PATH issues
+- Use `${CLAUDE_PLUGIN_ROOT}` for all script paths (hooks run with CWD = user's project)
+- Use only Python stdlib (no pip dependencies) for portability
+- Support `DISABLED_HOOKS` env var for per-hook opt-out
+- Supported event types: `PreToolUse`, `PostToolUse`, `SessionStart`, `SessionEnd`, `Stop`, `Notification`, `SubagentStart`, `SubagentStop`, `PreCompact`, `PostCompact`, `UserPromptSubmit`
+
 ---
 
 ## Useful Commands
@@ -179,9 +268,11 @@ allowed-tools:       # YAML-style tool list
 find plugins -name "*.md" -path "*/agents/*"
 find plugins -name "*.md" -path "*/commands/*"
 find plugins -type d -path "*/skills/*" -depth 2
+find plugins -name "*.py" -path "*/hooks/*"
 
 # Validate JSON
 for f in plugins/*/plugin.json; do jq empty "$f" && echo "✓ $f"; done
+for f in plugins/*/hooks/hooks.json; do jq empty "$f" 2>/dev/null && echo "✓ $f"; done
 
 # Search references
 grep -r "component-name" plugins/ .claude-plugin/ README.md
