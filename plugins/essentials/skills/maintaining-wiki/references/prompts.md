@@ -168,3 +168,91 @@ Used in lint step 5.
 > - **Expensive** — structural changes: reorganizing categories, merging duplicate pages, re-ingesting a source that broke many claims.
 >
 > Within each group, order by severity then by number of pages affected. Output a numbered fix plan the user can approve piecemeal.
+
+## Atomic claim extraction
+
+Used in reduce step 2.
+
+> Page to decompose:
+>
+> {{page_content}}
+>
+> Extract every distinct claim from this page. For each claim, output one row:
+>
+> `claim_text | category | composability_verdict | notes`
+>
+> Categories: `core_claim | pattern | tension | enrichment | anti_pattern`.
+>
+> Composability test — for each claim, assess:
+> 1. **Standalone sense** — does it make sense without reading the parent page? (pass/fail)
+> 2. **Specificity** — could someone meaningfully disagree? (pass/fail)
+> 3. **Clean linking** — would linking to this claim from another page drag in unrelated content? (pass/fail)
+>
+> `composability_verdict` = pass (all three pass) | partial (1-2 fail, note which) | fail (all fail, skip).
+>
+> Target 3–10 claims. If fewer than 3, the page is already atomic — say so. If more than 10, extract all but flag the excess.
+>
+> For `enrichment` category: also name the existing wiki page the claim should enrich rather than becoming its own page.
+>
+> ---
+> EXISTING WIKI INDEX (for duplicate detection):
+> {{index_md}}
+
+## Connection discovery
+
+Used in reflect step 3.
+
+> Target page:
+>
+> {{target_page_content}}
+>
+> Candidate pages (potential connections):
+>
+> {{candidate_pages}}
+>
+> For each candidate, determine whether a meaningful connection exists with the target page. Only report genuine connections — "related to" is never sufficient.
+>
+> For each connection found, output one row:
+>
+> `candidate_slug | connection_type | link_text | direction`
+>
+> Connection types:
+> - **extends** — candidate adds depth to target (or vice versa)
+> - **contradicts** — pages disagree on a claim
+> - **exemplifies** — one is a concrete case of the other's abstract claim
+> - **depends_on** — understanding one requires the other
+> - **complements** — different angles on the same topic
+>
+> `link_text` must articulate *why* the pages relate. Pattern: "extends [[slug]] by adding the X dimension" or "contradicts [[slug]] — this claims X while that claims Y".
+>
+> `direction`: `forward` (target → candidate), `backward` (candidate → target), or `bidirectional`.
+>
+> If no meaningful connection exists with a candidate, omit it entirely. Quality over quantity.
+
+## Backward enrichment scan
+
+Used in reweave step 2–3.
+
+> Recently ingested pages (new knowledge):
+>
+> {{recent_pages}}
+>
+> Older wiki pages (candidates for backward update):
+>
+> {{older_pages}}
+>
+> For each older page, check whether any claim from the recent pages should update it. Only flag genuine updates — the new claim must be directly relevant to the older page's topic.
+>
+> For each update found, output one row:
+>
+> `old_page_slug | new_claim | new_claim_source | relationship | proposed_change`
+>
+> Relationships:
+> - **enrichment** — new claim adds depth. Proposed change: append to Key claims.
+> - **contradiction** — new claim conflicts. Proposed change: add CONTRADICTION callout.
+> - **supersession** — new claim replaces outdated claim. Proposed change: strikethrough old + add new.
+> - **extension** — new claim extends a pattern. Proposed change: append to Key claims or Related.
+>
+> If an older page has no relevant updates from the recent pages, omit it entirely.
+>
+> Do NOT flag tangential connections. "Transformers exist" does not enrich a page about cold-start problems just because transformers are used in recommenders.

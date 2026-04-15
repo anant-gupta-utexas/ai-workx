@@ -91,7 +91,7 @@ title: Wiki Log
 
 Append-only chronological record of every action taken against this wiki.
 Format: `## [YYYY-MM-DD] action | description`
-Actions: `ingest | update | query | lint`
+Actions: `ingest | update | query | lint | reduce | reflect | reweave`
 
 ## [{{YYYY-MM-DD}}] ingest | {{source-slug}} — N pages touched (X new, Y updated)
 
@@ -100,6 +100,12 @@ Actions: `ingest | update | query | lint`
 ## [{{YYYY-MM-DD}}] lint | N findings (H high / M medium / L low)
 
 ## [{{YYYY-MM-DD}}] update | {{source-slug}} — N pages touched
+
+## [{{YYYY-MM-DD}}] reduce | {{parent-slug}} — N claims extracted (X new pages, Y enrichments)
+
+## [{{YYYY-MM-DD}}] reflect | N connections added across M pages
+
+## [{{YYYY-MM-DD}}] reweave | N pages updated with context from M recent ingests
 ```
 
 Append to the **bottom**. Never reorder. Never delete entries.

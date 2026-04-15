@@ -1,6 +1,6 @@
 ---
 name: maintaining-wiki
-description: Use when the user wants to ingest, query, lint, or check status of their personal knowledge base / second-brain wiki under docs/02_learning/. Trigger on phrases like "ingest into my wiki", "add this to my knowledge base", "absorb this paper", "update my wiki", "what does my wiki say about", "query my notes", "search my knowledge base", "wiki lint", "lint my wiki", "check my wiki for contradictions", "knowledge base status", "wiki status report", "file this into docs/02_learning", "add to second brain", or any mention of raw/, wiki/, processed/, outputs/ inside docs/02_learning/. Also trigger when the user pastes an article, paper, or link and asks to "save", "absorb", "remember", or "keep" it alongside existing notes. The skill owns the three-layer raw/wiki/outputs architecture defined in docs/02_learning/README.md and performs ingest, query, lint, and status operations. Do NOT trigger for generic note-taking outside docs/02_learning/ or for the src/ productivity app.
+description: Use when the user wants to ingest, query, lint, check status, reduce, reflect, or reweave their personal knowledge base / second-brain wiki under docs/02_learning/. Trigger on phrases like "ingest into my wiki", "add this to my knowledge base", "absorb this paper", "update my wiki", "what does my wiki say about", "query my notes", "search my knowledge base", "wiki lint", "lint my wiki", "check my wiki for contradictions", "knowledge base status", "wiki status report", "file this into docs/02_learning", "add to second brain", "reduce this page", "extract atomic claims", "break this page down", "distill into atomic notes", "find connections in my wiki", "reflect on my wiki", "wiki connections", "what relates to X", "connect recent ingests", "reweave my wiki", "update old pages", "backward pass", "propagate recent ingests", "refresh stale pages", or any mention of raw/, wiki/, processed/, outputs/ inside docs/02_learning/. Also trigger when the user pastes an article, paper, or link and asks to "save", "absorb", "remember", or "keep" it alongside existing notes. The skill owns the three-layer raw/wiki/outputs architecture defined in docs/02_learning/README.md and performs ingest, query, lint, status, reduce, reflect, and reweave operations. Do NOT trigger for generic note-taking outside docs/02_learning/ or for the src/ productivity app.
 ---
 
 # maintaining-wiki
@@ -23,6 +23,9 @@ Progressive disclosure: this file tells you which operation to run and points to
 | query | `references/query.md` |
 | lint | `references/lint.md` |
 | status | `references/lint.md` (shares walk logic) + `references/templates.md` |
+| reduce | `references/reduce.md` |
+| reflect | `references/reflect.md` |
+| reweave | `references/reweave.md` |
 | Obsidian compat | `references/obsidian.md` |
 | Prompt templates | `references/prompts.md` |
 | File skeletons | `references/templates.md` |
@@ -43,6 +46,9 @@ Pick the operation from user intent signals. If ambiguous, ask one clarifying qu
 | "what does my wiki say", "according to my notes", "find in my notes", factual question in repo context | **query** |
 | "lint", "audit", "check contradictions", "find orphans", "verify citations" | **lint** |
 | "status", "what's in my wiki", "how many pages", "summarize my notes" | **status** |
+| "reduce", "extract atomic claims", "break this page down", "distill", "this page is too broad" | **reduce** |
+| "reflect", "find connections", "what relates to", "connect pages", "wiki connections", "link my pages" | **reflect** |
+| "reweave", "update old pages", "backward pass", "propagate", "refresh stale pages" | **reweave** |
 
 Rules:
 
@@ -110,6 +116,59 @@ Steps:
 
 Shares the walk logic with `lint`. Full checklist: `references/lint.md`.
 
+### reduce
+
+Breaks a broad wiki page into finer-grained atomic notes. Use after ingest when a page accumulates too many claims, or when lint flags an oversized page.
+
+**Precondition**: a wiki page under `docs/02_learning/wiki/` (or an already-ingested raw source) that the user wants decomposed.
+
+Steps:
+1. Read the target page and its linked neighbors.
+2. Extract claims into categories: core claims, patterns, tensions, enrichments, anti-patterns.
+3. Apply composability tests (standalone sense, specificity, clean linking).
+4. Duplicate detection against existing wiki pages.
+5. Propose a split plan as a table. Wait for user confirmation.
+6. Apply: create new atomic pages, update parent page (convert to MOC or trim), update enrichment targets.
+7. Update `wiki/index.md` and append `wiki/log.md`.
+8. Surface `git status` and proposed commit. Do NOT commit.
+
+Full walkthrough: `references/reduce.md`.
+
+### reflect
+
+Discovers cross-connections between existing wiki pages to strengthen the knowledge graph. Supports targeted (single page) and sweep (recent ingests) modes.
+
+**Precondition**: `wiki/index.md` exists with at least 2 pages.
+
+Steps:
+1. Identify target pages (user-specified or recent ingests since last reflect).
+2. Build candidate pool via tag overlap, alias overlap, explicit mentions, category neighbors, keyword match.
+3. Discover connections and classify: extends, contradicts, exemplifies, depends-on, complements.
+4. Propose a connection plan as a table with link text. Wait for user confirmation.
+5. Apply: insert `[[wiki-links]]` with context phrases, add reverse links for bidirectional connections.
+6. Update `wiki/index.md` if cross-category references added, append `wiki/log.md`.
+7. Surface `git status` and proposed commit. Do NOT commit.
+
+Full walkthrough: `references/reflect.md`.
+
+### reweave
+
+Propagates new knowledge backward to older pages. The "backward pass" that makes the wiki compound in value rather than just accumulate.
+
+**Precondition**: `wiki/log.md` has at least 2 ingest entries.
+
+Steps:
+1. Read `wiki/log.md` to identify the reweave window (ingests since last reweave, or last 5).
+2. Extract key claims from recently ingested pages.
+3. Find affected older pages via topic match, contradiction candidates, extension candidates, link traversal.
+4. Classify each update: enrichment, contradiction, supersession, extension.
+5. Propose an update plan as a table. Wait for user confirmation.
+6. Apply: append claims, add CONTRADICTION callouts, annotate superseded claims. Bump `last_updated`.
+7. Append `wiki/log.md`.
+8. Surface `git status` and proposed commit. Do NOT commit.
+
+Full walkthrough: `references/reweave.md`.
+
 ## Obsidian compatibility
 
 Adopt these on every new wiki page so the directory can be dropped into an Obsidian vault later with zero rework:
@@ -144,6 +203,9 @@ Suggested commit message formats:
 - `wiki(ingest): add <topic-slug> from <source-slug> [N pages touched]`
 - `wiki(lint): apply lint fixes YYYY-MM-DD [severity]`
 - `wiki(query): save answer on <topic> to outputs/`
+- `wiki(reduce): extract N atomic claims from <parent-slug> [X new, Y enrichments]`
+- `wiki(reflect): add N connections across M pages`
+- `wiki(reweave): update N older pages with context from M recent ingests`
 
 ## Safety rules
 
