@@ -1,7 +1,7 @@
 {
   "name": "essentials",
-  "version": "2.0.0",
-  "description": "Expert consultation skills, skill development tools, and web research agent for enhanced development workflow",
+  "version": "2.2.0",
+  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), and web research agent for enhanced development workflow",
   "author": {
     "name": "Anant Gupta"
   },
@@ -11,6 +11,11 @@
     "experts",
     "skill-development",
     "research",
-    "consultation"
+    "consultation",
+    "knowledge-pipeline",
+    "wiki",
+    "reduce",
+    "reflect",
+    "reweave"
   ]
 }

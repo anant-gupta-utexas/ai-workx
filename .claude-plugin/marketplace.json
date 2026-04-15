@@ -78,7 +78,7 @@
     {
       "name": "DEV-ESSENTIALS",
       "source": "./plugins/DEV-ESSENTIALS",
-      "description": "Development essentials with specialized agents, git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks",
+      "description": "Development essentials with specialized agents (including documentation-architect with Maps of Content navigation), git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks",
       "version": "1.0.0",
       "author": {
         "name": "Anant Gupta",
@@ -107,8 +107,8 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Skill development tools, wiki maintenance, and web research agent for enhanced development workflow",
-      "version": "2.1.0",
+      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), and web research agent for enhanced development workflow",
+      "version": "2.2.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -184,7 +184,7 @@
     {
       "name": "autoresearch",
       "source": "./plugins/autoresearch",
-      "description": "Autonomous ML research plugin covering Karpathy's experiment loops, SkyPilot parallel GPU scaling, and the AI Scientist's multi-phase research pipeline with tree search, manuscript generation, and automated peer review.",
+      "description": "Autonomous ML research plugin covering Karpathy's experiment loops, SkyPilot parallel GPU scaling, the AI Scientist's multi-phase research pipeline with tree search, manuscript generation, automated peer review, and queue-based orchestration with fresh context per phase.",
       "version": "1.0.0",
       "author": {
         "name": "Anant Gupta",

@@ -11,7 +11,7 @@ Development essentials with specialized agents for planning, documentation, and 
 
 ### Agents (4)
 - **business-strategist** - Business strategy and product guidance for building products from 0 to 1
-- **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering from code and existing docs
+- **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering from code and existing docs, plus Maps of Content (MOC) navigation
 - **plan-reviewer** - Review development plans before implementation
 - **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
 
@@ -215,7 +215,7 @@ export DISABLED_HOOKS="block-no-verify,suggest-compact,doc-file-warning"
 Product roadmap planning, feature prioritization, market analysis, business model design.
 
 #### Documentation Architect
-Comprehensive developer-focused documentation with context gathering, API docs, README files, data flow diagrams.
+Comprehensive developer-focused documentation with context gathering, API docs, README files, data flow diagrams, and Maps of Content (MOC) navigation. Generates Hub, Domain, and Topic MOCs that explain *why* documents relate and suggest reading order for new developers.
 
 #### Plan Reviewer
 Architecture review, implementation plan analysis, risk assessment, best practices validation.

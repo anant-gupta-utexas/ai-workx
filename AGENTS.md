@@ -15,7 +15,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | DEV-FE | TanStack Start/React/TypeScript | 1 skill, 2 agents, 1 command |
 | learning-coach | Learning and system design coaching | 1 skill (3 modes) |
 | financial-coach | Investment analysis and valuation | 2 skills |
-| autoresearch | Autonomous ML research pipeline | 1 skill (10 resource guides), 4 agents, 6 commands, 3 hooks |
+| autoresearch | Autonomous ML research pipeline | 1 skill (11 resource guides), 4 agents, 7 commands, 3 hooks |
 
 ## Installation
 
@@ -62,6 +62,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | /research-pipeline | autoresearch | Full 4-phase AI Scientist pipeline |
 | /tree-search | autoresearch | Parallelized experiment tree search with 4 stages |
 | /review-paper | autoresearch | Ensemble peer review (5 reviews + meta-review) |
+| /orchestrate | autoresearch | Queue-based orchestrator with fresh context per phase |
 
 ## Available Hooks (DEV-ESSENTIALS)
 

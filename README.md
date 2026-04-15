@@ -7,24 +7,24 @@ Production-tested Claude Code plugins for modern development workflows with spec
 ### Core Plugins (Recommended)
 
 #### [DEV-ESSENTIALS](./plugins/DEV-ESSENTIALS/)
-Development essentials with specialized agents for planning, documentation, and refactoring, git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
+Development essentials with specialized agents for planning, documentation (with Maps of Content navigation), and refactoring, git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
 
 **Includes:**
 - 3 Skills (git-workflow, lateral-thinking, consult-experts)
-- 4 Agents (business-strategist, documentation-architect, plan-reviewer, refactor-planner)
+- 4 Agents (business-strategist, documentation-architect with MOC generation, plan-reviewer, refactor-planner)
 - 4 Commands (dev-docs-update, dev-docs-be, code-review, verify)
 - 8 Hooks (security scan, commit quality, file size guard, debug statement warnings, and more)
 
-**Perfect for:** Planning, expert consultation, lateral thinking, refactoring, documentation, git workflow, code review, pre-commit verification, context management
+**Perfect for:** Planning, expert consultation, lateral thinking, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Skill development tools, wiki maintenance, and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), and web research agent for enhanced development workflow.
 
 **Includes:**
-- 2 Skills (skill-developer, maintaining-wiki)
+- 2 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave)
 - 1 Agent (web-research-specialist)
 
-**Perfect for:** Technical research, creating custom skills, managing a personal knowledge base
+**Perfect for:** Technical research, creating custom skills, managing and growing a personal knowledge graph
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
@@ -59,12 +59,12 @@ Personal financial coach with comprehensive company valuation analysis and YouTu
 - Learning personal finance and valuation concepts
 
 #### [autoresearch](./plugins/autoresearch/)
-Autonomous ML research plugin covering the full spectrum from single-agent experiment loops to the AI Scientist's multi-phase research pipeline with parallel GPU scaling.
+Autonomous ML research plugin covering the full spectrum from single-agent experiment loops to the AI Scientist's multi-phase research pipeline with parallel GPU scaling and queue-based orchestration with fresh context per phase.
 
 **Includes:**
-- 1 Skill (ml-research-guidelines with 10 resource guides)
+- 1 Skill (ml-research-guidelines with 11 resource guides)
 - 4 Agents (research-orchestrator, ml-researcher, experiment-reviewer, paper-writer)
-- 6 Commands (experiment, sweep, research-report, research-pipeline, tree-search, review-paper)
+- 7 Commands (experiment, sweep, research-report, research-pipeline, tree-search, review-paper, orchestrate)
 - 3 Hooks (experiment-budget-guard, result-regression-check, sky-auto-auth)
 
 **Perfect for:**
@@ -72,6 +72,7 @@ Autonomous ML research plugin covering the full spectrum from single-agent exper
 - Parallel hyperparameter sweeps across GPU clusters (SkyPilot)
 - Full research pipeline: ideation, experimentation, manuscript, peer review (AI Scientist)
 - Tree-based experiment exploration with 4-stage progress management
+- Long-running pipelines with fresh-context orchestration to prevent attention degradation
 
 ---
 
@@ -188,7 +189,7 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 **Agents:**
 - **business-strategist** - Business strategy and product guidance for new products
-- **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering
+- **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering and Maps of Content (MOC) navigation
 - **plan-reviewer** - Review development plans before implementation
 - **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
 
@@ -206,11 +207,11 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ### essentials Plugin (Skills, Wiki & Research)
 
-**Why install:** Provides skill development tools, wiki maintenance, and web research capabilities.
+**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, and web research capabilities.
 
 **Skills:**
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
-- **maintaining-wiki** - Ingest, query, lint, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/` with Obsidian-compatible output
+- **maintaining-wiki** - 7 operations for managing a personal knowledge base under `docs/02_learning/`: ingest, query, lint, status, reduce (extract atomic claims), reflect (discover connections), reweave (propagate new knowledge backward). Obsidian-compatible output.
 
 > **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin.
 
@@ -318,7 +319,7 @@ pip install youtube-transcript-api
 **Why install:** Enables autonomous ML experimentation with structured workflows covering everything from single-experiment loops to full research pipelines that generate manuscripts and automated peer reviews.
 
 **Skill:**
-- **ml-research-guidelines** - Comprehensive ML research workflow covering experiment protocols, hyperparameter tuning, architecture search, optimizer tuning, parallel GPU execution, literature search, manuscript writing, tree search, and peer review
+- **ml-research-guidelines** - Comprehensive ML research workflow covering experiment protocols, hyperparameter tuning, architecture search, optimizer tuning, parallel GPU execution, literature search, manuscript writing, tree search, peer review, and queue-based orchestration
 
 **Agents:**
 - **research-orchestrator** - Coordinates the 4-phase pipeline (ideation, experiment, manuscript, review) via file-based state
@@ -333,6 +334,7 @@ pip install youtube-transcript-api
 - **/research-pipeline** - Full 4-phase AI Scientist pipeline (ideation, experiment, manuscript, review)
 - **/tree-search** - Parallelized experiment tree search with 4 stages
 - **/review-paper** - Ensemble peer review (5 independent reviews + meta-review)
+- **/orchestrate** - Queue-based orchestrator with fresh context per phase for long-running pipelines
 
 **Hooks (3):** Experiment budget guard, result regression check, SkyPilot auto-authorization
 
@@ -342,6 +344,7 @@ pip install youtube-transcript-api
 /sweep WEIGHT_DECAY=0.04,0.08 --parallel  # Parallel sweep
 /research-pipeline improving attention   # Full pipeline
 /review-paper --format workshop          # Review a paper
+/orchestrate 4                           # Run 4 phases with fresh context each
 ```
 
 **Requirements:** Python 3.10+, NVIDIA GPU, optional SkyPilot for parallel execution
