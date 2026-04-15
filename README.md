@@ -18,13 +18,13 @@ Development essentials with specialized agents for planning, documentation (with
 **Perfect for:** Planning, expert consultation, lateral thinking, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, and web research agent for enhanced development workflow.
 
 **Includes:**
-- 2 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave)
+- 3 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline)
 - 1 Agent (web-research-specialist)
 
-**Perfect for:** Technical research, creating custom skills, managing and growing a personal knowledge graph
+**Perfect for:** Technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
@@ -62,7 +62,7 @@ Personal financial coach with comprehensive company valuation analysis and YouTu
 Autonomous ML research plugin covering the full spectrum from single-agent experiment loops to the AI Scientist's multi-phase research pipeline with parallel GPU scaling and queue-based orchestration with fresh context per phase.
 
 **Includes:**
-- 1 Skill (ml-research-guidelines with 11 resource guides)
+- 1 Skill (ml-research-guidelines with 12 resource guides)
 - 4 Agents (research-orchestrator, ml-researcher, experiment-reviewer, paper-writer)
 - 7 Commands (experiment, sweep, research-report, research-pipeline, tree-search, review-paper, orchestrate)
 - 3 Hooks (experiment-budget-guard, result-regression-check, sky-auto-auth)
@@ -212,6 +212,7 @@ This opens an interactive UI showing all available plugins from this marketplace
 **Skills:**
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - 7 operations for managing a personal knowledge base under `docs/02_learning/`: ingest, query, lint, status, reduce (extract atomic claims), reflect (discover connections), reweave (propagate new knowledge backward). Obsidian-compatible output.
+- **deep-research** - Structured multi-round investigation pipeline: plan (task ledger, slug derivation) -> scale decision (complexity-based parallelism) -> execute (parallel searches) -> synthesize -> verify (citation anchoring, URL validation) -> deliver (source-grounded brief). 4 resource guides.
 
 > **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin.
 
@@ -319,7 +320,7 @@ pip install youtube-transcript-api
 **Why install:** Enables autonomous ML experimentation with structured workflows covering everything from single-experiment loops to full research pipelines that generate manuscripts and automated peer reviews.
 
 **Skill:**
-- **ml-research-guidelines** - Comprehensive ML research workflow covering experiment protocols, hyperparameter tuning, architecture search, optimizer tuning, parallel GPU execution, literature search, manuscript writing, tree search, peer review, and queue-based orchestration
+- **ml-research-guidelines** - Comprehensive ML research workflow covering experiment protocols, hyperparameter tuning, architecture search, optimizer tuning, parallel GPU execution, literature search, manuscript writing, tree search, peer review, queue-based orchestration, and lab notebook session continuity
 
 **Agents:**
 - **research-orchestrator** - Coordinates the 4-phase pipeline (ideation, experiment, manuscript, review) via file-based state

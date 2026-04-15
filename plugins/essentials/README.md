@@ -4,9 +4,10 @@ Skill development tools, wiki maintenance, and web research agent for enhanced d
 
 ## What's Included
 
-### Skills (2)
+### Skills (3)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`
+- **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
 
 > **Note:** The consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer) has moved to the DEV-ESSENTIALS plugin.
 
@@ -28,6 +29,13 @@ Skill development tools, wiki maintenance, and web research agent for enhanced d
 ```bash
 "Help me create a new skill for code review"
 "How do I write a good skill description?"
+```
+
+**Deep Research:**
+```bash
+"Deep research on transformer scaling laws"
+"Investigate thoroughly: Redis vs Memcached for session caching"
+"Create a source-grounded research brief on LLM alignment approaches"
 ```
 
 **Wiki Maintenance:**
@@ -70,6 +78,16 @@ Skill development tools, wiki maintenance, and web research agent for enhanced d
 
 **Activation keywords:** `ingest into my wiki`, `add to knowledge base`, `absorb this paper`, `what does my wiki say`, `query my notes`, `wiki lint`, `check my wiki for contradictions`, `wiki status`, `add to second brain`, `reduce this page`, `extract atomic claims`, `find connections`, `reflect on my wiki`, `reweave`, `update old pages`, `backward pass`
 
+#### Deep Research
+
+**Structured multi-round investigation pipeline for source-grounded research briefs**
+
+**Pipeline:** Plan (task ledger, slug derivation) -> Scale Decision (complexity-based parallelism) -> Execute (parallel web/paper/repo searches) -> Synthesize (merge findings, flag contradictions) -> Verify (citation anchoring, URL validation, strength sweep) -> Deliver (final brief with inline citations)
+
+**Resources:** 4 guides covering planning protocol, scale decision matrix, source verification, and artifact conventions
+
+**Activation keywords:** `deep research`, `investigate thoroughly`, `multi-source investigation`, `research brief`, `source-grounded research`, `comprehensive research on`
+
 ### Agents
 
 #### Web Research Specialist
@@ -82,6 +100,7 @@ Technical solutions research, best practices, GitHub issues, library comparisons
 - Learning skill development patterns
 - Managing a personal knowledge base / second-brain wiki
 - Growing and maintaining a knowledge graph with reduce/reflect/reweave pipeline
+- Deep, multi-source investigations with formal cited deliverables
 
 ## Not Designed For
 
