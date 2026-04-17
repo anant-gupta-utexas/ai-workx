@@ -27,20 +27,15 @@ Skill development tools, wiki maintenance with knowledge pipeline (reduce, refle
 **Perfect for:** Technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph
 
 #### [learning-coach](./plugins/learning-coach/)
-Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
+Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
 
 **Includes:**
-- 1 Skill (technical_coach) with 3 integrated modes:
-  - General Learning for any topic
-  - SWE System Design (20 LLD + 15 HLD problems)
-  - ML System Design (10 MLE interview problems with 9-step framework)
-- 3 Commands:
-  - learning-plan — Personalized learning plan via 3-phase diagnostic assessment
-  - feynman — Feynman Technique (analogy, simplification, teach-back)
-  - socratic — Socratic Tutor (guided discovery through questions only)
+- 2 Skills:
+  - learning_methods — Three science-backed learning modes: personalized learning plans (3-phase diagnostic assessment), Feynman Technique (analogy, simplification, teach-back), and Socratic tutoring (guided discovery, no direct answers)
+  - technical_coach — 3 integrated modes: general learning, SWE system design (20 LLD + 15 HLD problems), ML system design (10 MLE interview problems with 9-step framework)
 
 **Perfect for:**
-- Learning new topics and complex concepts
+- Learning new topics and complex concepts with structured methods
 - SWE system design interviews (LLD & HLD)
 - MLE system design interviews (recommendations, visual search, content moderation)
 - Interview preparation with Socratic coaching
@@ -225,46 +220,31 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ### learning-coach Plugin (Learning & Interview Prep)
 
-**Why install:** Comprehensive learning and system design coach with three integrated modes - general learning, SWE system design (LLD & HLD), and ML system design for MLE interviews.
+**Why install:** Comprehensive learning and system design coach grounded in cognitive science (System 2 engagement, Zone of Proximal Development, retrieval practice) with structured learning methods and system design interview preparation.
 
-**Skill:**
-- **technical_coach** - Unified skill with automatic mode detection based on your request
-
-**Commands:**
-- **learning-plan** - Create a personalized learning plan through 3-phase diagnostic assessment
-- **feynman** - Learn deeply using the Feynman Technique (analogy, simplification, teach-back)
-- **socratic** - Learn through Socratic questioning (guided discovery, no direct answers)
-
-**Three Modes:**
-
-**1. General Learning Mode:**
-- Request any topic and get step-by-step guidance
-- Examples, analogies, and real-world applications
-- Comprehensive summaries to reinforce understanding
-
-**2. SWE System Design Mode:**
-- **LLD (20 problems):** LRU Cache, Parking Lot, Elevator, Chess, ATM, and more
-- **HLD (15 problems):** Netflix, Uber, Instagram, Airbnb, Amazon, and more
-- Socratic approach with checkpoints and hints
-
-**3. ML System Design Mode (9-step framework):**
-- Problem Formulation → Metrics → Architecture → Data → Features → Model → Serving → Testing → Monitoring
-- **10 MLE problems:** Visual Search, Video Recommendations, Harmful Content Detection, Ad Click Prediction, News Feed, People You May Know, and more
+**Skills:**
+- **learning_methods** — Three science-backed learning modes:
+  - **Learning Plan** — 3-phase diagnostic assessment (foundational + applied questions) followed by a personalized 5–7 task roadmap
+  - **Feynman Technique** — Deep understanding through analogy, simplification, refinement cycles, and teach-back
+  - **Socratic Method** — Guided discovery through carefully sequenced questions (no direct answers)
+- **technical_coach** — Unified system design skill with automatic mode detection:
+  - General learning for any topic
+  - SWE System Design (20 LLD + 15 HLD problems)
+  - ML System Design (10 MLE interview problems with 9-step framework)
 
 **How to Use:**
 ```
-"Help me understand distributed systems"          # General Learning
-"Practice LRU Cache LLD problem"                  # SWE LLD
-"Design Netflix architecture"                     # SWE HLD
-"Design a video recommendation system"            # ML System Design
-"Practice harmful content detection for MLE"      # ML System Design
-/learning-plan "CSS Flexbox" intermediate          # Learning Plan
-/feynman "Database Indexing" intermediate           # Feynman Technique
-/socratic "React Hooks"                             # Socratic Tutor
+"Help me learn CSS Flexbox — I'm a beginner"          # Learning Plan
+"Explain database indexing using the Feynman method"   # Feynman Technique
+"Quiz me on distributed consensus"                     # Socratic Method
+"Help me understand distributed systems"               # General Learning
+"Practice LRU Cache LLD problem"                       # SWE LLD
+"Design Netflix architecture"                          # SWE HLD
+"Design a video recommendation system"                 # ML System Design
 ```
 
 **Perfect For:**
-- Learning new concepts, frameworks, and technologies
+- Learning new concepts with structured, science-backed methods
 - SWE system design interviews (35 LLD + HLD problems)
 - MLE system design interviews (10 ML problems with 9-step framework)
 - Interview preparation with interactive Socratic coaching

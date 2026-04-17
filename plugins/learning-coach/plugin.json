@@ -1,7 +1,7 @@
 {
   "name": "learning-coach",
-  "version": "2.0.0",
-  "description": "Personal learning and technical coach covering general learning, SWE system design (LLD & HLD), and ML system design with the 9-step framework for MLE interviews",
+  "version": "2.1.0",
+  "description": "Personal learning and technical coach with 2 skills: learning_methods (Feynman Technique, Socratic tutoring, diagnostic learning plans grounded in cognitive science) and technical_coach (SWE system design LLD & HLD, ML system design with 9-step framework for MLE interviews)",
   "author": {
     "name": "Anant Gupta"
   },
@@ -10,6 +10,12 @@
     "learning",
     "education",
     "coaching",
+    "feynman-technique",
+    "socratic-method",
+    "learning-plan",
+    "system-2",
+    "zpd",
+    "retrieval-practice",
     "system-design",
     "lld",
     "hld",

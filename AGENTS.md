@@ -13,7 +13,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | DEV-BE-PYTHON | Python/FastAPI Clean Architecture | 1 skill (12 resource guides) |
 | DEV-BE-GO | Go/Chi Clean Architecture | 1 skill (13 resource guides) |
 | DEV-FE | TanStack Start/React/TypeScript | 1 skill, 2 agents, 1 command |
-| learning-coach | Learning and system design coaching | 1 skill (3 modes) |
+| learning-coach | Learning and system design coaching | 2 skills (learning_methods + technical_coach) |
 | financial-coach | Investment analysis and valuation | 2 skills |
 | autoresearch | Autonomous ML research pipeline | 1 skill (12 resource guides), 4 agents, 7 commands, 3 hooks |
 

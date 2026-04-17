@@ -129,8 +129,8 @@
     {
       "name": "learning-coach",
       "source": "./plugins/learning-coach",
-      "description": "Personal learning and system design coach with comprehensive coverage of general learning, SWE system design (LLD & HLD with 35 problems), ML system design (9-step framework with 10 MLE interview problems), personalized learning plans, Feynman Technique sessions, and Socratic tutoring.",
-      "version": "2.0.0",
+      "description": "Personal learning and system design coach with 2 skills: learning_methods (Feynman Technique, Socratic tutoring, diagnostic learning plans grounded in cognitive science — System 2 engagement, ZPD, retrieval practice) and technical_coach (SWE system design with 35 LLD & HLD problems, ML system design with 9-step framework and 10 MLE interview problems).",
+      "version": "2.1.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -140,6 +140,13 @@
         "learning",
         "education",
         "coaching",
+        "feynman-technique",
+        "socratic-method",
+        "learning-plan",
+        "system-2",
+        "zpd",
+        "retrieval-practice",
+        "cognitive-science",
         "system-design",
         "lld",
         "hld",
@@ -147,14 +154,8 @@
         "mle-interview",
         "machine-learning",
         "recommendation-systems",
-        "visual-search",
-        "content-moderation",
         "interview-prep",
-        "architecture",
-        "learning-plan",
-        "assessment",
-        "feynman-technique",
-        "socratic-method"
+        "architecture"
       ]
     },
     {

@@ -23,6 +23,8 @@ Activate when the user:
 - Asks to understand concepts, technologies, or ideas
 - Says "teach me", "explain", "help me understand"
 
+> **Note:** For structured learning sessions (diagnostic assessments, Feynman Technique, Socratic tutoring), defer to the `learning_methods` skill which provides dedicated workflows.
+
 ### SWE System Design Mode
 Activate when the user:
 - Mentions "LLD", "low level design", "class design", "OOP design"
