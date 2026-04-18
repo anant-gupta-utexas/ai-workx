@@ -1,4 +1,4 @@
-# Claude Workspace Plugins -- Agent Instructions
+# AI WorkX -- Agent Instructions
 
 Plugin marketplace for modern development workflows. Provides specialized agents, skills, commands, and hooks for backend (Python/FastAPI, Go/Chi), frontend (TanStack Start/React), and general development.
 
@@ -21,14 +21,14 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 
 ```bash
 # Add marketplace
-/plugin marketplace add anant-gupta-utexas/claude-workspace-plugins
+/plugin marketplace add anant-gupta-utexas/ai-workx
 
 # Install plugins
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins  # Dev essentials
-/plugin install essentials@claude-workspace-plugins       # Expert consultation
-/plugin install DEV-BE-PYTHON@claude-workspace-plugins    # Python backend
-/plugin install DEV-BE-GO@claude-workspace-plugins        # Go backend
-/plugin install DEV-FE@claude-workspace-plugins           # Frontend
+/plugin install DEV-ESSENTIALS@ai-workx  # Dev essentials
+/plugin install essentials@ai-workx       # Expert consultation
+/plugin install DEV-BE-PYTHON@ai-workx    # Python backend
+/plugin install DEV-BE-GO@ai-workx        # Go backend
+/plugin install DEV-FE@ai-workx           # Frontend
 ```
 
 ## Available Agents

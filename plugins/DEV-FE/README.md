@@ -32,7 +32,7 @@ TanStack Start/React/TypeScript frontend development guidelines with modern patt
 
 ```bash
 # From your project directory
-/plugin install DEV-FE@claude-workspace-plugins
+/plugin install DEV-FE@ai-workx
 ```
 
 ## How the Skill Activates

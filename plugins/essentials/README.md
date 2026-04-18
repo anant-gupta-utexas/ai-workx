@@ -18,7 +18,7 @@ Skill development tools, wiki maintenance, and web research agent for enhanced d
 
 ```bash
 # From your project directory
-/plugin install essentials@claude-workspace-plugins
+/plugin install essentials@ai-workx
 ```
 
 ## Usage Examples

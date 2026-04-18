@@ -11,8 +11,8 @@ Combines patterns from:
 ## Installation
 
 ```bash
-/plugin marketplace add anant-gupta-utexas/claude-workspace-plugins
-/plugin install autoresearch@claude-workspace-plugins
+/plugin marketplace add anant-gupta-utexas/ai-workx
+/plugin install autoresearch@ai-workx
 ```
 
 ## What's Included
@@ -200,7 +200,7 @@ When neither Agent Teams nor SkyPilot is available, all commands fall back to se
 
 ```bash
 # 1. Install the plugin
-/plugin install autoresearch@claude-workspace-plugins
+/plugin install autoresearch@ai-workx
 
 # 2. Set up in a project with train.py
 /experiment baseline

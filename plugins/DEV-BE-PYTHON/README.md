@@ -23,7 +23,7 @@ Python/FastAPI Clean Architecture backend development guidelines with comprehens
 
 ```bash
 # From your project directory
-/plugin install DEV-BE-PYTHON@claude-workspace-plugins
+/plugin install DEV-BE-PYTHON@ai-workx
 ```
 
 ## How the Skill Activates

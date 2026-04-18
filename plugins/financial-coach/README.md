@@ -117,7 +117,7 @@ Add commands to the `commands/` directory to create financial coaching workflows
 This plugin is ready to use once installed in your Claude workspace.
 
 ```bash
-/plugin install financial-coach@claude-workspace-plugins
+/plugin install financial-coach@ai-workx
 ```
 
 ## License

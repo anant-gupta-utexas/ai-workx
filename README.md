@@ -1,4 +1,4 @@
-# Claude Workspace Plugins Marketplace
+# AI WorkX Marketplace
 
 Production-tested Claude Code plugins for modern development workflows with specialized tools for backend, frontend, and essential utilities including documentation, planning, and research.
 
@@ -127,7 +127,7 @@ TanStack Start/React/TypeScript frontend development guidelines with modern SSR-
 ### 1. Add This Marketplace
 
 ```bash
-/plugin marketplace add anant-gupta-utexas/claude-workspace-plugins
+/plugin marketplace add anant-gupta-utexas/ai-workx
 ```
 
 ### 2. Browse Available Plugins
@@ -144,22 +144,22 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ```bash
 # Core plugins (install DEV-ESSENTIALS first)
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install learning-coach@claude-workspace-plugins
-/plugin install financial-coach@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install learning-coach@ai-workx
+/plugin install financial-coach@ai-workx
 
 # Backend plugin (if you have a Python/FastAPI backend)
-/plugin install DEV-BE-PYTHON@claude-workspace-plugins
+/plugin install DEV-BE-PYTHON@ai-workx
 
 # Backend plugin (if you have a Go backend)
-/plugin install DEV-BE-GO@claude-workspace-plugins
+/plugin install DEV-BE-GO@ai-workx
 
 # Frontend plugin (if you have a TanStack Start/React/TypeScript frontend)
-/plugin install DEV-FE@claude-workspace-plugins
+/plugin install DEV-FE@ai-workx
 
 # ML research plugin (if you're doing autonomous ML experimentation)
-/plugin install autoresearch@claude-workspace-plugins
+/plugin install autoresearch@ai-workx
 ```
 
 ### 4. Test Installation
@@ -529,13 +529,13 @@ Use commands for workflows:
 ### For Fullstack Projects (Backend + Frontend)
 
 ```bash
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install learning-coach@claude-workspace-plugins
-/plugin install DEV-BE-PYTHON@claude-workspace-plugins    # Python/FastAPI
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install learning-coach@ai-workx
+/plugin install DEV-BE-PYTHON@ai-workx    # Python/FastAPI
 # OR
-/plugin install DEV-BE-GO@claude-workspace-plugins        # Go/Chi
-/plugin install DEV-FE@claude-workspace-plugins
+/plugin install DEV-BE-GO@ai-workx        # Go/Chi
+/plugin install DEV-FE@ai-workx
 ```
 
 **You get:** Complete development workflow with backend/frontend patterns, TRS documentation commands, code review, verification hooks, planning agents, documentation tools, learning coach, and git workflow patterns.
@@ -543,10 +543,10 @@ Use commands for workflows:
 ### For Backend-Only Projects (Python)
 
 ```bash
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install learning-coach@claude-workspace-plugins
-/plugin install DEV-BE-PYTHON@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install learning-coach@ai-workx
+/plugin install DEV-BE-PYTHON@ai-workx
 ```
 
 **You get:** Python/FastAPI Clean Architecture patterns, planning agents, documentation tools, learning coach, and essential utilities.
@@ -554,10 +554,10 @@ Use commands for workflows:
 ### For Backend-Only Projects (Go)
 
 ```bash
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install learning-coach@claude-workspace-plugins
-/plugin install DEV-BE-GO@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install learning-coach@ai-workx
+/plugin install DEV-BE-GO@ai-workx
 ```
 
 **You get:** Go/Chi Clean Architecture patterns with sqlc + pgx, gRPC support, planning agents, code review, verification hooks, documentation tools, learning coach, and essential utilities.
@@ -565,10 +565,10 @@ Use commands for workflows:
 ### For Frontend-Only Projects
 
 ```bash
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install learning-coach@claude-workspace-plugins
-/plugin install DEV-FE@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install learning-coach@ai-workx
+/plugin install DEV-FE@ai-workx
 ```
 
 **You get:** TanStack Start/React patterns, frontend TRS command, UI/UX specialist, error fixing, planning agents, learning coach, and documentation tools.
@@ -576,9 +576,9 @@ Use commands for workflows:
 ### For Product Planning & Documentation
 
 ```bash
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install learning-coach@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install learning-coach@ai-workx
 ```
 
 **You get:** Business strategy, expert consultation, lateral thinking, planning, documentation architect, context management, learning coach, and essential utilities without tech-specific development patterns.
@@ -586,9 +586,9 @@ Use commands for workflows:
 ### For ML Research & Experimentation
 
 ```bash
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
-/plugin install essentials@claude-workspace-plugins
-/plugin install autoresearch@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install autoresearch@ai-workx
 ```
 
 **You get:** Autonomous ML experimentation with single-agent loops, parallel GPU sweeps via SkyPilot, 4-stage tree search, manuscript generation, and automated peer review. Includes experiment budget guards and SkyPilot auto-authorization hooks.
@@ -596,7 +596,7 @@ Use commands for workflows:
 ### For Learning & Knowledge Acquisition
 
 ```bash
-/plugin install learning-coach@claude-workspace-plugins
+/plugin install learning-coach@ai-workx
 ```
 
 **You get:** Personal learning coach for mastering complex topics with structured guidance, examples, and real-world applications.

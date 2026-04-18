@@ -35,7 +35,7 @@ Development essentials with specialized agents for planning, documentation, and 
 
 ```bash
 # From your project directory
-/plugin install DEV-ESSENTIALS@claude-workspace-plugins
+/plugin install DEV-ESSENTIALS@ai-workx
 ```
 
 ## Usage Examples

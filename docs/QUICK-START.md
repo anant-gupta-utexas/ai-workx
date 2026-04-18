@@ -40,7 +40,7 @@ Edit `.claude-plugin/marketplace.json` and add to the `plugins` array:
 
 ```json
 {
-  "name": "claude-workspace-plugins",
+  "name": "ai-workx",
   "description": "Personal collection of Claude Code plugins, skills, and agents",
   "version": "1.0.0",
   "author": "Your Name",
@@ -61,7 +61,7 @@ Edit `.claude-plugin/marketplace.json` and add to the `plugins` array:
 
 ```bash
 # In Claude Code, add your local marketplace
-/plugin marketplace add file:///Users/anant/PersonalProjects/claude-workspace-plugins
+/plugin marketplace add file:///Users/anant/PersonalProjects/ai-workx
 
 # Install your plugin
 /plugin install my-first-plugin
@@ -79,7 +79,7 @@ git add .
 git commit -m "Add my first plugin"
 
 # Create a repository on GitHub, then:
-git remote add origin git@github.com:yourusername/claude-workspace-plugins.git
+git remote add origin git@github.com:yourusername/ai-workx.git
 git branch -M main
 git push -u origin main
 ```
@@ -89,7 +89,7 @@ git push -u origin main
 Now anyone can use your plugins:
 
 ```bash
-/plugin marketplace add yourusername/claude-workspace-plugins
+/plugin marketplace add yourusername/ai-workx
 /plugin install my-first-plugin
 ```
 

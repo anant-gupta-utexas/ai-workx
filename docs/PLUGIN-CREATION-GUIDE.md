@@ -95,7 +95,7 @@ Add plugin to `.claude-plugin/marketplace.json`:
 
 ```json
 {
-  "name": "claude-workspace-plugins",
+  "name": "ai-workx",
   "description": "Personal plugin collection",
   "version": "1.0.0",
   "author": "Your Name",
@@ -494,7 +494,7 @@ sys.stdout.write(auth_response)
 
 1. **Add local marketplace**:
    ```bash
-   /plugin marketplace add file:///absolute/path/to/claude-workspace-plugins
+   /plugin marketplace add file:///absolute/path/to/ai-workx
    ```
 
 2. **Install plugin**:

@@ -1,5 +1,5 @@
 {
-  "name": "claude-workspace-plugins",
+  "name": "ai-workx",
   "owner": {
     "name": "Anant Gupta",
     "contact": "anant.gupta@utexas.edu"
@@ -212,7 +212,7 @@
       ]
     }
   ],
-  "repository": "https://github.com/anant-gupt-utexas/claude-workspace-plugins",
-  "homepage": "https://github.com/anant-gupt-utexas/claude-workspace-plugins#readme",
+  "repository": "https://github.com/anant-gupt-utexas/ai-workx",
+  "homepage": "https://github.com/anant-gupt-utexas/ai-workx#readme",
   "license": "MIT"
 }

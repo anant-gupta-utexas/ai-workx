@@ -219,7 +219,7 @@ Always test locally before pushing:
 
 ```bash
 # Add local marketplace
-/plugin marketplace add file:///absolute/path/to/claude-workspace-plugins
+/plugin marketplace add file:///absolute/path/to/ai-workx
 
 # Install and test
 /plugin install your-plugin-name
@@ -239,7 +239,7 @@ Always test locally before pushing:
 ## File Structure Reference
 
 ```
-claude-workspace-plugins/
+ai-workx/
 ├── .claude-plugin/
 │   └── marketplace.json          # Central registry
 ├── plugins/

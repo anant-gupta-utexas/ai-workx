@@ -25,7 +25,7 @@ Go/Chi Clean Architecture backend development guidelines with comprehensive patt
 
 ```bash
 # From your project directory
-/plugin install DEV-BE-GO@claude-workspace-plugins
+/plugin install DEV-BE-GO@ai-workx
 ```
 
 ## How the Skill Activates
