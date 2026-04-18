@@ -1,8 +1,10 @@
 {
   "name": "plugin-name",
-  "description": "Brief description of what this plugin does",
   "version": "1.0.0",
-  "author": "Your Name",
-  "tags": ["category", "topic"],
-  "dependencies": []
+  "description": "Brief description of what this plugin does",
+  "author": {
+    "name": "Your Name"
+  },
+  "license": "MIT",
+  "keywords": ["category", "topic"]
 }

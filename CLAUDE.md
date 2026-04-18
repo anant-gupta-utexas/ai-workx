@@ -83,8 +83,9 @@ Claude Code auto-discovers skills, agents, commands, and hooks from the director
 | `author` | object | No | Author info (name, email, url all optional) |
 | `license` | string | No | License identifier (e.g., "MIT") |
 | `keywords` | array | No | Search/discovery keywords |
+| `dependencies` | array | No | Other plugins required; strings or `{"name", "version"}` objects |
 
-**Important:** Do NOT include `category`, `components`, `post_install`, `tags`, or `dependencies` - Claude Code auto-discovers these.
+**Important:** Do NOT include `category`, `components`, `post_install`, or `tags` in `plugin.json` — these are either unsupported or marketplace.json-only fields. `dependencies` IS supported (array of plugin names or `{name, version}` objects).
 
 ---
 
@@ -93,8 +94,9 @@ Claude Code auto-discovers skills, agents, commands, and hooks from the director
 
 **Plugin installation fails with manifest validation errors:**
 - Ensure `author` is an object: `"author": { "name": "Your Name" }`
-- Remove unsupported fields: `category`, `components`, `post_install`, `tags`, `dependencies`
-- Valid fields: `name`, `version`, `description`, `author`, `license`, `keywords`
+- Remove unsupported fields: `category`, `components`, `post_install`, `tags`
+- Valid fields: `name`, `version`, `description`, `author`, `license`, `keywords`, `dependencies`
+- Note: `category` and `tags` are valid in `marketplace.json` entries only, not in `plugin.json`
 
 **Skill not activating:**
 - Ensure `SKILL.md` exists in the skill directory with frontmatter: `name` and `description`
