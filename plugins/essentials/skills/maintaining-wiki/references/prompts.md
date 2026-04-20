@@ -8,6 +8,12 @@ Each prompt is self-contained. Paste or adapt into your own reasoning; don't sho
 
 Used in ingest step 2 (between Read and Extract).
 
+**When to run:**
+
+- **Skip** this prompt when `ingested_via` is `summary` or `atomic` — the raw file is already the digest. Passing it through this prompt wastes tokens and loses fidelity.
+- **Run inline** for single-source `paste` ingests.
+- **Dispatch inside a Task sub-agent per source** for batch ingests (>1 `paste` source in one turn). Await all sub-agent digests before proceeding to Extract. Fallback to sequential inline with a warning if the Task tool is unavailable.
+
 > Summarize the source below into a structured, high-fidelity digest.
 >
 > Rules:
@@ -33,6 +39,8 @@ Used in ingest step 2 (between Read and Extract).
 ## Entity extraction
 
 Used in ingest step 3.
+
+**Sizing:** for `atomic` sources, aim for 1–3 candidates, not 15–25. A tweet or short post is typically one idea; don't force-extract a taxonomy it doesn't contain.
 
 > From the source below, list every proper noun, technique name, metric, dataset, organization, and system component that deserves its own wiki page or a mention.
 >

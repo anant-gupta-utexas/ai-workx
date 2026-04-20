@@ -63,20 +63,20 @@ Detail lives in the reference files. These summaries exist so you can route with
 
 ### ingest
 
-**Precondition**: a file in `docs/02_learning/raw/` or user-pasted content that needs to be saved to `raw/` first (with `title`, `url`, `date`, `ingested_via: paste` in YAML).
+**Precondition**: a file in `docs/02_learning/raw/` or user-pasted content that needs to be saved to `raw/` first (with `title`, `url`, `date`, and `ingested_via: paste | summary | atomic` in YAML — see `references/ingest.md` for the decision rule on which value to pick).
 
 Steps:
 1. Read the source and `docs/02_learning/README.md`.
-2. Summarize: produce a structured, high-fidelity digest of the raw source (see `references/prompts.md`).
-3. Extract entities, concepts, metrics, systems from the summary.
-4. Propose a 10–15 page touch plan as a table (path, new/update, rationale). Wait for user confirmation.
+2. Summarize *unless* `ingested_via` is `summary` or `atomic` (those skip this step — the raw file is already the digest). For `paste`: inline for single-source ingests; for batch ingests (>1 `paste` source in one turn), fan out one Task sub-agent per source and await all digests. See `references/prompts.md` and `references/ingest.md`.
+3. Extract entities, concepts, metrics, systems from the digest (1–3 for `atomic` sources, 15–25 for papers).
+4. Propose a touch plan sized to the source (~10 for papers, ~3–8 for summaries, 1–3 for atomic). Wait for user confirmation.
 5. Apply: create/update pages using `references/templates.md`, every claim cited `[Source: filename.md]`.
 6. Add backlinks from existing pages to new ones.
 7. Update `wiki/index.md` (categorized) and append `wiki/log.md`.
 8. Contradiction sweep; flag with `> [!warning] CONTRADICTION` callouts.
 9. Surface `git status --short docs/02_learning/` and a proposed commit message. Do NOT commit.
 
-Full walkthrough with worked example: `references/ingest.md`.
+Full walkthrough with worked examples: `references/ingest.md`.
 
 ### query
 

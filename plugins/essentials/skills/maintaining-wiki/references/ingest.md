@@ -20,9 +20,27 @@ If the user pastes an article, paper text, or a link without saving it to `raw/`
 
 1. Derive a slug from the title (lowercase-hyphens).
 2. Fetch the content if a link was given (with WebFetch).
-3. Write `docs/02_learning/raw/<slug>.md` using the pasted-raw template from `references/templates.md`. Frontmatter must include `title`, `url` (if any), `date` (today), and `ingested_via: paste`.
+3. Write `docs/02_learning/raw/<slug>.md` using the appropriate raw template variant from `references/templates.md`. Frontmatter must include `title`, `url` (if any), `date` (today), and `ingested_via` set per the rule below.
 4. Confirm the save with the user before continuing.
 5. Proceed with the normal ingest flow using the new raw file.
+
+### Picking `ingested_via`
+
+`ingested_via` has three values and each changes how the ingest loop runs:
+
+| Value | Meaning | Step 2 behavior |
+|---|---|---|
+| `paste` | Original content — a full article, paper, or transcript copied verbatim. Needs summarization. | Summarize (inline or sub-agent, see step 2) |
+| `summary` | File IS a summary of something that lives at `url:` (LLM summary of a URL, user's own YouTube-transcript digest, etc.). Do not re-summarize. | Skip — file is already the digest |
+| `atomic` | Short-form content that is already a single idea (tweet, LinkedIn post, short forum reply). No summarization possible or useful. | Skip — file is already atomic |
+
+Decision rule when the skill is authoring the raw file on the user's behalf:
+
+1. **Explicit prompt signal wins.** Phrases like "this is a summary of", "already digested", "file this tweet", "save this LinkedIn post", "atomic", or "bite-sized" set `ingested_via` directly without asking.
+2. **Heuristic second.** If no explicit signal, look at the content:
+   - Under ~500 words and shaped like a single post/tweet/reply → propose `atomic` and ask one confirm question ("File as `atomic`, `summary`, or `paste`?").
+   - Otherwise default to `paste` (today's behavior).
+3. **User-authored frontmatter always wins.** If the raw file already exists on disk with `ingested_via` set, the skill never asks and never overrides.
 
 ## The loop
 
@@ -32,13 +50,21 @@ Read the full source file and `docs/02_learning/README.md`. Re-read the README e
 
 ### 2. Summarize
 
-Run the "Source summarization" prompt from `references/prompts.md` against the full raw content. This produces a structured digest that preserves all original ideas, quotes, names, and subtle details while reducing verbosity.
+Branch on `ingested_via`:
 
-The summary is a working artifact — it is NOT saved to disk or shown to the user unless they ask. It feeds directly into the next step (Extract) and serves as the reference text when writing wiki page content in step 5 (Apply). When writing claims in wiki pages, always verify against the original raw file, but use the summary to ensure nothing is overlooked.
+- **`summary` or `atomic`** — skip this step entirely. The raw file is already the digest; pass it straight to step 3 (Extract). Do not run the summarization prompt; summarizing a summary or a tweet loses fidelity and wastes tokens.
+- **`paste` (or unset)** — run the "Source summarization" prompt from `references/prompts.md` against the full raw content. This produces a structured digest that preserves all original ideas, quotes, names, and subtle details while reducing verbosity. Two sub-modes:
+  - **Single-source ingest** — run the prompt inline in the main thread. Spawn overhead isn't worth it for one doc.
+  - **Batch ingest (N > 1 `paste` sources in one turn)** — fan out N parallel sub-agents via the Task tool. Each sub-agent receives the path to one raw file plus the "Source summarization" prompt; its final message is the digest for that source. Main thread awaits all N digests, then proceeds to step 3 with all digests collected. This isolates raw-source bloat from the main context when ingesting many papers at once.
+  - **Fallback** — if the Task tool is unavailable in the runtime, degrade to sequential inline summarization and print a one-line warning ("Task tool unavailable; summarizing inline — main context may grow.") to the user.
+
+The summary is a working artifact — it is NOT saved to disk or shown to the user unless they ask. It feeds directly into the next step (Extract) and serves as the reference text when writing wiki page content in step 5 (Apply). When writing claims in wiki pages, always verify against the original raw file (or, for `summary` mode, against the source URL if the user can reach it), but use the digest to ensure nothing is overlooked.
 
 ### 3. Extract
 
-Using the summary from step 2, produce an entity/concept extraction pass. Use the "Entity extraction" prompt in `references/prompts.md`, feeding it `{{raw_content}}` alongside the summary for context. Output a list of slugs with canonical name, category (person / system / concept / metric / dataset / technique / organization), and a one-line definition.
+Using the digest from step 2 (or the raw file itself for `summary`/`atomic` modes), produce an entity/concept extraction pass. Use the "Entity extraction" prompt in `references/prompts.md`, feeding it `{{raw_content}}` alongside the digest for context. Output a list of slugs with canonical name, category (person / system / concept / metric / dataset / technique / organization), and a one-line definition.
+
+For `atomic` sources, aim for 1–3 candidates, not 15–25. A tweet or a short LinkedIn post is typically one idea; do not force-extract a taxonomy it doesn't contain.
 
 ### 4. Propose a touch plan
 
@@ -47,7 +73,13 @@ Read `wiki/index.md` and decide, for each extracted entity, whether it deserves:
 - an **update** to an existing page (coverage exists but this source adds a claim, a counter-example, or a date),
 - a **mention** only (already well-covered; add backlinks but no page).
 
-Target **10–15 page touches** per source. This is Karpathy's ambition-level — it forces you to extract real connective tissue from the source, not just a single summary page.
+**Size the touch plan to the source — judgment rules, not a fixed number.** Rough guidance:
+
+- Full paper or long article (`paste`, ~5k+ words) — aim for ~10 touches. This is Karpathy's ambition level; it forces you to extract real connective tissue rather than writing a single summary page.
+- Pre-summarized source (`summary`) — aim for ~3–8 touches. The compression is already done; touches track the ideas the summary emphasizes.
+- Atomic source (`atomic`) — aim for 1–3 touches. A tweet is often one claim landing on one page. Do not inflate.
+
+The goal is reinforcing the graph, not hitting a count.
 
 Present the plan to the user as a table before writing anything:
 
@@ -115,7 +147,7 @@ Run `git status --short docs/02_learning/` and show:
 
 Do not run these commands. The user runs them when ready.
 
-## Worked example: Netflix generative recsys paper
+## Worked example 1: Netflix generative recsys paper (`ingested_via: paste`)
 
 Source: `docs/02_learning/raw/towards_generalizable_recommendation_systems.md`
 
@@ -151,6 +183,62 @@ After summarizing, **candidate entity extraction** yielded (sample, not exhausti
 ```
 wiki(ingest): add scaling-laws-recsys from netflix-recsys-paper [12 pages touched]
 ```
+
+## Worked example 2: a Karpathy tweet on dataset quality (`ingested_via: atomic`)
+
+Source: `docs/02_learning/raw/karpathy-dataset-quality-tweet.md`
+
+Frontmatter:
+```yaml
+---
+title: "Karpathy on dataset quality beating architecture choices"
+url: "https://twitter.com/karpathy/status/..."
+date: 2026-04-20
+ingested_via: atomic
+---
+```
+
+Step 2 is **skipped** — the tweet is ~120 words, already atomic. No summarization runs.
+
+Step 3 extraction yields a single candidate:
+
+| Slug | Canonical name | Category |
+|---|---|---|
+| `dataset-quality` | Dataset quality | concept |
+
+**Proposed touch plan**: 1 touch — update the existing `wiki/dataset-quality.md` page (if present) or create it. No new hub pages, no forced backlinks.
+
+**Log entry**:
+```
+## [2026-04-20] ingest | karpathy-dataset-quality-tweet — 1 page touched (0 new, 1 updated)
+```
+
+**Commit**:
+```
+wiki(ingest): reinforce dataset-quality from karpathy-tweet [1 page touched]
+```
+
+The value of atomic ingests isn't breadth per source — it's accumulation. Ten tweets reinforcing `dataset-quality` over six months is stronger evidence than one paper citing it once.
+
+## Worked example 3: LLM-summarized URL (`ingested_via: summary`)
+
+Source: `docs/02_learning/raw/chinchilla-optimal-ratios-summary.md`
+
+Frontmatter:
+```yaml
+---
+title: "Chinchilla-optimal training ratios — summary"
+url: "https://arxiv.org/abs/2203.15556"
+date: 2026-04-20
+ingested_via: summary
+---
+```
+
+Body is a ~900-word LLM-generated digest of the Chinchilla paper. The user ran their own summarization outside the wiki and dropped the digest into `raw/`.
+
+Step 2 is **skipped** — the file already satisfies the digest contract. The ingest loop reads it, extracts entities from it, and builds the touch plan against it. Main thread never sees the full 30-page paper; that's the point of using `summary` mode.
+
+Touch plan sized to the source: ~5 touches. Citations on resulting wiki pages still read `[Source: chinchilla-optimal-ratios-summary.md]` — readers who want the primary source follow the `url:` in the frontmatter.
 
 ## Re-ingest
 

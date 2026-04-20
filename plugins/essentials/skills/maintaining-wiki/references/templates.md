@@ -236,6 +236,10 @@ This is shown in chat, not written to disk by default. If the user asks to save 
 
 ## 7. Raw file stub (for pasted content)
 
+Three variants, one per `ingested_via` value. Pick per the decision rule in `references/ingest.md` ("Picking `ingested_via`"). Never modify a raw file after it's written — if the source is updated, create a new raw file with a version suffix (`{{slug}}-v2.md`) rather than overwriting.
+
+### 7a. `ingested_via: paste` — original content, needs summarization
+
 Path: `docs/02_learning/raw/{{slug}}.md`
 
 ```markdown
@@ -249,4 +253,38 @@ ingested_via: paste
 {{pasted content verbatim}}
 ```
 
-Never modify this file after it's written. If the source is updated, create a new raw file with a version suffix (`{{slug}}-v2.md`) rather than overwriting.
+### 7b. `ingested_via: summary` — file IS a summary of content at `url:`
+
+Use when the user already summarized a longer source (LLM summary of a URL, their own YouTube-transcript digest, etc.) and doesn't want the raw original stored. The `url:` field is the provenance pointer — a reader who wants the primary source follows the link. `url:` is required for this variant.
+
+Path: `docs/02_learning/raw/{{slug}}.md`
+
+```markdown
+---
+title: "{{Full title — add ' — summary' suffix if helpful}}"
+url: "{{source url — REQUIRED for summary variant}}"
+date: {{YYYY-MM-DD}}
+ingested_via: summary
+---
+
+<!-- This file is a summary. Original content lives at the url above. -->
+
+{{summary content}}
+```
+
+### 7c. `ingested_via: atomic` — short-form, already one idea
+
+Use for tweets, LinkedIn posts, short forum replies, Slack snippets — anything under ~500 words that represents a single thought. No summarization; ingest reads the body verbatim as the digest. `url:` is optional but recommended when the source is public.
+
+Path: `docs/02_learning/raw/{{slug}}.md`
+
+```markdown
+---
+title: "{{Author on topic — one-line framing}}"
+url: "{{source url if public, else omit}}"
+date: {{YYYY-MM-DD}}
+ingested_via: atomic
+---
+
+{{full atomic content verbatim}}
+```
