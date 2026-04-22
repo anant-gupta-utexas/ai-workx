@@ -1,0 +1,22 @@
+{
+  "name": "chief-of-staff",
+  "version": "1.0.0",
+  "description": "Repo-native chief-of-staff orchestrator for a markdown-first second-brain. On-demand daily / weekly / review cadences that read inbox, tasks, journal, and project folders, maintain a state file, regenerate a dashboard, and delegate wiki work to maintaining-wiki. No external connectors, no background automation.",
+  "author": {
+    "name": "Anant Gupta",
+    "contact": "anant.gupta@utexas.edu"
+  },
+  "license": "MIT",
+  "keywords": [
+    "chief-of-staff",
+    "second-brain",
+    "personal-ops",
+    "review",
+    "daily-review",
+    "weekly-review",
+    "dashboard",
+    "cadence",
+    "repo-native",
+    "markdown-first"
+  ]
+}
