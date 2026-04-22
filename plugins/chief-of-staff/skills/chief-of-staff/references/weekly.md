@@ -117,12 +117,59 @@ Called via `cos weekly`. The main operational cadence.
      accepted, include it).
 
 9. **Self-advocacy — append to `cos-suggestions.md` if warranted.**
-   - Read `operating-contract.md`. Check if anything you noticed during this
-     run meets the bar (repeated manual work, gap that keeps re-appearing,
-     cadence that's always late, capability that would obviously save time).
-   - If yes, append one entry (newest at top, use the example shape already in
-     `cos-suggestions.md`). Set `Status: proposed`.
-   - If no, do not append. Silence is fine.
+   - Read `operating-contract.md`. Check the six gates (pattern, concrete,
+     cost ≤ value, not duplicate, scoped, target-known). Check the
+     target-repo rubric in the same file to pick `Target:` correctly.
+   - If any observation meets all six gates, append one entry per
+     observation (newest at top, using the shape in `cos-suggestions.md`).
+     Set `Status: proposed` and `GitHub issue: —`.
+   - For each new entry whose `Target:` starts with `ai-workx:`, also emit a
+     **Cross-repo proposal** block in the weekly output so the user can file
+     the issue without leaving the terminal. Shape:
+
+     ````markdown
+     ### Cross-repo proposal: <short title>
+
+     This suggestion targets `ai-workx:<plugin>`. To file it as a GitHub
+     issue, run:
+
+     ```bash
+     gh issue create \
+       --repo anant-gupta-utexas/ai-workx \
+       --title "cos-suggestion: <short title>" \
+       --label cos-suggestion,<plugin-name> \
+       --body "$(cat <<'EOF'
+     Source: docs/00_ops/meta/cos-suggestions.md (second-brain)
+     Date: YYYY-MM-DD
+
+     ### Signal
+     <signal body>
+
+     ### Proposed fix
+     <proposed fix body>
+
+     ### Cost
+     <cost>
+     EOF
+     )"
+     ```
+
+     After the issue is created, paste the issue URL into the
+     `GitHub issue:` field on the matching entry in
+     `docs/00_ops/meta/cos-suggestions.md` and set `Status: promoted`.
+     ````
+
+   - **Fallback when `gh` is unavailable.** If `which gh` returns nothing (or
+     the user has signaled `gh` is not set up), emit the same body as a
+     plain block with a one-liner:
+
+     > `gh` not detected. Paste the block below into a new issue at
+     > `https://github.com/anant-gupta-utexas/ai-workx/issues/new?labels=cos-suggestion,<plugin-name>`
+     > then record the URL on the matching `cos-suggestions.md` entry.
+
+   - **Never run `gh` yourself.** Drafting the command is the skill's job;
+     executing it is the user's. Treat it like a proposed edit: show and wait.
+   - If no observations meet the bar, do not append. Silence is fine.
 
 10. **Compose the weekly output.**
     - Headlines (3–7 bullets).
@@ -130,7 +177,10 @@ Called via `cos weekly`. The main operational cadence.
     - Tasks sweep flags.
     - Project drift flags.
     - Wiki status.
-    - New `cos-suggestions.md` entries (if any).
+    - New `cos-suggestions.md` entries (if any). Each entry summary notes
+      its `Target:`.
+    - **Cross-repo proposals** (one `gh issue create` block per
+      `Target: ai-workx:*` entry filed in step 9).
     - Proposed changes to non-meta files (with diff summaries).
     - List of meta files written.
     - Proposed commit message:

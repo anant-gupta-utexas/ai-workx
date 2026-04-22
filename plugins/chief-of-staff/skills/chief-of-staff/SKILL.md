@@ -98,24 +98,44 @@ Every run produces, in this order:
    policy.
 3. **Details** — operation-specific (see reference files).
 4. **Proposed changes** — list of files to edit with short diff summaries, or
-   "no user-approvable changes".
-5. **State write summary** — which `00_ops/meta/` files the skill updated
+   "no user-approvable changes". For each change, state its target repo
+   explicitly: `[target: second-brain]` or `[target: ai-workx:<plugin>]`.
+   This makes it obvious when a proposed change should leave the current
+   repo as a GitHub issue rather than a local edit.
+5. **Cross-repo proposals** (weekly and review only) — one `gh issue create`
+   block per new `cos-suggestions.md` entry with `Target: ai-workx:*`. See
+   `references/weekly.md` step 9.
+6. **State write summary** — which `00_ops/meta/` files the skill updated
    (these are done without asking, per the writes table above).
-6. **Proposed commit message** — in a fenced block. Suggest
+7. **Proposed commit message** — in a fenced block. Suggest
    `cos(daily|weekly|review|suggest): <one-line summary>`.
-7. **Next CoS cadence** — when the user should next run `cos daily` or `cos weekly`.
+8. **Next CoS cadence** — when the user should next run `cos daily` or `cos weekly`.
 
 ## Commit conventions
 
 The second-brain repo uses `<area>(<op>): <summary>`. This skill's own commits
-use the `cos(...)` area:
+use the `cos(...)` area **in the second-brain repo only**:
 
 - `cos(daily): snapshot YYYY-MM-DD` — if the user accepts the daily output
   (usually just a state.md bump).
 - `cos(weekly): triage + dashboard refresh YYYY-MM-DD`
 - `cos(review): Q{N} YYYY reflection`
 - `cos(suggest): <short title>` — when the user accepts a new entry in
-  `cos-suggestions.md` and promotes it.
+  `cos-suggestions.md` (including when promoting one: the commit bumps
+  `Status:` to `promoted` and records the issue URL).
+
+Commits in `ai-workx` follow that repo's own conventions; the `cos(...)`
+prefix does not cross over. When the user accepts a cross-repo proposal,
+three things happen in sequence:
+
+1. User runs the `gh issue create` block. A GitHub issue lands in
+   `ai-workx`.
+2. User edits `docs/00_ops/meta/cos-suggestions.md` in `second-brain` to
+   set `GitHub issue: <url>` and `Status: promoted`. Commit prefix:
+   `cos(suggest): promote <short title> to ai-workx#NNN`.
+3. Any source change in `ai-workx` that resolves the issue is authored
+   separately in that repo under its normal commit conventions (no
+   `cos(...)` prefix there).
 
 Do not invoke `git commit` yourself. Just propose.
 
@@ -138,6 +158,15 @@ The target vault may be opened in Obsidian. Keep outputs:
 - Do not add new cadence targets without an entry in `cos-suggestions.md`
   proposing it first.
 - Do not speak in the first-plural ("we", "our"). Speak to the user directly.
+- Do not propose a capability fix without stating which plugin owns it. If
+  no existing plugin fits, name it as `ai-workx:new-plugin:<slug>` in the
+  `Target:` field so the user sees the scope of the ask. See
+  `references/operating-contract.md` for the target-repo rubric.
+- Do not run `gh` (or any other tool that mutates a remote repo) yourself.
+  Cross-repo proposals are drafted as `gh issue create` blocks the user
+  runs explicitly.
+- Do not edit files in `ai-workx` from within a `cos ...` run targeting a
+  `second-brain` vault. The only cross-repo channel is a drafted issue.
 
 ## On failure
 

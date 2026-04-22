@@ -49,21 +49,69 @@ The file is append-only. Bar for an entry:
    signal line to the existing entry instead.
 5. **Owned somewhere.** The proposal must live either in a single file or a
    single skill — not "rearrange the whole repo". Scope discipline.
+6. **Target known.** You can state whether the fix lives in the vault
+   (`second-brain`) or in a plugin (`ai-workx:<plugin>`). If you cannot, do
+   not propose — you don't understand the fix well enough yet. See the
+   target-repo rubric below.
 
-If all five pass, append using the shape already defined in
-`cos-suggestions.md`:
+If all six pass, append using the shape defined in `cos-suggestions.md`:
 
 ```markdown
 ## YYYY-MM-DD — <short title>
 
 **Signal**: What the CoS noticed (pattern, friction, underused capability).
-**Suggestion**: Concrete proposal.
+**Target**: second-brain | ai-workx:<plugin-name> | ai-workx:new-plugin:<slug>
+**Suggestion**: One-paragraph description.
+**Proposed fix**: One-line concrete sketch (which file / which skill / which reference).
 **Cost**: Rough effort to adopt.
+**GitHub issue**: —
 **Status**: proposed
 ```
 
 Newest entry at top (above the `<!-- Add new entries above this line -->`
-marker if present).
+marker if present). `GitHub issue:` stays `—` while `proposed` / `rejected` /
+`deferred`; it is populated only when the user promotes the entry to a
+GitHub issue (see weekly.md step 9).
+
+## Target-repo rubric
+
+Every suggestion lives in exactly one repo. Use these rules to pick:
+
+- **`second-brain`** — vault-shaped fixes:
+  - Change a routing rule in `CLAUDE.md`.
+  - Add / rename / delete a folder under `docs/`.
+  - Tweak a tag convention (e.g. a new `[area:*]` value).
+  - Add / remove a doc (README, INDEX, template).
+  - Change a cadence target in `state.md`.
+  - Data hygiene (fill in `unknown` values, delete stale items).
+
+- **`ai-workx:<plugin>`** — capability-shaped fixes inside an existing plugin:
+  - Change how a skill reasons / the prompt it uses.
+  - Add a new step to an existing operation.
+  - Add a new reference file under `skills/<skill>/references/`.
+  - Tighten the trigger-phrase list.
+  - Fix a bug in the skill's instructions.
+
+- **`ai-workx:new-plugin:<slug>`** — the fix doesn't fit any existing plugin
+  and warrants a new one. Reserve this for genuinely new capabilities
+  (e.g. "a plugin that summarizes a weekly journal into a fortnightly
+  review"). Do not propose a new plugin for something that belongs as a
+  reference file in an existing plugin.
+
+### Ambiguous cases
+
+Default to `second-brain` unless the fix materially changes skill logic. The
+vault is private and cheap to edit; plugins are shared with future consumers
+and demand more care. Examples:
+
+| Situation | Target |
+| --- | --- |
+| "Add a `raw/` for finance tickers" | `second-brain` (folder change). |
+| "`maintaining-wiki` should also check for orphan tags" | `ai-workx:essentials` (skill logic). |
+| "Add a new `[area:career]` tag" | `second-brain` (convention). |
+| "CoS should flag projects in `design` > 90 days" | `ai-workx:chief-of-staff` (skill logic — a new weekly.md step). |
+| "Create a weekly review template under `docs/00_ops/templates/`" | `second-brain` (doc). |
+| "`financial-coach` should read INDEX.md before answering" | `ai-workx:financial-coach` (skill reads new input). |
 
 ## Triage flow (for the user)
 

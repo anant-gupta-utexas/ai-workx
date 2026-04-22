@@ -82,6 +82,61 @@ If `docs/00_ops/meta/` is missing, the skill's first run will offer to scaffold
 it rather than refusing. If the target repo has no `maintaining-wiki` install,
 the skill skips wiki delegation gracefully.
 
+## Cross-repo routing
+
+The CoS notices patterns. Some are fixes *in the vault* (a new folder, a
+changed tag convention, a cadence update). Others are fixes *in the
+plugins* (a smarter step in `maintaining-wiki`, a new reference file in
+`financial-coach`, a whole new plugin). The skill distinguishes these
+explicitly.
+
+Every entry the skill writes to `docs/00_ops/meta/cos-suggestions.md`
+carries a `Target:` field:
+
+| Target | Meaning | Landing surface |
+| --- | --- | --- |
+| `second-brain` | Vault-shaped fix: routing, folder, tag, doc, cadence, data. | Edit in the same repo, per `CLAUDE.md` routing. |
+| `ai-workx:<plugin>` | Capability-shaped fix inside an existing plugin. | GitHub issue on `anant-gupta-utexas/ai-workx`. |
+| `ai-workx:new-plugin:<slug>` | A new plugin is being proposed. | GitHub issue on `anant-gupta-utexas/ai-workx`. |
+
+See `skills/chief-of-staff/references/operating-contract.md` for the full
+rubric and ambiguous-case table.
+
+When a new suggestion has `Target: ai-workx:*`, the weekly output includes a
+ready-to-run block:
+
+```bash
+gh issue create \
+  --repo anant-gupta-utexas/ai-workx \
+  --title "cos-suggestion: <short title>" \
+  --label cos-suggestion,<plugin-name> \
+  --body "$(cat <<'EOF'
+<signal + proposed fix + cost>
+EOF
+)"
+```
+
+The skill **drafts** the block but never runs it. The user runs it (or
+pastes the body into github.com's new-issue form if `gh` is unavailable),
+then pastes the returned issue URL back into `cos-suggestions.md` under
+`GitHub issue:` and sets `Status: promoted`.
+
+No auto-creation, no background sync. If the issue later closes, the
+`cos-suggestions.md` entry is not auto-updated — the user closes the loop at
+the next `cos weekly`.
+
+### Optional: install `gh`
+
+The GitHub CLI is recommended but optional. If `gh` is not on `PATH`, the
+skill emits a plain issue-body block plus a direct link:
+
+```
+https://github.com/anant-gupta-utexas/ai-workx/issues/new?labels=cos-suggestion,<plugin>
+```
+
+Install via `brew install gh` (macOS) or see
+[cli.github.com](https://cli.github.com/) for other platforms.
+
 ## Design principles
 
 - **Thin orchestrator, no absorption.** Delegates wiki ops to
@@ -93,6 +148,9 @@ the skill skips wiki delegation gracefully.
 - **Plain markdown only.** Output is markdown the user can grep, edit in
   Obsidian, or render in Cursor.
 - **Never commits.** Always ends with a proposed commit message and stops.
+- **Proposes cross-repo, never writes cross-repo.** Capability fixes targeted
+  at `ai-workx` land as GitHub issues the user creates explicitly. The skill
+  does not edit `ai-workx` from a vault session.
 
 ## Configuration
 
