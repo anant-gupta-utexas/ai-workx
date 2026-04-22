@@ -69,6 +69,19 @@ Autonomous ML research plugin covering the full spectrum from single-agent exper
 - Tree-based experiment exploration with 4-stage progress management
 - Long-running pipelines with fresh-context orchestration to prevent attention degradation
 
+#### [chief-of-staff](./plugins/chief-of-staff/)
+Repo-native chief of staff for a markdown-first second-brain. On-demand daily / weekly / review cadences. No external connectors — reads inbox, tasks, journal, and project folders directly; writes only to `docs/00_ops/meta/`. Delegates wiki operations to `maintaining-wiki` (essentials) rather than re-implementing them.
+
+**Includes:**
+- 1 Skill (chief-of-staff with 4 reference guides: daily, weekly, review, operating-contract)
+
+**Perfect for:**
+- Running a private, markdown-first second-brain vault without Slack / Gmail / Calendar integration
+- 2-minute daily snapshots ("what's due, what's overdue, what should I work on")
+- 15-minute weekly triage + dashboard regeneration
+- 45-minute monthly / quarterly review with goals-vs-actuals check
+- Letting an agent "self-advocate" via an append-only suggestions log
+
 ---
 
 ### Specialized Plugins (Install Based on Your Stack)
@@ -160,6 +173,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 # ML research plugin (if you're doing autonomous ML experimentation)
 /plugin install autoresearch@ai-workx
+
+# Chief-of-staff plugin (if you have a markdown-first second-brain vault)
+/plugin install chief-of-staff@ai-workx
 ```
 
 ### 4. Test Installation
@@ -292,6 +308,35 @@ pip install youtube-transcript-api
 ```
 
 [View Details →](./plugins/financial-coach/README.md)
+
+---
+
+### chief-of-staff Plugin (Second-Brain Orchestrator)
+
+**Why install:** Turns a markdown-first second-brain vault into something with a clear "front door" — a single on-demand command to ask "where do I stand?" without opening six files. Repo-native by design: no connectors, no background daemons, no external APIs. Reads your vault, writes only to a tiny meta folder, delegates wiki work to `maintaining-wiki`.
+
+**Skill:**
+- **chief-of-staff** — thin orchestrator with three operations (daily / weekly / review) and four reference files (`daily.md`, `weekly.md`, `review.md`, `operating-contract.md`)
+
+**How to Use:**
+```
+cos daily                              # 2-min snapshot of today
+cos weekly                             # 15-min triage + dashboard refresh
+cos review                             # 45-min monthly / quarterly reflection
+what's on my plate today?              # → daily
+triage my inbox / sweep my tasks       # → weekly
+what cadences are overdue?             # → daily (or weekly if several)
+```
+
+**Perfect For:**
+- Running a private, markdown-first second-brain (Obsidian-compatible) without external integrations
+- Tracking cadence dates (last weekly review, last wiki lint, etc.) in a single `state.md`
+- Keeping a rolled-up dashboard (`dashboard.md`) up to date without hand-editing
+- Letting the agent log pattern observations to a `cos-suggestions.md` log you triage during weekly review
+
+**Requires:** Target repo with `docs/00_ops/{inbox,tasks,meta}` structure and `docs/03_projects/<project>/README.md` frontmatter. See [plugin README](./plugins/chief-of-staff/README.md).
+
+[View Details →](./plugins/chief-of-staff/README.md)
 
 ---
 
@@ -601,6 +646,17 @@ Use commands for workflows:
 
 **You get:** Personal learning coach for mastering complex topics with structured guidance, examples, and real-world applications.
 
+### For a Markdown-First Second Brain / Personal OS
+
+```bash
+/plugin install essentials@ai-workx          # maintaining-wiki
+/plugin install chief-of-staff@ai-workx      # orchestrator
+/plugin install financial-coach@ai-workx     # optional: delegated ticker analysis
+/plugin install learning-coach@ai-workx      # optional: study mode
+```
+
+**You get:** A complete private second-brain toolkit. `maintaining-wiki` owns the knowledge base layer (raw → wiki → outputs). `chief-of-staff` orchestrates on-demand daily / weekly / review cadences over the whole vault. `financial-coach` and `learning-coach` stay available for topic-specific deep-dives. No external connectors, no background automation, plain markdown only.
+
 ---
 
 ## 🎓 Learn More
@@ -615,6 +671,7 @@ Use commands for workflows:
 - [essentials Plugin →](./plugins/essentials/README.md)
 - [learning-coach Plugin →](./plugins/learning-coach/README.md)
 - [financial-coach Plugin →](./plugins/financial-coach/README.md)
+- [chief-of-staff Plugin →](./plugins/chief-of-staff/README.md)
 - [DEV-BE-PYTHON Plugin (Python) →](./plugins/DEV-BE-PYTHON/README.md)
 - [DEV-BE-GO Plugin (Go) →](./plugins/DEV-BE-GO/README.md)
 - [DEV-FE Plugin →](./plugins/DEV-FE/README.md)

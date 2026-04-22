@@ -16,6 +16,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | learning-coach | Learning and system design coaching | 2 skills (learning_methods + technical_coach) |
 | financial-coach | Investment analysis and valuation | 2 skills |
 | autoresearch | Autonomous ML research pipeline | 1 skill (12 resource guides), 4 agents, 7 commands, 3 hooks |
+| chief-of-staff | Repo-native second-brain orchestrator (on-demand daily / weekly / review) | 1 skill (4 references) |
 
 ## Installation
 
@@ -29,6 +30,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 /plugin install DEV-BE-PYTHON@ai-workx    # Python backend
 /plugin install DEV-BE-GO@ai-workx        # Go backend
 /plugin install DEV-FE@ai-workx           # Frontend
+/plugin install chief-of-staff@ai-workx   # Second-brain orchestrator
 ```
 
 ## Available Agents
