@@ -15,7 +15,7 @@ The vault schema is defined by the target repo's `AGENTS.md` and `CLAUDE.md`.
 Read those first on every invocation. This skill's contract:
 
 1. On-demand only. Never run proactively.
-2. Three operations: `daily`, `weekly`, `review`. Pick by user intent.
+2. Four operations: `daily`, `weekly`, `review`, `update`. Pick by user intent.
 3. Read-mostly. Only write to `docs/00_ops/meta/`. Everything else is a
    proposal the user approves.
 4. Never commit. End with a proposed commit message and stop.
