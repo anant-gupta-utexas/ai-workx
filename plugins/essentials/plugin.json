@@ -1,7 +1,7 @@
 {
   "name": "essentials",
-  "version": "2.3.0",
-  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), deep-research investigation pipeline, and web research agent for enhanced development workflow",
+  "version": "2.4.0",
+  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator (daily/weekly/review/update cadences), scaffold-project skill for bootstrapping repos from templates, ideation-loop skill for moving from fuzzy intent to locked decisions (decision-sheet format, stop rule, hiring-lens filter), and web research agent for enhanced development workflow",
   "author": {
     "name": "Anant Gupta"
   },
@@ -18,6 +18,20 @@
     "wiki",
     "reduce",
     "reflect",
-    "reweave"
+    "reweave",
+    "chief-of-staff",
+    "personal-ops",
+    "daily-review",
+    "weekly-review",
+    "dashboard",
+    "cadence",
+    "task-completion",
+    "scaffold",
+    "template",
+    "project-bootstrap",
+    "ideation",
+    "decision-making",
+    "planning",
+    "convergence"
   ]
 }

@@ -18,13 +18,13 @@ Development essentials with specialized agents for planning, documentation (with
 **Perfect for:** Planning, expert consultation, lateral thinking, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, and web research agent for enhanced development workflow.
 
 **Includes:**
-- 3 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline)
+- 6 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates, ideation-loop for moving from fuzzy intent to locked decisions)
 - 1 Agent (web-research-specialist)
 
-**Perfect for:** Technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph
+**Perfect for:** Technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
@@ -68,19 +68,6 @@ Autonomous ML research plugin covering the full spectrum from single-agent exper
 - Full research pipeline: ideation, experimentation, manuscript, peer review (AI Scientist)
 - Tree-based experiment exploration with 4-stage progress management
 - Long-running pipelines with fresh-context orchestration to prevent attention degradation
-
-#### [chief-of-staff](./plugins/chief-of-staff/)
-Repo-native chief of staff for a markdown-first second-brain. On-demand daily / weekly / review cadences. No external connectors — reads inbox, tasks, journal, and project folders directly; writes only to `docs/00_ops/meta/`. Delegates wiki operations to `maintaining-wiki` (essentials) rather than re-implementing them.
-
-**Includes:**
-- 1 Skill (chief-of-staff with 4 reference guides: daily, weekly, review, operating-contract)
-
-**Perfect for:**
-- Running a private, markdown-first second-brain vault without Slack / Gmail / Calendar integration
-- 2-minute daily snapshots ("what's due, what's overdue, what should I work on")
-- 15-minute weekly triage + dashboard regeneration
-- 45-minute monthly / quarterly review with goals-vs-actuals check
-- Letting an agent "self-advocate" via an append-only suggestions log
 
 ---
 
@@ -173,10 +160,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 # ML research plugin (if you're doing autonomous ML experimentation)
 /plugin install autoresearch@ai-workx
-
-# Chief-of-staff plugin (if you have a markdown-first second-brain vault)
-/plugin install chief-of-staff@ai-workx
 ```
+
+> **Note:** The `chief-of-staff` skill (second-brain orchestrator with `cos daily`/`weekly`/`review`/`update` operations) now ships as part of `essentials@ai-workx` — no separate install.
 
 ### 4. Test Installation
 
@@ -216,16 +202,18 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ---
 
-### essentials Plugin (Skills, Wiki & Research)
+### essentials Plugin (Skills, Wiki, Chief-of-Staff, Scaffolding & Research)
 
-**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, and web research capabilities.
+**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, chief-of-staff second-brain orchestrator, project scaffolding from language templates, and web research capabilities.
 
 **Skills:**
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - 7 operations for managing a personal knowledge base under `docs/02_learning/`: ingest, query, lint, status, reduce (extract atomic claims), reflect (discover connections), reweave (propagate new knowledge backward). Obsidian-compatible output.
 - **deep-research** - Structured multi-round investigation pipeline: plan (task ledger, slug derivation) -> scale decision (complexity-based parallelism) -> execute (parallel searches) -> synthesize -> verify (citation anchoring, URL validation) -> deliver (source-grounded brief). 4 resource guides.
+- **chief-of-staff** - Repo-native second-brain orchestrator with four operations (`cos daily`, `cos weekly`, `cos review`, `cos update`). Reads inbox, tasks, journal, and project folders; writes only to `docs/00_ops/meta/`; delegates wiki ops to `maintaining-wiki`. Draft-only cross-repo routing via `gh issue create`.
+- **scaffold-project** - Bootstrap a new repo from one of the maintained templates (`python-scaffolding`, `go-scaffolding`, `react-scaffolding`). Drafts `gh repo create --template --clone` commands; user executes. Web-UI fallback when `gh` is unavailable.
 
-> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin.
+> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin. The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0.
 
 **Agents:**
 - **web-research-specialist** - Research technical issues and solutions online
@@ -308,35 +296,6 @@ pip install youtube-transcript-api
 ```
 
 [View Details →](./plugins/financial-coach/README.md)
-
----
-
-### chief-of-staff Plugin (Second-Brain Orchestrator)
-
-**Why install:** Turns a markdown-first second-brain vault into something with a clear "front door" — a single on-demand command to ask "where do I stand?" without opening six files. Repo-native by design: no connectors, no background daemons, no external APIs. Reads your vault, writes only to a tiny meta folder, delegates wiki work to `maintaining-wiki`.
-
-**Skill:**
-- **chief-of-staff** — thin orchestrator with three operations (daily / weekly / review) and four reference files (`daily.md`, `weekly.md`, `review.md`, `operating-contract.md`)
-
-**How to Use:**
-```
-cos daily                              # 2-min snapshot of today
-cos weekly                             # 15-min triage + dashboard refresh
-cos review                             # 45-min monthly / quarterly reflection
-what's on my plate today?              # → daily
-triage my inbox / sweep my tasks       # → weekly
-what cadences are overdue?             # → daily (or weekly if several)
-```
-
-**Perfect For:**
-- Running a private, markdown-first second-brain (Obsidian-compatible) without external integrations
-- Tracking cadence dates (last weekly review, last wiki lint, etc.) in a single `state.md`
-- Keeping a rolled-up dashboard (`dashboard.md`) up to date without hand-editing
-- Letting the agent log pattern observations to a `cos-suggestions.md` log you triage during weekly review
-
-**Requires:** Target repo with `docs/00_ops/{inbox,tasks,meta}` structure and `docs/03_projects/<project>/README.md` frontmatter. See [plugin README](./plugins/chief-of-staff/README.md).
-
-[View Details →](./plugins/chief-of-staff/README.md)
 
 ---
 
@@ -649,13 +608,12 @@ Use commands for workflows:
 ### For a Markdown-First Second Brain / Personal OS
 
 ```bash
-/plugin install essentials@ai-workx          # maintaining-wiki
-/plugin install chief-of-staff@ai-workx      # orchestrator
+/plugin install essentials@ai-workx          # maintaining-wiki + chief-of-staff + scaffold-project
 /plugin install financial-coach@ai-workx     # optional: delegated ticker analysis
 /plugin install learning-coach@ai-workx      # optional: study mode
 ```
 
-**You get:** A complete private second-brain toolkit. `maintaining-wiki` owns the knowledge base layer (raw → wiki → outputs). `chief-of-staff` orchestrates on-demand daily / weekly / review cadences over the whole vault. `financial-coach` and `learning-coach` stay available for topic-specific deep-dives. No external connectors, no background automation, plain markdown only.
+**You get:** A complete private second-brain toolkit. `maintaining-wiki` owns the knowledge base layer (raw → wiki → outputs). `chief-of-staff` orchestrates on-demand daily / weekly / review / update cadences over the whole vault. `scaffold-project` bootstraps new repos from templates when an idea is ready to code. `financial-coach` and `learning-coach` stay available for topic-specific deep-dives. No external connectors, no background automation, plain markdown only.
 
 ---
 
@@ -671,7 +629,6 @@ Use commands for workflows:
 - [essentials Plugin →](./plugins/essentials/README.md)
 - [learning-coach Plugin →](./plugins/learning-coach/README.md)
 - [financial-coach Plugin →](./plugins/financial-coach/README.md)
-- [chief-of-staff Plugin →](./plugins/chief-of-staff/README.md)
 - [DEV-BE-PYTHON Plugin (Python) →](./plugins/DEV-BE-PYTHON/README.md)
 - [DEV-BE-GO Plugin (Go) →](./plugins/DEV-BE-GO/README.md)
 - [DEV-FE Plugin →](./plugins/DEV-FE/README.md)

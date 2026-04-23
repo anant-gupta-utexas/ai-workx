@@ -1,6 +1,6 @@
 ---
 name: chief-of-staff
-description: Use when the user wants a repo-native chief-of-staff operation on a markdown-first second-brain vault. Trigger on phrases like "cos daily", "cos weekly", "cos review", "chief of staff", "run chief of staff", "daily review", "weekly review", "monthly review", "quarterly review", "what should I work on", "what's on my plate", "what's overdue", "status of my build", "status of projects", "triage my inbox", "triage my tasks", "sweep my tasks", "what cadences are overdue", "what's in my dashboard", "refresh my dashboard", "where do I stand today", "what needs attention". Also trigger when the user asks the agent to self-advocate (observe patterns) or propose improvements to the vault workflow. The skill owns three operations (daily / weekly / review), reads the vault state from docs/00_ops/meta/state.md, regenerates docs/00_ops/meta/dashboard.md on weekly runs, appends observations to docs/00_ops/meta/cos-suggestions.md, and delegates wiki work to the maintaining-wiki skill. Do NOT trigger for one-off task lookups ("what's on my plate right now?" should pick *daily*, but "add this to active.md" is a plain routing operation governed by CLAUDE.md). Do NOT trigger for wiki operations (ingest, query, lint) — those belong to maintaining-wiki. Do NOT trigger for journal writing — that is a plain file edit, not a CoS operation.
+description: Use when the user wants a repo-native chief-of-staff operation on a markdown-first second-brain vault. Trigger on phrases like "cos daily", "cos weekly", "cos review", "cos update", "chief of staff", "run chief of staff", "daily review", "weekly review", "monthly review", "quarterly review", "what should I work on", "what's on my plate", "what's overdue", "status of my build", "status of projects", "triage my inbox", "triage my tasks", "sweep my tasks", "what cadences are overdue", "what's in my dashboard", "refresh my dashboard", "where do I stand today", "what needs attention", "log what I did", "record task completion", "update my docs", "I just finished X", "mark this task done", "capture a note". Also trigger when the user asks the agent to self-advocate (observe patterns) or propose improvements to the vault workflow. The skill owns four operations (daily / weekly / review / update), reads the vault state from docs/00_ops/meta/state.md, regenerates docs/00_ops/meta/dashboard.md on weekly runs, appends observations to docs/00_ops/meta/cos-suggestions.md, and delegates wiki work to the maintaining-wiki skill. Do NOT trigger for one-off task lookups ("what's on my plate right now?" should pick *daily*, but "add this to active.md" is a plain routing operation governed by CLAUDE.md). Do NOT trigger for wiki operations (ingest, query, lint) — those belong to maintaining-wiki. Do NOT trigger for pure journal writing without an ops framing — that is a plain file edit, not a CoS operation.
 ---
 
 # chief-of-staff
@@ -44,6 +44,7 @@ surface the failure to the user and offer to fix it before proceeding.
 | "cos daily", "daily review", "what should I work on", "what's on my plate today", "where do I stand today" | **daily** |
 | "cos weekly", "weekly review", "triage inbox", "sweep tasks", "refresh dashboard" | **weekly** |
 | "cos review", "monthly review", "quarterly review", "goals review", "big-picture check" | **review** |
+| "cos update", "log what I did", "record task completion", "I just finished X", "mark this task done", "capture a note", "update my docs" | **update** |
 | "what's overdue" | Check `state.md` cadence targets; if multiple overdue, recommend `weekly`. If just today's surface, run `daily`. |
 | Ambiguous | Ask one clarifying question before choosing. Default guess: `daily`. |
 
@@ -55,6 +56,7 @@ only.
 | daily | `references/daily.md` |
 | weekly | `references/weekly.md` |
 | review | `references/review.md` |
+| update | `references/update.md` |
 | (self-advocacy rules — read on weekly + review) | `references/operating-contract.md` |
 
 ## Core behavior
@@ -79,13 +81,19 @@ Regardless of operation:
 
 ## State writes
 
-Only these files are writable by this skill:
+Only these files are writable by this skill without asking:
 
 | File | When written |
 | --- | --- |
-| `docs/00_ops/meta/state.md` | Every operation bumps its own `last_cos_{daily,weekly,monthly,quarterly}` and any cadence it just completed. |
+| `docs/00_ops/meta/state.md` | Every operation bumps its own `last_cos_{daily,weekly,monthly,quarterly,update}` and any cadence it just completed. |
 | `docs/00_ops/meta/dashboard.md` | Regenerated on `weekly` and `review`. Rewrite fully — do not append. |
 | `docs/00_ops/meta/cos-suggestions.md` | Appended to on `weekly` and `review` when a pattern meets the self-advocacy bar in `operating-contract.md`. Newest entry at top. |
+
+The **update** operation is allowed, *after user approval of the proposal
+table*, to also edit `docs/00_ops/tasks/active.md`,
+`docs/00_ops/tasks/done.md`, `docs/00_ops/inbox/inbox.md`, today's journal
+file, and project README frontmatter (`status`, `phase`, `last_reviewed`
+only). Every such edit must appear on the proposal table first.
 
 All other changes are *proposals* the user must approve.
 
@@ -120,6 +128,9 @@ use the `cos(...)` area **in the second-brain repo only**:
   (usually just a state.md bump).
 - `cos(weekly): triage + dashboard refresh YYYY-MM-DD`
 - `cos(review): Q{N} YYYY reflection`
+- `cos(update): log YYYY-MM-DD — <one-line summary>` — when the user accepts
+  one or more proposed edits during an `update` run (task completions, new
+  notes, project status shifts).
 - `cos(suggest): <short title>` — when the user accepts a new entry in
   `cos-suggestions.md` (including when promoting one: the commit bumps
   `Status:` to `promoted` and records the issue URL).
@@ -187,4 +198,5 @@ Do not attempt to improvise by writing to arbitrary paths.
 | `references/daily.md` | 2-minute daily snapshot: focus, overdue, tasks due today/tomorrow, git dirty, journal present, inbox count. |
 | `references/weekly.md` | 15-minute weekly: inbox triage, tasks sweep, project drift, wiki lint check, dashboard regeneration, state.md bump. |
 | `references/review.md` | 45-minute monthly/quarterly: goals vs. actuals, wiki status report, project phase check, ideas prune, principles revisit. |
+| `references/update.md` | 3–5-minute update: log completed tasks, notes, and project status shifts. Proposes edits to `active.md`/`done.md`/`inbox.md`/journal/project READMEs and waits for approval. |
 | `references/operating-contract.md` | Notification policy and self-advocacy rules. Read before appending to `cos-suggestions.md`. |

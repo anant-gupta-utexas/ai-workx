@@ -107,8 +107,8 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), deep-research investigation pipeline, and web research agent for enhanced development workflow",
-      "version": "2.3.0",
+      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill for bootstrapping repos from templates, ideation-loop skill for moving from fuzzy intent to locked decisions (decision-sheet format, stop rule, hiring-lens filter), and web research agent for enhanced development workflow",
+      "version": "2.4.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -123,7 +123,21 @@
         "wiki",
         "knowledge-base",
         "second-brain",
-        "obsidian"
+        "obsidian",
+        "chief-of-staff",
+        "personal-ops",
+        "daily-review",
+        "weekly-review",
+        "dashboard",
+        "cadence",
+        "task-completion",
+        "scaffold",
+        "template",
+        "project-bootstrap",
+        "ideation",
+        "decision-making",
+        "planning",
+        "convergence"
       ]
     },
     {
@@ -209,29 +223,6 @@
         "peer-review",
         "transformer",
         "optimizer"
-      ]
-    },
-    {
-      "name": "chief-of-staff",
-      "source": "./plugins/chief-of-staff",
-      "description": "Repo-native chief-of-staff orchestrator for a markdown-first second-brain. On-demand daily / weekly / review cadences that read inbox, tasks, journal, and project folders, maintain a state file, regenerate a dashboard, and delegate wiki work to maintaining-wiki. No external connectors, no background automation.",
-      "version": "1.0.0",
-      "author": {
-        "name": "Anant Gupta",
-        "contact": "anant.gupta@utexas.edu"
-      },
-      "category": "productivity",
-      "keywords": [
-        "chief-of-staff",
-        "second-brain",
-        "personal-ops",
-        "review",
-        "daily-review",
-        "weekly-review",
-        "dashboard",
-        "cadence",
-        "repo-native",
-        "markdown-first"
       ]
     }
   ],

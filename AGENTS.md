@@ -9,14 +9,13 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | Plugin | Purpose | Key Components |
 |--------|---------|----------------|
 | DEV-ESSENTIALS | Development essentials | 3 skills, 4 agents, 4 commands, 8 hooks |
-| essentials | Skills, wiki, and research | 3 skills, 1 agent |
+| essentials | Skills, wiki, research, chief-of-staff, project scaffolding, ideation | 6 skills, 1 agent |
 | DEV-BE-PYTHON | Python/FastAPI Clean Architecture | 1 skill (12 resource guides) |
 | DEV-BE-GO | Go/Chi Clean Architecture | 1 skill (13 resource guides) |
 | DEV-FE | TanStack Start/React/TypeScript | 1 skill, 2 agents, 1 command |
 | learning-coach | Learning and system design coaching | 2 skills (learning_methods + technical_coach) |
 | financial-coach | Investment analysis and valuation | 2 skills |
 | autoresearch | Autonomous ML research pipeline | 1 skill (12 resource guides), 4 agents, 7 commands, 3 hooks |
-| chief-of-staff | Repo-native second-brain orchestrator (on-demand daily / weekly / review) | 1 skill (4 references) |
 
 ## Installation
 
@@ -30,8 +29,9 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 /plugin install DEV-BE-PYTHON@ai-workx    # Python backend
 /plugin install DEV-BE-GO@ai-workx        # Go backend
 /plugin install DEV-FE@ai-workx           # Frontend
-/plugin install chief-of-staff@ai-workx   # Second-brain orchestrator
 ```
+
+> **Note:** The chief-of-staff skill (second-brain orchestrator, `cos daily`/`weekly`/`review`/`update`) now ships as part of `essentials@ai-workx`.
 
 ## Available Agents
 
