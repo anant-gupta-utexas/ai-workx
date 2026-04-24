@@ -119,28 +119,47 @@ Called via `cos weekly`. The main operational cadence.
 9. **Self-advocacy — append to `cos-suggestions.md` if warranted.**
    - Read `operating-contract.md`. Check the six gates (pattern, concrete,
      cost ≤ value, not duplicate, scoped, target-known). Check the
-     target-repo rubric in the same file to pick `Target:` correctly.
+     target-repo rubric in the same file to pick `Target:` correctly. The
+     target may be `second-brain`, `ai-workx:<plugin>`,
+     `ai-workx:new-plugin:<slug>`, or any sibling-repo slug listed under
+     `CLAUDE.md#sibling-repos` (e.g. `portfolio`, `plumb`, `atlas`).
    - If any observation meets all six gates, append one entry per
      observation (newest at top, using the shape in `cos-suggestions.md`).
      Set `Status: proposed` and `GitHub issue: —`.
-   - For each new entry whose `Target:` starts with `ai-workx:`, also emit a
-     **Cross-repo proposal** block in the weekly output so the user can file
-     the issue without leaving the terminal. Shape:
+   - For each new entry whose `Target:` is **not** `second-brain` (i.e. any
+     cross-repo target), also emit a **Cross-repo proposal** block in the
+     weekly output so the user can file the issue without leaving the
+     terminal. Resolve the target to a GitHub repo path and label set:
+
+     | `Target:` value                       | GitHub repo                                  | Labels                                   |
+     | ------------------------------------- | -------------------------------------------- | ---------------------------------------- |
+     | `ai-workx:<plugin>`                   | `anant-gupta-utexas/ai-workx`                | `cos-suggestion,<plugin>`                |
+     | `ai-workx:new-plugin:<slug>`          | `anant-gupta-utexas/ai-workx`                | `cos-suggestion,new-plugin,<slug>`       |
+     | `portfolio`                           | `anant-gupta-utexas/anant-gupta-utexas.github.io` | `cos-suggestion`                    |
+     | any other sibling slug (`plumb`, `atlas`, `slo-recommendation-engine`, `python-scaffolding`, `go-scaffolding`, `react-scaffolding`, etc.) | `anant-gupta-utexas/<slug>`                  | `cos-suggestion`                         |
+
+     The `portfolio` alias resolves to the `anant-gupta-utexas.github.io`
+     repo so the `Target:` value stays stable even if the repo is renamed.
+     For any sibling slug not in the table but listed in
+     `CLAUDE.md#sibling-repos`, use `anant-gupta-utexas/<slug>` with the
+     `cos-suggestion` label.
+
+     Shape of the emitted block:
 
      ````markdown
      ### Cross-repo proposal: <short title>
 
-     This suggestion targets `ai-workx:<plugin>`. To file it as a GitHub
-     issue, run:
+     This suggestion targets `<Target:>`. To file it as a GitHub issue, run:
 
      ```bash
      gh issue create \
-       --repo anant-gupta-utexas/ai-workx \
+       --repo <resolved-github-repo> \
        --title "cos-suggestion: <short title>" \
-       --label cos-suggestion,<plugin-name> \
+       --label <resolved-labels> \
        --body "$(cat <<'EOF'
      Source: docs/00_ops/meta/cos-suggestions.md (second-brain)
      Date: YYYY-MM-DD
+     Target: <Target:>
 
      ### Signal
      <signal body>
@@ -164,7 +183,7 @@ Called via `cos weekly`. The main operational cadence.
      plain block with a one-liner:
 
      > `gh` not detected. Paste the block below into a new issue at
-     > `https://github.com/anant-gupta-utexas/ai-workx/issues/new?labels=cos-suggestion,<plugin-name>`
+     > `https://github.com/<resolved-github-repo>/issues/new?labels=<url-encoded-labels>`
      > then record the URL on the matching `cos-suggestions.md` entry.
 
    - **Never run `gh` yourself.** Drafting the command is the skill's job;
@@ -180,7 +199,7 @@ Called via `cos weekly`. The main operational cadence.
     - New `cos-suggestions.md` entries (if any). Each entry summary notes
       its `Target:`.
     - **Cross-repo proposals** (one `gh issue create` block per
-      `Target: ai-workx:*` entry filed in step 9).
+      non-`second-brain` entry filed in step 9).
     - Proposed changes to non-meta files (with diff summaries).
     - List of meta files written.
     - Proposed commit message:

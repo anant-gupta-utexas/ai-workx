@@ -107,12 +107,15 @@ Every run produces, in this order:
 3. **Details** — operation-specific (see reference files).
 4. **Proposed changes** — list of files to edit with short diff summaries, or
    "no user-approvable changes". For each change, state its target repo
-   explicitly: `[target: second-brain]` or `[target: ai-workx:<plugin>]`.
+   explicitly: `[target: second-brain]`, `[target: ai-workx:<plugin>]`, or
+   `[target: <sibling-repo-slug>]` (any repo listed in the vault's
+   `CLAUDE.md#sibling-repos` section — e.g. `portfolio`, `plumb`, `atlas`).
    This makes it obvious when a proposed change should leave the current
    repo as a GitHub issue rather than a local edit.
 5. **Cross-repo proposals** (weekly and review only) — one `gh issue create`
-   block per new `cos-suggestions.md` entry with `Target: ai-workx:*`. See
-   `references/weekly.md` step 9.
+   block per new `cos-suggestions.md` entry whose `Target:` is not
+   `second-brain`. See `references/weekly.md` step 9 for the target →
+   repo/labels resolution table.
 6. **State write summary** — which `00_ops/meta/` files the skill updated
    (these are done without asking, per the writes table above).
 7. **Proposed commit message** — in a fenced block. Suggest
@@ -135,17 +138,21 @@ use the `cos(...)` area **in the second-brain repo only**:
   `cos-suggestions.md` (including when promoting one: the commit bumps
   `Status:` to `promoted` and records the issue URL).
 
-Commits in `ai-workx` follow that repo's own conventions; the `cos(...)`
-prefix does not cross over. When the user accepts a cross-repo proposal,
-three things happen in sequence:
+Commits in sibling repos follow that repo's own conventions; the `cos(...)`
+prefix is `second-brain`-only and does not cross over. When the user accepts
+a cross-repo proposal, three things happen in sequence:
 
-1. User runs the `gh issue create` block. A GitHub issue lands in
-   `ai-workx`.
+1. User runs the `gh issue create` block. A GitHub issue lands in the
+   resolved sibling repo (e.g. `anant-gupta-utexas/ai-workx`,
+   `anant-gupta-utexas/anant-gupta-utexas.github.io`,
+   `anant-gupta-utexas/plumb`). See `references/weekly.md` step 9 for the
+   resolution table.
 2. User edits `docs/00_ops/meta/cos-suggestions.md` in `second-brain` to
    set `GitHub issue: <url>` and `Status: promoted`. Commit prefix:
-   `cos(suggest): promote <short title> to ai-workx#NNN`.
-3. Any source change in `ai-workx` that resolves the issue is authored
-   separately in that repo under its normal commit conventions (no
+   `cos(suggest): promote <short title> to <repo>#NNN` (where `<repo>` is
+   the sibling repo slug — e.g. `ai-workx#42`, `portfolio#7`, `plumb#3`).
+3. Any source change in the sibling repo that resolves the issue is
+   authored separately in that repo under its normal commit conventions (no
    `cos(...)` prefix there).
 
 Do not invoke `git commit` yourself. Just propose.
@@ -169,15 +176,20 @@ The target vault may be opened in Obsidian. Keep outputs:
 - Do not add new cadence targets without an entry in `cos-suggestions.md`
   proposing it first.
 - Do not speak in the first-plural ("we", "our"). Speak to the user directly.
-- Do not propose a capability fix without stating which plugin owns it. If
-  no existing plugin fits, name it as `ai-workx:new-plugin:<slug>` in the
-  `Target:` field so the user sees the scope of the ask. See
-  `references/operating-contract.md` for the target-repo rubric.
+- Do not propose a fix without stating which repo owns it. For capability
+  fixes, that's a plugin slug (`ai-workx:<plugin>`) or a new-plugin slug
+  (`ai-workx:new-plugin:<slug>`). For fixes to public artifacts or shipped
+  code, that's a sibling-repo slug listed under `CLAUDE.md#sibling-repos`
+  (`portfolio`, `plumb`, `atlas`, etc.). See `references/operating-contract.md`
+  for the full target-repo rubric.
 - Do not run `gh` (or any other tool that mutates a remote repo) yourself.
   Cross-repo proposals are drafted as `gh issue create` blocks the user
   runs explicitly.
-- Do not edit files in `ai-workx` from within a `cos ...` run targeting a
-  `second-brain` vault. The only cross-repo channel is a drafted issue.
+- Do not edit files in any sibling repo (`ai-workx`, `portfolio`, `plumb`,
+  `atlas`, project repos, template repos, etc.) from within a `cos ...` run
+  targeting a `second-brain` vault. The only cross-repo channel is a drafted
+  issue. If the user explicitly asks for a direct sibling-repo edit outside
+  a `cos ...` invocation, that's a normal edit — not CoS business.
 
 ## On failure
 
