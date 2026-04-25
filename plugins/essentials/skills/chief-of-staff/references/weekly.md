@@ -40,14 +40,31 @@ Called via `cos weekly`. The main operational cadence.
      - If `status` is `design` or `scaffold` for > 60 days, flag.
    - Roll up a `status → project` count for the dashboard.
 
-5. **Wiki lint check — delegate.**
+5. **Sibling-repo STATUS.md sweep.**
+   - For each sibling repo listed in `CLAUDE.md#sibling-repos` that ships a
+     `STATUS.md` at its root, read the file's frontmatter:
+     `status`, `phase`, `last_updated`, `next_gate`, `blocked_on`.
+   - Expected path per repo (relative to vault root):
+     `../<slug>/STATUS.md` (e.g. `../atlas/STATUS.md`, `../plumb/STATUS.md`).
+   - Flag if:
+     - `last_updated` > 14 days old (status may be stale).
+     - `blocked_on` is non-null (surface the blocker in weekly output).
+     - `status` changed since the last dashboard (`state.md` can cache
+       the last-seen value under `last_sibling_status_<slug>`).
+   - Roll the results into the **Project status** table in `dashboard.md`
+     (step 7), replacing the vault-only `docs/03_projects/<project>/README.md`
+     frontmatter as the authoritative source for repos that have a `STATUS.md`.
+     Repos without a `STATUS.md` fall back to the vault project README as before.
+   - Skip gracefully for any repo whose path does not exist locally.
+
+6. **Wiki lint check — delegate.**
    - Read `docs/02_learning/log.md` (the wiki's changelog, if present).
    - If `last_wiki_lint` > 30 days old, propose running `maintaining-wiki` lint.
    - Do NOT run the lint yourself. Tell the user:
      > "Wiki lint is overdue. Run `maintaining-wiki lint` to sweep."
    - Skip gracefully if the skill is not installed.
 
-6. **Journal coverage check.**
+7. **Journal coverage check.**
    - Walk the current month folder. Count daily entries present vs. elapsed
      days. Flag weeks missing a weekly review file.
    - If a `## Friction / ideas` section of a recent journal entry has a
@@ -87,10 +104,13 @@ Called via `cos weekly`. The main operational cadence.
      Due this week: N.
 
      ## Project status
-     | Project | Status | Phase | Last reviewed |
-     | --- | --- | --- | --- |
-     | plumb | scaffold | Phase 1, Week 3 | YYYY-MM-DD |
-     | ... | ... | ... | ... |
+     | Project | Status | Phase | Next gate | Blocked | Last updated |
+     | --- | --- | --- | --- | --- | --- |
+     | plumb | building | Phase 1, Week 3 | v1.0 tag | — | YYYY-MM-DD |
+     | ... | ... | ... | ... | ... | ... |
+
+     Source: `../<slug>/STATUS.md` (frontmatter) for repos that ship it;
+     `docs/03_projects/<project>/README.md` frontmatter for vault-only projects.
 
      ## Wiki
      - Page count: N
@@ -226,4 +246,4 @@ Called via `cos weekly`. The main operational cadence.
 ## Time budget
 
 ~15 minutes of agent time. If you're going over, skip the journal coverage
-check (step 6) and surface that you did.
+check (step 7) and surface that you did.
