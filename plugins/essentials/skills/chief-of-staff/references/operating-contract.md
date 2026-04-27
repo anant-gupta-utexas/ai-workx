@@ -34,6 +34,24 @@ move on. Do not narrate it in chat.
 If you catch yourself wanting to add a "nice to know" bullet, drop it. The
 user grepping `dashboard.md` later is fine.
 
+## Two self-advocacy files
+
+The vault maintains two distinct files for agent-written observations. Pick the
+right one before writing:
+
+| File | What goes there |
+| --- | --- |
+| `docs/00_ops/meta/cos-suggestions.md` | **Capability proposals** — a new skill, plugin, folder, reference file, or workflow to build. Has `Target:`, `Cost:`, `GitHub issue:`, `Status:` fields. Triaged as tasks or GitHub issues. |
+| `docs/00_ops/meta/observed-preferences.md` | **Behavioral observations** — how the user actually works: IDE quirks, cadence drift, energy patterns, friction that doesn't imply building something. Shorter format; no `Target:`, no `GitHub issue:`. |
+
+**Decision rule:** If the observation implies something to *build or change in a repo*, use `cos-suggestions.md`. If it describes how the user behaves and is worth remembering but doesn't require a repo change today, use `observed-preferences.md`.
+
+Examples:
+- "The wiki lint has never been run" → `cos-suggestions.md` (implies running a cadence / skill operation).
+- "Cursor's format-on-save corrupts markdown" → `observed-preferences.md` (a friction fact about the user's environment; the IDE fix is a one-off, not a recurring capability).
+- "The user re-reads the same ticker three weeks in a row" → `cos-suggestions.md` (implies promoting to wiki via maintaining-wiki).
+- "The user tends to journal retroactively on Sundays, not daily" → `observed-preferences.md` (behavioral drift; no new capability needed unless it becomes a problem).
+
 ## Self-advocacy (when to append to `cos-suggestions.md`)
 
 The file is append-only. Bar for an entry:
@@ -73,6 +91,17 @@ Newest entry at top (above the `<!-- Add new entries above this line -->`
 marker if present). `GitHub issue:` stays `—` while `proposed` / `rejected` /
 `deferred`; it is populated only when the user promotes the entry to a
 GitHub issue (see weekly.md step 9).
+
+When writing to `observed-preferences.md` instead, use this lighter shape:
+
+```markdown
+## YYYY-MM-DD — <short title>
+
+**Signal**: What was observed (friction, drift, repeated behavior).
+**Pattern**: One-line behavioral description — what the user does or avoids.
+**Note**: Optional context or watch condition.
+**Status**: observed | resolved | no-longer-applicable
+```
 
 ## Target-repo rubric
 
