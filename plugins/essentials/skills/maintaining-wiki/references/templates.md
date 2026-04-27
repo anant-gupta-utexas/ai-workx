@@ -97,7 +97,7 @@ Actions: `ingest | update | query | lint | reduce | reflect | reweave`
 
 ## [{{YYYY-MM-DD}}] query | {{question truncated to 80 chars}}
 
-## [{{YYYY-MM-DD}}] lint | N findings (H high / M medium / L low)
+## [{{YYYY-MM-DD}}] lint | N findings (H high / M medium / L low) | score: NN/100
 
 ## [{{YYYY-MM-DD}}] update | {{source-slug}} — N pages touched
 
@@ -129,6 +129,7 @@ pages_scanned: {{N}}
 - **Medium**: {{M}} findings
 - **Low**: {{L}} findings
 - **Pages scanned**: {{N}}
+- **cleanliness_score**: {{score}}/100 (orphans={{A}}, broken_links={{B}}, contradictions={{C}}, missing_citations={{D}}, missing_frontmatter={{E}}, index_drift={{F}}, stale_pages={{G}})
 
 ## High severity
 

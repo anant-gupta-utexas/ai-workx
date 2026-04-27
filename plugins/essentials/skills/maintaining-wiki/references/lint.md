@@ -63,12 +63,81 @@ Sections:
 
 **Never auto-apply fixes.** Lint proposes; the user decides. If the user then says "apply the cheap ones", that becomes a separate mutation turn.
 
+## Cleanliness composite score
+
+After running all checks, compute a single `cleanliness_score` (0–100) from the raw counts. This single number makes wiki health trendable across runs — inspired by the codebase-cleanliness-index pattern (see [[codebase-cleanliness-index]]).
+
+### Inputs
+
+Collect these counts from the walk and checks above:
+
+| Symbol | What it measures |
+|--------|-----------------|
+| `P` | Total wiki pages scanned (exclude `index.md`, `log.md`, `lint-report-*.md`) |
+| `orphans` | Pages with zero inbound links AND not listed as a hub in `index.md` (check #7) |
+| `broken_links` | Unresolved `[[wiki-link]]`s (check #3) |
+| `contradictions` | Pages carrying an unresolved `> [!warning] CONTRADICTION` callout (check #1) |
+| `missing_citations` | Claims in `## Key claims` sections lacking a `[Source: ...]` marker (check #2) |
+| `missing_frontmatter` | Pages missing ≥1 required frontmatter field (check #4) |
+| `index_drift` | Count of index-vs-file mismatches in both directions (check #5) |
+| `stale_pages` | Pages flagged as stale by check #6 |
+
+### Formula
+
+```
+penalty = (
+    (orphans            / max(P,1)) * 30  +   # orphan rate          (high weight)
+    (broken_links       / max(P,1)) * 25  +   # broken-link rate     (high weight)
+    (contradictions     / max(P,1)) * 20  +   # contradiction rate   (medium)
+    (missing_citations  / max(P,1)) * 10  +   # citation completeness (medium)
+    (missing_frontmatter/ max(P,1)) * 10  +   # frontmatter health   (medium)
+    (index_drift        / max(P,1)) * 3   +   # index hygiene        (low)
+    (stale_pages        / max(P,1)) * 2        # freshness            (low)
+)
+cleanliness_score = round(max(0, 100 - penalty * 100))
+```
+
+Weights sum to 100 percentage-points of penalty headroom. Each term is a rate (finding-count / page-count) so the score is comparable as the wiki grows.
+
+### Interpretation
+
+| Score | Health |
+|-------|--------|
+| 90–100 | Clean — compounding is safe |
+| 75–89 | Acceptable — a few targeted fixes needed |
+| 60–74 | Degraded — fix high-severity items before next ingest |
+| < 60 | Critical — wiki debt is outpacing value |
+
+### Output line
+
+Emit as the last line of the report **Summary** section:
+
+```
+cleanliness_score: NN/100 (orphans=A, broken_links=B, contradictions=C, missing_citations=D, missing_frontmatter=E, index_drift=F, stale_pages=G)
+```
+
+### Persistence
+
+Append one tab-separated row to `docs/02_learning/wiki/.lint-history.tsv` (create if absent):
+
+```
+YYYY-MM-DD\tNN\tA\tB\tC\tD\tE\tF\tG
+```
+
+Header row (write only if the file is new):
+
+```
+date\tcleanliness_score\torphan_pages\tbroken_links\tcontradictions\tmissing_citations\tmissing_frontmatter\tindex_drift\tstale_pages
+```
+
+This file is the trend source. It is never modified — only appended to.
+
 ## Log entry
 
 Append after writing the report:
 
 ```
-## [YYYY-MM-DD] lint | N findings (H high / M medium / L low)
+## [YYYY-MM-DD] lint | N findings (H high / M medium / L low) | score: NN/100
 ```
 
 ## Status report (no-mutation variant)
