@@ -37,7 +37,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 
 | Agent | Plugin | Purpose |
 |-------|--------|---------|
-| business-strategist | DEV-ESSENTIALS | Product strategy, roadmap planning, market analysis |
+| business-strategist | essentials | Product strategy, roadmap planning, market analysis |
 | documentation-architect | DEV-ESSENTIALS | Developer-focused documentation from code and existing docs |
 | plan-reviewer | DEV-ESSENTIALS | Review implementation plans, risk assessment |
 | refactor-planner | DEV-ESSENTIALS | Refactoring strategies, tech debt analysis |

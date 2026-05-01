@@ -11,20 +11,20 @@ Development essentials with specialized agents for planning, documentation (with
 
 **Includes:**
 - 3 Skills (git-workflow, lateral-thinking, consult-experts)
-- 4 Agents (business-strategist, documentation-architect with MOC generation, plan-reviewer, refactor-planner)
+- 3 Agents (documentation-architect with MOC generation, plan-reviewer, refactor-planner)
 - 4 Commands (dev-docs-update, dev-docs-be, code-review, verify)
 - 8 Hooks (security scan, commit quality, file size guard, debug statement warnings, and more)
 
-**Perfect for:** Planning, expert consultation, lateral thinking, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
+**Perfect for:** Expert consultation, lateral thinking, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
 Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, and web research agent for enhanced development workflow.
 
 **Includes:**
 - 6 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates, ideation-loop for moving from fuzzy intent to locked decisions)
-- 1 Agent (web-research-specialist)
+- 2 Agents (business-strategist, web-research-specialist)
 
-**Perfect for:** Technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
+**Perfect for:** Business strategy and product planning, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
@@ -185,7 +185,6 @@ This opens an interactive UI showing all available plugins from this marketplace
 - **consult-experts** - Access specialized expert personas (Product Manager, Tech Lead, System Design Specialist, Code Reviewer)
 
 **Agents:**
-- **business-strategist** - Business strategy and product guidance for new products
 - **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering and Maps of Content (MOC) navigation
 - **plan-reviewer** - Review development plans before implementation
 - **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
@@ -216,6 +215,7 @@ This opens an interactive UI showing all available plugins from this marketplace
 > **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin. The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0.
 
 **Agents:**
+- **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation
 - **web-research-specialist** - Research technical issues and solutions online
 
 [View Details →](./plugins/essentials/README.md)
@@ -444,12 +444,12 @@ Invoke agents for complex tasks:
 
 ```bash
 # DEV-ESSENTIALS agents
-"Use the business-strategist agent to help me plan my product strategy"
 "Use the documentation-architect agent to document my REST API"
 "Use the plan-reviewer agent to review my authentication implementation plan"
 "Consult product expert for help with my roadmap"
 
 # essentials agents
+"Use the business-strategist agent to help me plan my product strategy"
 "Use the web-research-specialist agent to find best practices for WebSockets"
 
 # Frontend agents (if DEV-FE installed)

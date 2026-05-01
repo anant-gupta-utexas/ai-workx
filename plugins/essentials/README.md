@@ -14,7 +14,8 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 
 > **Note:** The consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer) has moved to the DEV-ESSENTIALS plugin.
 
-### Agents (1)
+### Agents (2)
+- **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation with cited frameworks and visualization suggestions
 - **web-research-specialist** - Research technical issues and solutions online
 
 ## Installation
@@ -80,6 +81,12 @@ cos update                             # log completed tasks, notes, status chan
 ```
 
 ### Using Agents Directly
+
+**Business Strategy:**
+```bash
+"Use the business-strategist agent to help me plan my MVP features"
+"Use the business-strategist agent to create a business plan for my app idea"
+```
 
 **Research:**
 ```bash
@@ -194,11 +201,15 @@ The skill drafts a `gh repo create --template <registry-entry> --clone` command 
 
 ### Agents
 
+#### Business Strategist
+In-depth operational business planning from product ideas. Runs an interactive process — first gathering market, financial, and risk inputs, then generating a formal structured plan with cited frameworks (e.g., TELOS, P&L) and embedded data visualization suggestions. Output covers executive summary, market analysis, business case, feasibility study, constraints, and open questions.
+
 #### Web Research Specialist
 Technical solutions research, best practices, GitHub issues, library comparisons.
 
 ## Perfect For
 
+- Product planning and business strategy from raw idea to formal plan
 - Technical research and best practices discovery
 - Creating custom skills
 - Learning skill development patterns

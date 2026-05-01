@@ -79,7 +79,7 @@
       "name": "DEV-ESSENTIALS",
       "source": "./plugins/DEV-ESSENTIALS",
       "description": "Development essentials with specialized agents (including documentation-architect with Maps of Content navigation), git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -107,8 +107,8 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill for bootstrapping repos from templates, ideation-loop skill for moving from fuzzy intent to locked decisions (decision-sheet format, stop rule, hiring-lens filter), and web research agent for enhanced development workflow",
-      "version": "2.4.0",
+      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill for bootstrapping repos from templates, ideation-loop skill for moving from fuzzy intent to locked decisions (decision-sheet format, stop rule, hiring-lens filter), business-strategist agent for creating in-depth operational business plans, and web research agent for enhanced development workflow",
+      "version": "2.5.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -137,7 +137,9 @@
         "ideation",
         "decision-making",
         "planning",
-        "convergence"
+        "convergence",
+        "business-strategy",
+        "product-planning"
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "name": "DEV-ESSENTIALS",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Development essentials with specialized agents, git workflow skill, code review and verification commands, backend TRS documentation, and 8 development quality hooks",
   "author": {
     "name": "Anant Gupta"

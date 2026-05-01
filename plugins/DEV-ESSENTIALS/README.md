@@ -9,8 +9,7 @@ Development essentials with specialized agents for planning, documentation, and 
 - **lateral-thinking** - Break through development blocks with 5 thinking personas (Contrarian, Hacker, Simplifier, Researcher, Architect) that diagnose your stagnation pattern and reframe the problem
 - **consult-experts** - Access specialized expert personas for product requirements (PRDs), technical requirements (TRDs), system design (SDDs), and code review
 
-### Agents (4)
-- **business-strategist** - Business strategy and product guidance for building products from 0 to 1
+### Agents (3)
 - **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering from code and existing docs, plus Maps of Content (MOC) navigation
 - **plan-reviewer** - Review development plans before implementation
 - **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
@@ -67,11 +66,6 @@ Development essentials with specialized agents for planning, documentation, and 
 ```
 
 ### Using Agents Directly
-
-**Business Strategy:**
-```bash
-"Use the business-strategist agent to help me plan my MVP features"
-```
 
 **Documentation:**
 ```bash
@@ -211,9 +205,6 @@ export DISABLED_HOOKS="block-no-verify,suggest-compact,doc-file-warning"
 
 ### Agents
 
-#### Business Strategist
-Product roadmap planning, feature prioritization, market analysis, business model design.
-
 #### Documentation Architect
 Comprehensive developer-focused documentation with context gathering, API docs, README files, data flow diagrams, and Maps of Content (MOC) navigation. Generates Hub, Domain, and Topic MOCs that explain *why* documents relate and suggest reading order for new developers.
 
@@ -250,7 +241,6 @@ Updates development documentation before context compaction for seamless continu
 
 ## Perfect For
 
-- Product planning and strategy
 - Expert consultation (Product Manager, Tech Lead, System Design, Code Reviewer)
 - Development plan review
 - Breaking through development blocks with lateral thinking
