@@ -81,7 +81,7 @@ Regardless of operation:
 
 ## State writes
 
-Only these files are writable by this skill without asking:
+Only these files are writable by this skill **without asking**:
 
 | File | When written |
 | --- | --- |
@@ -89,11 +89,20 @@ Only these files are writable by this skill without asking:
 | `docs/00_ops/meta/dashboard.md` | Regenerated on `weekly` and `review`. Rewrite fully — do not append. |
 | `docs/00_ops/meta/cos-suggestions.md` | Appended to on `weekly` and `review` when a pattern meets the self-advocacy bar in `operating-contract.md`. Newest entry at top. |
 
+The following files are writable **only after user approval** (they appear on
+the proposal table; the user must confirm before the skill writes):
+
+| File | When proposed |
+| --- | --- |
+| `docs/00_ops/daily/YYYY-MM-DD.md` | Proposed on `daily` if today's ops note does not yet exist. Created with the canonical schema defined in `references/daily.md`. Never created silently. |
+
 The **update** operation is allowed, *after user approval of the proposal
 table*, to also edit `docs/00_ops/tasks/active.md`,
 `docs/00_ops/tasks/done.md`, `docs/00_ops/inbox/inbox.md`, today's journal
-file, and project README frontmatter (`status`, `phase`, `last_reviewed`
-only). Every such edit must appear on the proposal table first.
+file, today's ops note (`docs/00_ops/daily/YYYY-MM-DD.md`, appending to
+`## Log` or `## Wins` only), and project README frontmatter (`status`,
+`phase`, `last_reviewed` only). Every such edit must appear on the proposal
+table first.
 
 All other changes are *proposals* the user must approve.
 
@@ -190,6 +199,9 @@ The target vault may be opened in Obsidian. Keep outputs:
   targeting a `second-brain` vault. The only cross-repo channel is a drafted
   issue. If the user explicitly asks for a direct sibling-repo edit outside
   a `cos ...` invocation, that's a normal edit — not CoS business.
+- Do not write to `docs/00_ops/daily/` without user approval. This path is
+  **not** in the silent-write zone. Today's ops note must appear on the
+  proposal table and receive explicit confirmation before creation.
 
 ## On failure
 

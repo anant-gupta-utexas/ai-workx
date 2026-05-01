@@ -27,7 +27,9 @@ propose-don't-mutate: every non-meta edit goes through a confirmation table.
    | Task completion | Item matches a line in `active.md` (by title, slug, or `[area:*]` tag) | Remove from `active.md`; append to `done.md` with `— done YYYY-MM-DD`. |
    | Project status shift | User mentions a project name + new `status`/`phase`/`last_reviewed` | Edit `docs/03_projects/<project>/README.md` frontmatter only. |
    | New note / reminder | User wants to remember something not yet in the vault | Append to `docs/00_ops/inbox/inbox.md` as a new H2 item. |
-   | Journal-only log | User wants today's journal to record a fact (not an item to triage) | Append to today's journal file under a `## Log` section. |
+   | Ops log entry | User narrates an event or decision to record operationally (not literary) | Append to today's ops note `docs/00_ops/daily/YYYY-MM-DD.md` under `## Log`. If the file doesn't exist, add a row to create it first (canonical schema in `references/daily.md`), then append the log entry. |
+   | Ops win | User reports completing something worth recording as a win today | Append to today's ops note under `## Wins`. Same file-creation rule as above. |
+   | Journal-only log | User wants today's personal journal to record a fact (not an ops event) | Append to today's journal file at `docs/05_personal/journal/YYYY/MM-month/DD.md` under a `## Log` section. Use this bucket only when the content is clearly literary / reflective rather than operational. When in doubt, prefer the ops note. |
    | Wiki-shaped | User describes a *learning* or *claim* worth ingesting | **Do not handle.** Route the user to `maintaining-wiki` (say so and stop on that item). |
 
 4. **Resolve ambiguity.**
@@ -58,7 +60,13 @@ propose-don't-mutate: every non-meta edit goes through a confirmation table.
       during an update run.
    3. Inbox additions: append H2 + one-line body. Include today's date on a
       separate italic line (`*captured: YYYY-MM-DD*`).
-   4. Journal appends: open today's journal file at
+   4. Ops note appends: open `docs/00_ops/daily/YYYY-MM-DD.md`. If it does
+      not exist and the user approved its creation, create it with the
+      canonical schema (see `references/daily.md`). Append log entries under
+      `## Log` with a timestamp prefix (`- HH:MM — <event>`). Append wins
+      under `## Wins`. Never delete or rewrite existing content — the log
+      section is append-only.
+   5. Journal appends: open today's journal file at
       `docs/05_personal/journal/YYYY/MM-month/DD.md` (use the repo's
       existing month-name format). Append under `## Log` (create the section
       if missing).
