@@ -219,7 +219,60 @@ separate change, not something to paper over at the call site.
    Do not pretend to know details of the template beyond these — the
    template README is authoritative.
 
-9. **Stop.** Do not run any command yourself. Do not attempt to
+9. **Propose vault hub reduction.** After the cp block, tell the user that
+   the vault folder should now shrink to hub-only shape — its operational
+   docs (PRD, research, scoping notes) have migrated to the sibling repo and
+   the vault copy should become a status pointer, not a duplicate.
+
+   Emit this as a named proposal (not a command to run):
+
+   ```
+   Once the repo is confirmed, reduce docs/03_projects/<name>/README.md to
+   hub-only shape and delete the migrated files from the vault folder.
+   Reply with the repo URL and I'll draft the cos update to do this.
+   ```
+
+   The canonical hub shape for the vault README is:
+
+   ```markdown
+   ---
+   title: <name> — <one-line purpose>
+   status: design | active | paused | complete | deferred
+   phase: <current phase>
+   repo: https://github.com/anant-gupta-utexas/<name>
+   last_reviewed: YYYY-MM-DD
+   ---
+
+   # <name>
+
+   <one-line purpose>
+
+   ## Status
+
+   <current focus / phase summary>
+
+   ## Repository
+
+   [anant-gupta-utexas/<name>](https://github.com/anant-gupta-utexas/<name>)
+
+   ## Operational docs
+
+   PRD, research, and design notes live in the repo at <destination-dir>/.
+
+   ## Cross-references
+
+   *(vault-internal links only — overall plan, meta docs, cos-suggestions)*
+   ```
+
+   Files to delete from the vault folder after migration: everything that
+   was copied into the repo (PRD, research notes, scoping docs). Only
+   `README.md` (hub-shaped) should remain, plus a `decisions/` folder if
+   the user has vault-side ADRs that didn't migrate.
+
+   Do not execute any of this. The hub reduction happens via `cos update`
+   after the user confirms the repo URL.
+
+10. **Stop.** Do not run any command yourself. Do not attempt to
    `git clone`, `gh auth status`, `cp` the vault files, or otherwise touch
    the filesystem or network.
 
@@ -266,6 +319,11 @@ separate change, not something to paper over at the call site.
   new repo's `docs/` — `research-pricing.md` stays `research-pricing.md`.
   Renaming breaks the mental link back to the vault-side doc and forces
   the user to reconcile names later.
+- **Don't skip the hub-reduction proposal.** Every scaffold ends with a
+  prompt to reduce the vault folder to hub-only shape (Step 9). The
+  operational docs now live in the sibling repo; leaving duplicates in the
+  vault is the failure mode this step prevents. Even if the user doesn't
+  act on it immediately, the proposal must appear.
 
 ## Example flows
 
