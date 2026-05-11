@@ -6,7 +6,7 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 
 ### Skills (7)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
-- **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`
+- **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`. Ingest extracts open problems (top-3 by buildability) from each source to `docs/00_ops/inbox/inbox.md` for downstream triage; lint writes cadence + cleanliness score back to `docs/00_ops/meta/state.md`.
 - **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
 - **chief-of-staff** - Repo-native second-brain orchestrator with on-demand `cos daily`, `cos weekly`, `cos review`, and `cos update` operations. Reads inbox, tasks, journal, projects; writes only to `docs/00_ops/meta/`; delegates wiki work to `maintaining-wiki`
 - **scaffold-project** - Bootstrap a new repo from one of the maintained templates (python, go, react). Drafts `gh repo create --template` commands; never executes remote mutations itself
@@ -119,7 +119,7 @@ cos update                             # log completed tasks, notes, status chan
 
 **Personal knowledge base / second-brain management under `docs/02_learning/`**
 
-**Operations:** ingest (absorb articles/papers into wiki pages), query (answer questions from notes with citations), lint (audit for contradictions, orphans, broken citations), status (counts and health report), reduce (extract atomic claims from broad pages), reflect (discover cross-connections between pages), reweave (propagate new knowledge backward to older pages)
+**Operations:** ingest (absorb articles/papers into wiki pages; extracts top-3 open problems per source to `docs/00_ops/inbox/inbox.md` for downstream triage), query (answer questions from notes with citations), lint (audit for contradictions, orphans, broken citations; writes `last_wiki_lint` and `last_wiki_lint_score` back to `docs/00_ops/meta/state.md`), status (counts and health report), reduce (extract atomic claims from broad pages), reflect (discover cross-connections between pages), reweave (propagate new knowledge backward to older pages)
 
 **Architecture:** Three-layer `raw/` → `wiki/` → `outputs/` with Obsidian-compatible frontmatter, `[[wiki-links]]`, and `[Source:]` citations. Knowledge pipeline (reduce → reflect → reweave) for growing and maintaining the graph.
 

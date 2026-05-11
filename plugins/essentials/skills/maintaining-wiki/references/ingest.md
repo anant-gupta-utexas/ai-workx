@@ -66,7 +66,7 @@ Using the digest from step 2 (or the raw file itself for `summary`/`atomic` mode
 
 For `atomic` sources, aim for 1–3 candidates, not 15–25. A tweet or a short LinkedIn post is typically one idea; do not force-extract a taxonomy it doesn't contain.
 
-### 4. Propose a touch plan
+### 4. Propose a touch plan + open-problem extraction
 
 Read `wiki/index.md` and decide, for each extracted entity, whether it deserves:
 - a **new page** (no existing coverage),
@@ -81,7 +81,11 @@ Read `wiki/index.md` and decide, for each extracted entity, whether it deserves:
 
 The goal is reinforcing the graph, not hitting a count.
 
-Present the plan to the user as a table before writing anything:
+**Then extract open problems** the source explicitly names. Run the "Open-problem extraction" prompt from `references/prompts.md` against the digest (or raw content for `summary`/`atomic`). Strict definition: only problems the source explicitly flags as unresolved / future work / open question. Hard cap: top 3 by buildability ranking (`yes-solo` > `yes-with-team` > `unclear` > `research-only`). Atomic sources typically yield zero — do not force.
+
+Present both to the user as a two-part proposal before writing anything:
+
+**Touch plan**:
 
 | Path | New/Update | Rationale | Links to add |
 |---|---|---|---|
@@ -89,7 +93,17 @@ Present the plan to the user as a table before writing anything:
 | `wiki/chinchilla-law.md` | update | Flag contradiction: Netflix recsys scaling diverges from Chinchilla | → `[[scaling-laws-recsys]]` |
 | ... | ... | ... | ... |
 
-**Wait for user confirmation.** Do not write files until the user approves the plan (they may prune, add, or re-scope).
+**Open problems extracted** (top 3 by buildability, hard cap):
+
+| # | Problem | Buildable? | Why interesting | Source anchor |
+|---|---|---|---|---|
+| 1 | <one-line problem statement> | yes-solo | <one line — what shipping this would prove> | `[[wiki-slug]]` |
+| 2 | ... | yes-with-team | ... | ... |
+| 3 | ... | research-only | ... | ... |
+
+(Atomic sources typically yield zero. If extraction returned none, surface that explicitly: "No qualifying open problems in this source.")
+
+**Wait for user confirmation.** Do not write files until the user approves both (they may prune touches, drop open-problem rows, or re-scope). User can say "drop open-problem 2" to remove specific rows.
 
 ### 5. Apply
 
@@ -102,6 +116,10 @@ For each new page, use the wiki page template from `references/templates.md`. Re
 - `## Open questions` — `> [!question]` callouts for things the source raised but didn't answer
 
 For updates: preserve existing content, bump `last_updated`, increment `source_count`, append claims rather than rewriting, and cite the new source on every new line.
+
+**Open-problem inbox writes** (only those approved by the user in step 4): for each approved row, append one H2 entry to `docs/00_ops/inbox/inbox.md` using template 7d from `references/templates.md`. Insert above the "Add new captures above this line" marker; entries stack newest-on-top within an ingest. Skip silently if `docs/00_ops/inbox/inbox.md` is not present (vault-shape-aware — the skill stays portable to vaults without a chief-of-staff inbox setup).
+
+The wiki page's own `## Open questions` section still gets the `> [!question]` callouts as before. The inbox write is in addition to (not instead of) the wiki-page question — the wiki captures the question in context; the inbox captures it for triage.
 
 ### 6. Backlinks
 
@@ -132,16 +150,17 @@ Never silently overwrite. The user decides which side wins; until then, both sta
 
 ### 9. Propose commit
 
-Run `git status --short docs/02_learning/` and show:
+Run `git status --short docs/02_learning/ docs/00_ops/inbox/inbox.md` and show:
 
-- The list of new and modified files.
+- The list of new and modified files (including the inbox file if open problems were appended).
 - A proposed commit message:
   ```
-  wiki(ingest): add <topic-slug> from <source-slug> [N pages touched]
+  wiki(ingest): add <topic-slug> from <source-slug> [N pages touched, M open problems → inbox]
   ```
+  (Omit the `M open problems → inbox` suffix if none were appended.)
 - A staging command the user can copy:
   ```
-  git add docs/02_learning/
+  git add docs/02_learning/ docs/00_ops/inbox/inbox.md
   git commit -m "wiki(ingest): ..."
   ```
 

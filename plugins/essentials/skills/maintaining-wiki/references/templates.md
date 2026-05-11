@@ -273,6 +273,19 @@ ingested_via: summary
 {{summary content}}
 ```
 
+### 7d. Inbox entry — open problem extracted from an ingested source
+
+Use during ingest step 5 (Apply), one H2 per approved problem. Append to `docs/00_ops/inbox/inbox.md` above the "Add new captures above this line" marker. Skip silently if `docs/00_ops/inbox/inbox.md` is not present (vault-shape-aware).
+
+```markdown
+## {{YYYY-MM-DD}} — open-problem: {{one-line problem statement}}
+
+**Source**: [[{{wiki-page-slug}}]] ([Source: {{raw-filename}}.md])
+**Domain**: {{e.g. recsys, agent-eval, observability}}
+**Buildable?**: yes-solo | yes-with-team | research-only | unclear
+**Why interesting**: {{one line — what shipping this would prove or unlock}}
+```
+
 ### 7c. `ingested_via: atomic` — short-form, already one idea
 
 Use for tweets, LinkedIn posts, short forum replies, Slack snippets — anything under ~500 words that represents a single thought. No summarization; ingest reads the body verbatim as the digest. `url:` is optional but recommended when the source is public.

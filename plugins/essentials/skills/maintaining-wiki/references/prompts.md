@@ -81,6 +81,59 @@ Used in ingest step 4.
 >
 > Prefer updates to new pages where possible — reinforcing the graph matters more than inflating page count.
 
+## Open-problem extraction
+
+Used in ingest step 4, run inline alongside the touch-plan proposal.
+
+**Purpose**: surface the open problems / unresolved questions / "future work" the source explicitly names. These are the highest-leverage seeds for what to build next — by routing them through the vault's inbox, downstream triage (e.g. `chief-of-staff weekly`) can promote them to project candidates.
+
+**Strict extraction rules**:
+
+- Source uses an **explicit marker**: "open problem", "future work", "we leave to future research", "remains unresolved", "open question", or content the source itself flags as unanswered. Do not infer unstated gaps.
+- Exclude problems the source's authors are already addressing ("we plan to address in §6", "future versions will…"). Those are roadmap, not open problems.
+- Exclude the user's own questions surfaced while reading. Those stay as `> [!question]` callouts on the wiki page only.
+- For `atomic` sources (tweet, short post), extraction typically returns zero. Do not force.
+
+**Buildability scoring**: for each qualifying problem, classify:
+
+- `yes-solo` — single-operator-tractable. Clear measurable goal. No external coordination, no fleet-scale infrastructure required.
+- `yes-with-team` — tractable but needs >1 person, organizational data, or large-scale infra.
+- `research-only` — pure research question. No clear "ship X to prove it" framing.
+- `unclear` — could be any of the above; needs framing work before it's actionable.
+
+**Hard cap**: return only the top 3 problems, ranked by buildability (`yes-solo` > `yes-with-team` > `unclear` > `research-only`). Within a tier, rank by clarity of measurable goal.
+
+> Source content:
+>
+> {{raw_content}}
+>
+> Digest (if available):
+>
+> {{digest}}
+>
+> Extract open problems the source **explicitly names** using markers like "open problem", "future work", "we leave to future research", "remains unresolved", "open question", etc.
+>
+> Exclude:
+> - Problems the source's authors are already addressing in the same work.
+> - Implied gaps you noticed while reading — only extract what the source itself flags.
+> - Tangential side-questions that don't shape future work.
+>
+> For each qualifying problem, score buildability:
+> - `yes-solo` — single-operator-tractable, clear measurable goal, no external coordination.
+> - `yes-with-team` — tractable but needs more than one person or org-scale infra.
+> - `research-only` — pure research question, no clear ship target.
+> - `unclear` — could be any of the above; needs framing work first.
+>
+> Return at most 3 problems, ranked by buildability (`yes-solo` first). Output one row per problem:
+>
+> `problem_one_liner | buildability | why_interesting | source_anchor`
+>
+> - `problem_one_liner` — single-sentence statement of the problem.
+> - `why_interesting` — one line: what shipping a solution would prove or unlock.
+> - `source_anchor` — wiki page slug the problem most relates to (use the touch plan's slugs), or the raw filename if no wiki page fits.
+>
+> If the source raises no qualifying open problems, return an empty list. Do not invent.
+
 ## Contradiction hunt
 
 Used in ingest step 8.

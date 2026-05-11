@@ -69,12 +69,12 @@ Steps:
 1. Read the source and `docs/02_learning/README.md`.
 2. Summarize *unless* `ingested_via` is `summary` or `atomic` (those skip this step — the raw file is already the digest). For `paste`: inline for single-source ingests; for batch ingests (>1 `paste` source in one turn), fan out one Task sub-agent per source and await all digests. See `references/prompts.md` and `references/ingest.md`.
 3. Extract entities, concepts, metrics, systems from the digest (1–3 for `atomic` sources, 15–25 for papers).
-4. Propose a touch plan sized to the source (~10 for papers, ~3–8 for summaries, 1–3 for atomic). Wait for user confirmation.
-5. Apply: create/update pages using `references/templates.md`, every claim cited `[Source: filename.md]`.
+4. Propose a touch plan sized to the source (~10 for papers, ~3–8 for summaries, 1–3 for atomic) **plus open-problem extraction** (top 3 by buildability, hard cap; atomic sources usually yield zero). Wait for user confirmation on both.
+5. Apply: create/update pages using `references/templates.md`, every claim cited `[Source: filename.md]`. Append approved open-problem entries to `docs/00_ops/inbox/inbox.md` (vault-shape-aware; silent skip if absent).
 6. Add backlinks from existing pages to new ones.
 7. Update `wiki/index.md` (categorized) and append `wiki/log.md`.
 8. Contradiction sweep; flag with `> [!warning] CONTRADICTION` callouts.
-9. Surface `git status --short docs/02_learning/` and a proposed commit message. Do NOT commit.
+9. Surface `git status --short docs/02_learning/ docs/00_ops/inbox/inbox.md` and a proposed commit message. Do NOT commit.
 
 Full walkthrough with worked examples: `references/ingest.md`.
 
@@ -100,7 +100,8 @@ Steps:
 2. Run every check in `references/lint.md`.
 3. Write `wiki/lint-report-YYYY-MM-DD.md` from the lint report template.
 4. Append `wiki/log.md`.
-5. Propose fixes as a plan. Do not auto-apply.
+5. Write `last_wiki_lint` and `last_wiki_lint_score` back to `docs/00_ops/meta/state.md` if present (vault-shape-aware; silent skip otherwise).
+6. Propose fixes as a plan. Do not auto-apply.
 
 Full checklist: `references/lint.md`.
 
@@ -194,7 +195,7 @@ After every mutating operation (ingest, lint with applied fixes, query that save
 2. Show a proposed commit message.
 3. Show a staging command list the user can copy-paste.
 
-Scope: only stage files under `docs/02_learning/`. Never stage changes elsewhere during a wiki operation.
+Scope: stage files under `docs/02_learning/`. The ingest operation may also write to `docs/00_ops/inbox/inbox.md` (open-problem entries) and the lint operation may also write to `docs/00_ops/meta/state.md` (cadence + score); both are allowed but must be surfaced explicitly in the staging command. Never stage changes outside these three paths during a wiki operation.
 
 Cadence: one commit per operation. Ingesting three sources = three commits.
 

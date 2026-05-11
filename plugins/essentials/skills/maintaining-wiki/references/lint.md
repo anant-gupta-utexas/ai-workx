@@ -140,6 +140,25 @@ Append after writing the report:
 ## [YYYY-MM-DD] lint | N findings (H high / M medium / L low) | score: NN/100
 ```
 
+## State write
+
+After the lint report and log entry are written, update the vault's cadence-state file if it exists at the canonical path:
+
+- **Target**: `docs/00_ops/meta/state.md`
+- **Writes**:
+  - Replace `last_wiki_lint:` value with today's date (`YYYY-MM-DD`).
+  - Replace `last_wiki_lint_score:` value with the computed `cleanliness_score`. Add the line if absent (place it next to `last_wiki_lint`).
+
+This closes the loop with downstream cadence trackers (e.g. `chief-of-staff weekly`) so they don't keep flagging lint as overdue after a successful run.
+
+**Vault-shape-aware**: skip the write silently if `docs/00_ops/meta/state.md` is not present — the skill stays portable to vaults without a chief-of-staff setup. In that case, emit a one-line reminder at the end of the lint output:
+
+```
+No state.md found at docs/00_ops/meta/ — track lint cadence yourself.
+```
+
+Surface the proposed `state.md` diff to the user as part of the lint output before writing. Never write to `state.md` without showing the diff, same contract as every other mutation in this skill.
+
 ## Status report (no-mutation variant)
 
 Status reuses the walk. It writes nothing to disk. Output to the user:
