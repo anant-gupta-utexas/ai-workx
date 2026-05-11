@@ -4,13 +4,14 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 
 ## What's Included
 
-### Skills (6)
+### Skills (7)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`
 - **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
 - **chief-of-staff** - Repo-native second-brain orchestrator with on-demand `cos daily`, `cos weekly`, `cos review`, and `cos update` operations. Reads inbox, tasks, journal, projects; writes only to `docs/00_ops/meta/`; delegates wiki work to `maintaining-wiki`
 - **scaffold-project** - Bootstrap a new repo from one of the maintained templates (python, go, react). Drafts `gh repo create --template` commands; never executes remote mutations itself
 - **ideation-loop** - Five-phase pattern for moving from fuzzy intent to locked decisions: reframe, canonical plan, decision sheet, topic split, archive. The load-bearing primitive is a decision-sheet entry format with end-to-end rendered candidates, a single recommendation (no menus), and cost-of-being-wrong calibration. Includes a stop rule that fires when planning cycles outrun shipping.
+- **pressure-test** - Adversarial pressure-test for a claim, decision, or research conclusion. Forces evidence-tier classification, walks a five-mode failure scan (tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure), demands a falsifier in `Because-X-then-not-Y` shape, and resolves to a verdict carrying the evidence tier. Invoked at `ideation-loop` convergence for medium-high-stakes entries and at `deep-research` Verify for load-bearing conclusions.
 
 > **Note:** The consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer) has moved to the DEV-ESSENTIALS plugin.
 
@@ -78,6 +79,15 @@ cos update                             # log completed tasks, notes, status chan
 "force convergence on my open decisions"
 "scope this out — I have N open questions"
 "what should I build first"
+```
+
+**Pressure Test:**
+```bash
+"pressure-test this decision before I lock it"
+"grill this claim"
+"stress-test this conclusion"
+"what would prove this wrong"
+"find the falsifier for this hypothesis"
 ```
 
 ### Using Agents Directly
@@ -199,6 +209,37 @@ The skill drafts a `gh repo create --template <registry-entry> --clone` command 
 - `references/decision-sheet-template.md` — blank fillable template
 - `references/phase-checklist.md` — per-phase checklist for what artifact to produce next
 
+#### Pressure Test
+
+**Adversarial pressure-test for a claim, decision, or research conclusion**
+
+**Output contract** (fixed 5-section):
+
+1. **Claim under test** — restated in precise, measurable terms
+2. **Evidence tier** — Tier 1-5 (meta-analysis → A/B → uncontrolled → observational → anecdote/HiPPO)
+3. **Failure-mode scan** — five modes, one paragraph each:
+   - Tier-5-dressed-as-Tier-2 (confidence/evidence mismatch)
+   - Selection bias blind spots (option set itself is biased)
+   - Eval-aware target (claim behaves differently when probed than when used)
+   - Domain drift (general pattern applied to specialist context without re-grounding)
+   - Verification/termination failure (ceremonial verification — probe existed but didn't probe)
+4. **Falsifier** — `Because-X-then-not-Y` shape. If none exists, claim is unfalsifiable
+5. **Cost-recalibration + Verdict** — `holds | weakened | weakened-but-not-rejected | rejected | needs-evidence | unfalsifiable`, plus one concrete next-step. Verdict carries the evidence tier explicitly.
+
+**Gate:** Only invoke on items with cost-of-being-wrong ≥ medium (the 10× rule — would a 10× wrong call here produce 10× downside?). Skip for low-stakes decisions; over-invocation costs more than it saves.
+
+**Anti-tooling-the-muscle clause:** Requires the user to attempt a failure-mode scan first (one sentence per mode is enough) before invoking. Running the rubric cold short-circuits the formation of the user's own pattern-matching.
+
+**Composition:**
+- `ideation-loop` invokes at convergence on decision-sheet entries with cost-of-being-wrong ≥ medium
+- `deep-research` invokes at Verify on load-bearing conclusions
+- Direct invocation works for ad-hoc claims and hypotheses
+
+**Activation keywords:** `pressure-test`, `grill this`, `stress-test this decision`, `what could go wrong`, `challenge this claim`, `find the falsifier`, `what would prove this wrong`, `red-team this`
+
+**References:**
+- `references/failure-modes.md` — five-mode rubric expanded with worked examples, edge cases, and multi-mode firing patterns
+
 ### Agents
 
 #### Business Strategist
@@ -218,6 +259,7 @@ Technical solutions research, best practices, GitHub issues, library comparisons
 - Deep, multi-source investigations with formal cited deliverables
 - Running a private, markdown-first second-brain (Obsidian-compatible) with on-demand daily / weekly / review / update cadences
 - Bootstrapping new repos from maintained language templates (python, go, react)
+- Pressure-testing claims, decisions, and research conclusions with explicit evidence-tier classification and a named falsifier
 
 ## Not Designed For
 

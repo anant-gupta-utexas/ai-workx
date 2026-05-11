@@ -99,6 +99,8 @@ Read `resources/verification.md`. Run a full verification pass over the draft:
 - Remove or weaken claims with no traceable source
 - Write the verification log to `outputs/research/<slug>-verification.md`
 
+For any load-bearing conclusion that will be acted on (not just read), invoke the `pressure-test` skill on the conclusion before delivery. Citation anchoring and pressure-testing are complementary, not redundant — the former proves sources exist; the latter proves the claim survives contact with the sources. Append the pressure-test output to the verification log as a per-conclusion section. Skip for low-stakes briefs where no conclusion will trigger a decision.
+
 ### 6. Deliver
 
 Write the final brief to `outputs/research/<slug>-brief.md`. Append an entry to `outputs/research/CHANGELOG.md` if it exists. Present the executive summary to the user with a link to the full artifact.

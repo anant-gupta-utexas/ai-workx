@@ -141,6 +141,18 @@ The archive README serves two purposes: recoverability (the old doc isn't delete
 
 Locked decisions from the sheet go into project memory (e.g., `project_atlas_overview.md`), not feedback memory. Keep the distinction clean: feedback = how to work with Anant; project = what's true about the work.
 
+## Adversarial pressure-test at convergence
+
+Before locking any decision-sheet entry with cost-of-being-wrong ≥ medium, invoke the `pressure-test` skill on the entry. Skip for low-stakes entries — over-invocation costs more than it saves (see `pressure-test` SKILL.md for the stop rule and the 10× gate).
+
+What pressure-test adds that the four-slot entry doesn't:
+
+- **Evidence-tier classification** for the "My read" recommendation (Tier 1-5 from `[[hierarchy-of-evidence]]`). If the read is stated with Tier-2 confidence on Tier-5 evidence, the recommendation downgrades.
+- **A named falsifier** in `Because-X-then-not-Y` shape. What specific observation would change the decision? If none exists, the entry isn't ready to lock.
+- **A five-mode failure scan** (Tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure) that surfaces the failure modes a four-slot entry doesn't catch.
+
+The pressure-test output appends a block under the entry; the user folds the cost-recalibration back into the `Cost of being wrong:` line and writes the falsifier alongside the `Decision:` line so a future reviewer can see what would unlock it.
+
 ## Scope discipline — the stop rule
 
 This skill has a failure mode: it produces really good planning artifacts and zero code. Guard against it.

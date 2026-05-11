@@ -21,7 +21,7 @@ Development essentials with specialized agents for planning, documentation (with
 Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, and web research agent for enhanced development workflow.
 
 **Includes:**
-- 6 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates, ideation-loop for moving from fuzzy intent to locked decisions)
+- 7 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates, ideation-loop for moving from fuzzy intent to locked decisions, pressure-test for adversarial pressure-testing with five-mode failure rubric and falsifier requirement)
 - 2 Agents (business-strategist, web-research-specialist)
 
 **Perfect for:** Business strategy and product planning, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
@@ -211,8 +211,10 @@ This opens an interactive UI showing all available plugins from this marketplace
 - **deep-research** - Structured multi-round investigation pipeline: plan (task ledger, slug derivation) -> scale decision (complexity-based parallelism) -> execute (parallel searches) -> synthesize -> verify (citation anchoring, URL validation) -> deliver (source-grounded brief). 4 resource guides.
 - **chief-of-staff** - Repo-native second-brain orchestrator with four operations (`cos daily`, `cos weekly`, `cos review`, `cos update`). Reads inbox, tasks, journal, and project folders; writes only to `docs/00_ops/meta/`; delegates wiki ops to `maintaining-wiki`. Draft-only cross-repo routing via `gh issue create`.
 - **scaffold-project** - Bootstrap a new repo from one of the maintained templates (`python-scaffolding`, `go-scaffolding`, `react-scaffolding`). Drafts `gh repo create --template --clone` commands; user executes. Web-UI fallback when `gh` is unavailable.
+- **ideation-loop** - Five-phase pattern for moving from fuzzy intent to locked decisions: reframe, canonical plan, decision sheet, topic split, archive. Decision-sheet entries render candidates end-to-end (repo path, README line, imports, public hook) rather than as abstract option lists; cost-of-being-wrong tier gates time spent. Stop rule fires when planning cycles outrun shipping.
+- **pressure-test** - Adversarial pressure-test for a claim, decision, or research conclusion. Forces evidence-tier classification (Tier 1-5 ladder), walks a five-mode failure scan (tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure), demands a falsifier in `Because-X-then-not-Y` shape, and resolves to a verdict carrying the evidence tier. Invoked at `ideation-loop` convergence for medium-high-stakes entries and at `deep-research` Verify for load-bearing conclusions.
 
-> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin. The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0.
+> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin. The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0. The `pressure-test` skill was added in v2.6.0.
 
 **Agents:**
 - **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation
