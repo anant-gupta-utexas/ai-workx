@@ -185,6 +185,12 @@ If `docs/00_ops/meta/` is missing, the skill's first run offers to scaffold it r
 
 The skill drafts a `gh repo create --template <registry-entry> --clone` command for the chosen language. The user runs it; the skill never mutates remote state itself. A web-UI fallback (`/generate` URL) is provided when `gh` is unavailable.
 
+After the `gh` block, the skill:
+
+1. **Inspects the cloned template's `docs/` layout** (`ls <name>/docs/`) before drafting `cp` destination paths — so files land in the correct subdirectory even when the template uses numbered or named subdirs.
+2. **Proposes a sanitization pass** on the copied vault docs — warns about person names, company names, engagement dates, and vault-internal paths that don't belong in public repos; offers a grep-based scan with a per-row proposal table the user confirms before anything changes.
+3. **Drafts a vault `CLAUDE.md` sibling-repos table row** for the new repo so the chief-of-staff and all agents know the repo exists; emitted as a named proposal the user applies.
+
 #### Ideation Loop
 
 **Five-phase pattern for moving from fuzzy intent to locked decisions in under 72 hours**

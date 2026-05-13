@@ -4,7 +4,15 @@ Guide for moving skills, agents, commands, and hooks between plugins.
 
 ## Quick Reference
 
-### Files to Update (7 files minimum)
+### Editing an existing skill/agent/command — 5 files
+
+1. `plugins/<plugin>/skills/<skill>/SKILL.md` (the edit)
+2. `plugins/<plugin>/plugin.json` (bump version)
+3. `plugins/<plugin>/README.md` (update description + counts)
+4. `.claude-plugin/marketplace.json` (bump version + update description)
+5. Root `README.md` (update skill bullet if capability changed)
+
+### Moving a component between plugins — 7 files minimum
 
 1. Physical files (move)
 2. Source `plugin.json` (remove entry)
@@ -40,15 +48,33 @@ mv plugins/source/{type}/{component} plugins/target/{type}/{component}
 
 ## Update Checklist
 
-### Source Plugin
+### Editing an existing skill / agent / command (non-trivial content change)
+- [ ] `plugins/<plugin>/skills/<skill>/SKILL.md` (or equivalent) — the edit itself
+- [ ] `plugins/<plugin>/plugin.json` — bump `version` (patch for additive, minor for new behavior, major for breaking)
+- [ ] `plugins/<plugin>/README.md` — update the component's description and any "What's Included" counts
+- [ ] `.claude-plugin/marketplace.json` — bump the plugin `version` to match `plugin.json`; update `description` if the summary changed
+- [ ] `README.md` (root) — update the plugin's skill/agent bullet if the capability description changed
+
+> **Rule:** Any edit that changes what a skill *does* or *offers* (new steps, new proposals, new triggers) requires all five files above. Typo fixes and wording-only cleanups only need the SKILL.md itself.
+
+### Moving a component between plugins (7 files minimum)
+1. Physical files (move)
+2. Source `plugin.json` (remove entry)
+3. Source `README.md` (remove docs)
+4. Target `plugin.json` (add entry)
+5. Target `README.md` (add docs)
+6. `.claude-plugin/marketplace.json` (update both plugins)
+7. Root `README.md` (update summaries)
+
+### Source Plugin (move only)
 - [ ] `plugin.json` - No changes needed (Claude Code auto-discovers components)
 - [ ] `README.md` - Remove from "What's Included", descriptions, examples, update counts
 
-### Target Plugin
+### Target Plugin (move only)
 - [ ] `plugin.json` - No changes needed (Claude Code auto-discovers components)
 - [ ] `README.md` - Add to "What's Included", descriptions, examples, update counts
 
-### Marketplace & Root
+### Marketplace & Root (move only)
 - [ ] `.claude-plugin/marketplace.json` - Update both plugin descriptions and keywords
 - [ ] `README.md` - Update all plugin sections
 

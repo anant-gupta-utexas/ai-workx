@@ -87,7 +87,39 @@ separate change, not something to paper over at the call site.
      If the user asks for a different owner, surface that this skill only
      targets `anant-gupta-utexas` and stop.
 
-6. **Fallback when `gh` is not installed.**
+6. **Inspect the cloned repo's `docs/` structure.** Before drafting any `cp`
+   destination paths, read the actual directory layout of the cloned template:
+
+   ```bash
+   ls <name>/docs/
+   ```
+
+   - If the template uses a flat `docs/` (files directly under `docs/`), route
+     copied files to `<name>/docs/<filename>` as shown in the destination table
+     below.
+   - If the template uses numbered or named subdirectories
+     (`1_product_and_research/`, `2_architecture/`, etc.), map each vault file
+     to the semantically matching subdir:
+
+     | Vault file | Likely template subdir |
+     | --- | --- |
+     | `prd.md` | `1_product_and_research/` or similar |
+     | `architecture.md` | `2_architecture/` or similar |
+     | `research-*.md` | `1_product_and_research/` or similar |
+
+   - If the structure is ambiguous (no `docs/` at all, multiple equally-plausible
+     subdirs for a given file type), ask the user one question with the actual
+     `ls` output pasted inline before drafting destinations.
+   - Do **not** hardcode `docs/<file>` destination paths without running this
+     step first. Hardcoded destinations that don't match the template are the
+     friction pattern this step prevents.
+
+   > If the repo hasn't been cloned yet (the user hasn't run the `gh` block),
+   > note the destinations as provisional and mark them clearly: "These
+   > destinations assume a flat `docs/`. Run `ls <name>/docs/` and let me know
+   > the layout if the template uses subdirectories."
+
+8. **Fallback when `gh` is not installed.**
    - If the user has signaled that `gh` is unavailable (or you have reason
      to believe so — e.g. the user mentions "I don't have the GitHub CLI"),
      emit the template's `/generate` URL plus the manual clone command:
@@ -106,7 +138,7 @@ separate change, not something to paper over at the call site.
    - `brew install gh` (macOS) or https://cli.github.com/ for other
      platforms — mention this only if the user asks how to unblock.
 
-7. **Draft the context-copy block.** After the repo is cloned, the user
+9. **Draft the context-copy block.** After the repo is cloned, the user
    usually wants the project's vault-side docs (the stuff they wrote during
    ideation — README, PRD, one or more research notes) to land in the new
    repo on top of the template stubs. Draft the `cp` commands; the user
@@ -183,43 +215,111 @@ separate change, not something to paper over at the call site.
      source folder — left in the vault; add manually if you want them in
      the repo later."
 
-8. **Print the next-steps checklist.** Short, language-specific, one line
-   per step. Use the template below (adapt to the chosen language):
+10. **Post-copy sanitization proposal.** After drafting the `cp` block,
+    warn the user that vault docs often contain person names, company names,
+    engagement dates, and vault-internal path fragments that don't belong
+    in a public (or semi-public) repo.
 
-   **Python:**
-   ```
-   Next steps:
-   - cd <name>
-   - uv sync                       # install deps
-   - uv run pytest                 # verify scaffolding tests pass
-   - open README.md                # language-specific bootstrap details
-   - ls docs/                      # review vault context copied over
-   ```
+    Emit this warning and offer before the user runs the `cp` commands:
 
-   **Go:**
-   ```
-   Next steps:
-   - cd <name>
-   - go mod tidy                   # resolve deps
-   - go test ./...                 # verify scaffolding tests pass
-   - open README.md                # language-specific bootstrap details
-   - ls docs/                      # review vault context copied over
-   ```
+    ```
+    Before you run the cp block: vault docs often carry real names (founders,
+    clients, team members), company/product names, engagement-specific framing,
+    and vault-internal paths (docs/03_projects/…, docs/00_ops/…) that don't
+    belong in a public repo.
 
-   **React:**
-   ```
-   Next steps:
-   - cd <name>
-   - pnpm install                  # install deps
-   - pnpm dev                      # start dev server
-   - open README.md                # language-specific bootstrap details
-   - ls docs/                      # review vault context copied over
-   ```
+    Want me to scan the copied files for risky patterns and draft a
+    sanitization proposal? I'll grep for:
+      - proper-noun clusters from the project README/PRD
+      - vault-internal path fragments (docs/03_projects/, docs/00_ops/, second-brain)
+      - any obvious engagement-specific dates or client identifiers
 
-   Do not pretend to know details of the template beyond these — the
-   template README is authoritative.
+    Reply "yes, scan" and I'll draft a proposal table (what gets stripped,
+    what stays, line-by-line) before any change is made. Some names
+    (public collaborators, open-source maintainers) may be intentional —
+    you confirm each one.
+    ```
 
-9. **Propose vault hub reduction.** After the cp block, tell the user that
+    Rules for the sanitization pass (when the user says "yes, scan"):
+    - Draft the scan as a proposal table — one row per risky pattern found,
+      with the line it appears on, the proposed replacement, and a rationale.
+    - Never auto-sanitize silently. The user confirms each row.
+    - Do not strip names that are clearly the user's own public identity
+      (e.g. the repo owner's GitHub handle) — those are intentional.
+    - After the user approves the table, emit the sanitized file contents as
+      a fenced block. The user replaces the files manually (same "draft, don't
+      execute" rule that governs the `cp` block).
+
+    If the user skips sanitization ("no, skip"), move on. Record nothing.
+    If the copied files are known to be already clean (the user says so),
+    accept that and move on.
+
+11. **Print the next-steps checklist.** Short, language-specific, one line
+    per step. Use the template below (adapt to the chosen language):
+
+    **Python:**
+    ```
+    Next steps:
+    - cd <name>
+    - uv sync                       # install deps
+    - uv run pytest                 # verify scaffolding tests pass
+    - open README.md                # language-specific bootstrap details
+    - ls docs/                      # review vault context copied over
+    ```
+
+    **Go:**
+    ```
+    Next steps:
+    - cd <name>
+    - go mod tidy                   # resolve deps
+    - go test ./...                 # verify scaffolding tests pass
+    - open README.md                # language-specific bootstrap details
+    - ls docs/                      # review vault context copied over
+    ```
+
+    **React:**
+    ```
+    Next steps:
+    - cd <name>
+    - pnpm install                  # install deps
+    - pnpm dev                      # start dev server
+    - open README.md                # language-specific bootstrap details
+    - ls docs/                      # review vault context copied over
+    ```
+
+    Do not pretend to know details of the template beyond these — the
+    template README is authoritative.
+
+12. **Draft the vault `CLAUDE.md` sibling-repos update.** Once the repo URL
+    is known (the user confirms the `gh` block ran and shares the URL, or it
+    is derivable from the owner + name), propose adding the new repo to the
+    vault's `CLAUDE.md` sibling-repos table so the chief-of-staff and all
+    agents know the repo exists.
+
+    Emit the proposal as a named diff (not a command to run):
+
+    ```
+    Add to CLAUDE.md #sibling-repos table (vault edit — confirm before applying):
+
+    | [`<name>`](https://github.com/anant-gupta-utexas/<name>) | `../<name>` | <one-line purpose> | Code, README, config go there. Plans, decisions, research, and task tracking stay in `docs/03_projects/<name>/`. |
+    ```
+
+    Rules:
+    - The vault path column is always `../<name>` (sibling to the vault under
+      `~/PycharmProjects/` or equivalent — use whatever parent the user's
+      vault sits in).
+    - The "What lives there" cell comes from the project description the user
+      gave in Step 4. Keep it to one sentence.
+    - The "Routing rule" cell follows the same pattern as existing sibling
+      entries: code and repo-level docs go to the sibling repo; vault-side
+      plans, decisions, and task tracking stay in `docs/03_projects/<name>/`.
+    - Do **not** write to the vault yourself. This is a proposal the user
+      confirms; they (or `cos update`) apply the edit.
+    - If the repo URL is not yet known (the user hasn't confirmed the `gh`
+      block ran), note that the CLAUDE.md update is pending the URL and
+      remind the user to reply with it.
+
+13. **Propose vault hub reduction.** After the cp block, tell the user that
    the vault folder should now shrink to hub-only shape — its operational
    docs (PRD, research, scoping notes) have migrated to the sibling repo and
    the vault copy should become a status pointer, not a duplicate.
@@ -272,9 +372,9 @@ separate change, not something to paper over at the call site.
    Do not execute any of this. The hub reduction happens via `cos update`
    after the user confirms the repo URL.
 
-10. **Stop.** Do not run any command yourself. Do not attempt to
-   `git clone`, `gh auth status`, `cp` the vault files, or otherwise touch
-   the filesystem or network.
+14. **Stop.** Do not run any command yourself. Do not attempt to
+    `git clone`, `gh auth status`, `cp` the vault files, or otherwise touch
+    the filesystem or network.
 
 ## Anti-patterns
 
@@ -319,8 +419,27 @@ separate change, not something to paper over at the call site.
   new repo's `docs/` — `research-pricing.md` stays `research-pricing.md`.
   Renaming breaks the mental link back to the vault-side doc and forces
   the user to reconcile names later.
+- **Don't hardcode `docs/<file>` cp destinations without inspecting the
+  template first.** Always run `ls <name>/docs/` (Step 6) before drafting
+  destination paths. Templates may use numbered subdirectories; hardcoded
+  flat paths break silently and force mid-session course corrections.
+- **Don't skip the sanitization warning.** Every scaffold session that
+  copies vault docs into a public (or semi-public) repo must emit the
+  sanitization offer (Step 10). Vault docs routinely carry person names,
+  company names, and vault-internal paths that don't belong in public
+  repos. Skipping the warning shifts the cost onto the user.
+- **Don't auto-sanitize silently.** If the user asks for a sanitization
+  scan, produce a proposal table and wait. Never strip content without
+  explicit per-row confirmation.
+- **Don't write the vault `CLAUDE.md` yourself.** Draft the sibling-repos
+  table row (Step 12) as a proposal. The user applies it (or delegates to
+  `cos update`). Same "propose, don't mutate" rule as the `cp` block.
+- **Don't skip the `CLAUDE.md` sibling-repos proposal.** Every new repo
+  scaffolded via this skill should be registered in the vault's routing
+  table. If the repo URL isn't known yet, emit the pending reminder; don't
+  silently omit the step.
 - **Don't skip the hub-reduction proposal.** Every scaffold ends with a
-  prompt to reduce the vault folder to hub-only shape (Step 9). The
+  prompt to reduce the vault folder to hub-only shape (Step 13). The
   operational docs now live in the sibling repo; leaving duplicates in the
   vault is the failure mode this step prevents. Even if the user doesn't
   act on it immediately, the proposal must appear.
@@ -349,11 +468,15 @@ Skill:
     --clone
   ```
 
+  Once cloned, run `ls foo-service/docs/` and paste the output so I can
+  route the vault files to the right subdirectories. (If the template uses
+  a flat docs/, the cp block below is provisional and already correct.)
+
   What's in docs/03_projects/foo-service/? I'll draft cp commands for
   the files you want in the new repo.
 
 User: README.md, prd.md, research-pricing.md, research-batching.md.
-      Skip the decision sheets.
+      Skip the decision sheets. docs/ is flat.
 
 Skill:
   The template already ships `CLAUDE.md`, `README.md`, and `docs/` —
@@ -369,6 +492,14 @@ Skill:
   cp "$VAULT/research-batching.md"  ./foo-service/docs/research-batching.md
   ```
 
+  Before you run the cp block: vault docs often carry real names, company
+  names, and vault-internal paths (docs/03_projects/…) that don't belong
+  in a public repo. Want me to scan the copied files for risky patterns
+  and draft a sanitization proposal? Reply "yes, scan" or "no, skip".
+
+User: no, skip
+
+Skill:
   Next steps:
   - cd foo-service
   - uv sync
@@ -376,9 +507,13 @@ Skill:
   - open README.md
   - ls docs/
 
-  Reply with the created repo URL if you'd like me to record it somewhere
-  (e.g. bump `docs/03_projects/foo-service/README.md` frontmatter via
-  `cos update`).
+  Add to CLAUDE.md #sibling-repos table in your vault (confirm before applying):
+
+  | [`foo-service`](https://github.com/anant-gupta-utexas/foo-service) | `../foo-service` | Background data job runner. | Code, README, config go there. Plans, decisions, research, and task tracking stay in `docs/03_projects/foo-service/`. |
+
+  Once the repo is confirmed, reduce docs/03_projects/foo-service/README.md
+  to hub-only shape and delete the migrated files from the vault folder.
+  Reply with the repo URL and I'll draft the cos update to do this.
 ```
 
 ### Ambiguous language

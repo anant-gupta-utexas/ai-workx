@@ -1,6 +1,6 @@
 {
   "name": "essentials",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest with open-problem extraction to inbox, query, lint with state-cadence write-back, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator (daily/weekly/review/update cadences), scaffold-project skill for bootstrapping repos from templates, ideation-loop skill for moving from fuzzy intent to locked decisions (decision-sheet format, stop rule, hiring-lens filter), pressure-test skill for adversarial pressure-testing of claims/decisions/conclusions (five-mode failure rubric, falsifier requirement, evidence-tier classification), business-strategist agent for creating in-depth operational business plans, and web research agent for enhanced development workflow",
   "author": {
     "name": "Anant Gupta"
