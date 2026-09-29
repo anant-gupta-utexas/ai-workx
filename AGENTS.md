@@ -16,6 +16,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | learning-coach | Learning and system design coaching | 2 skills (learning_methods + technical_coach) |
 | financial-coach | Investment analysis and valuation | 2 skills |
 | autoresearch | Autonomous ML research pipeline | 1 skill (12 resource guides), 4 agents, 7 commands, 3 hooks |
+| data-analyst | Data analysis lifecycle: framing, metric design, feasibility, data profiling, peer review, reporting | 7 skills (analytics-guidelines with 4 resource guides, frame-analysis, metric-design, feasibility-check, data-profile, analyst-peer-review, present-analysis) |
 
 ## Installation
 
@@ -29,6 +30,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 /plugin install DEV-BE-PYTHON@ai-workx    # Python backend
 /plugin install DEV-BE-GO@ai-workx        # Go backend
 /plugin install DEV-FE@ai-workx           # Frontend
+/plugin install data-analyst@ai-workx     # Data analysis lifecycle
 ```
 
 > **Note:** The chief-of-staff skill (second-brain orchestrator, `cos daily`/`weekly`/`review`/`update`) now ships as part of `essentials@ai-workx`.

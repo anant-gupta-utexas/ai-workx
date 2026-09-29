@@ -201,6 +201,30 @@
       ]
     },
     {
+      "name": "data-analyst",
+      "source": "./plugins/data-analyst",
+      "description": "Data analysis lifecycle skills covering question framing, metric design, feasibility assessment, data quality profiling, analytical peer review, and stakeholder-ready reporting. Every skill opens with a gate that refuses to proceed on a guessed-at goal, and all data access is read-only.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anant Gupta",
+        "contact": "anant.gupta@utexas.edu"
+      },
+      "category": "analytics",
+      "keywords": [
+        "analytics",
+        "data-science",
+        "sql",
+        "peer-review",
+        "feasibility",
+        "metrics",
+        "metric-design",
+        "data-quality",
+        "data-profiling",
+        "reporting",
+        "stakeholder-communication"
+      ]
+    },
+    {
       "name": "autoresearch",
       "source": "./plugins/autoresearch",
       "description": "Autonomous ML research plugin covering Karpathy's experiment loops, SkyPilot parallel GPU scaling, the AI Scientist's multi-phase research pipeline with tree search, manuscript generation, automated peer review, and queue-based orchestration with fresh context per phase.",

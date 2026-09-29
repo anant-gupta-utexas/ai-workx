@@ -1,0 +1,22 @@
+{
+  "name": "data-analyst",
+  "version": "1.0.0",
+  "description": "Data analysis lifecycle skills covering question framing, metric design, data quality profiling, feasibility assessment, analytical peer review, and stakeholder-ready reporting.",
+  "author": {
+    "name": "Anant Gupta",
+    "email": "anant.gupta@utexas.edu"
+  },
+  "license": "MIT",
+  "keywords": [
+    "analytics",
+    "data-science",
+    "sql",
+    "peer-review",
+    "feasibility",
+    "metrics",
+    "data-quality",
+    "data-profiling",
+    "reporting",
+    "stakeholder-communication"
+  ]
+}

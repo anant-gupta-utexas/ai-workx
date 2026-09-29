@@ -69,6 +69,20 @@ Autonomous ML research plugin covering the full spectrum from single-agent exper
 - Tree-based experiment exploration with 4-stage progress management
 - Long-running pipelines with fresh-context orchestration to prevent attention degradation
 
+#### [data-analyst](./plugins/data-analyst/)
+Data analysis lifecycle skills covering question framing, metric design, feasibility assessment, data quality profiling, analytical peer review, and stakeholder-ready reporting. Every skill opens with a gate that refuses to proceed on a guessed-at goal, and all data access is read-only.
+
+**Includes:**
+- 7 Skills (analytics-guidelines, frame-analysis, metric-design, feasibility-check, data-profile, analyst-peer-review, present-analysis)
+
+**Perfect for:**
+- Turning a vague stakeholder ask into a locked question and analysis plan
+- Defining metrics that survive being optimized against (with a gaming/sensitivity stress test)
+- Estimating whether an analytics feature is feasible before promising a timeline
+- Checking a table or file is fit for purpose before building on it, without ever writing to it
+- Getting a devil's-advocate review of SQL, Python, or notebook analysis before sharing results
+- Turning a finished analysis into a stakeholder-ready Markdown report
+
 ---
 
 ### Specialized Plugins (Install Based on Your Stack)
@@ -160,6 +174,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 # ML research plugin (if you're doing autonomous ML experimentation)
 /plugin install autoresearch@ai-workx
+
+# Data analysis plugin (if you're framing, profiling, or reviewing analytics work)
+/plugin install data-analyst@ai-workx
 ```
 
 > **Note:** The `chief-of-staff` skill (second-brain orchestrator with `cos daily`/`weekly`/`review`/`update` operations) now ships as part of `essentials@ai-workx` — no separate install.
@@ -335,6 +352,33 @@ pip install youtube-transcript-api
 **Requirements:** Python 3.10+, NVIDIA GPU, optional SkyPilot for parallel execution
 
 [View Details →](./plugins/autoresearch/README.md)
+
+---
+
+### data-analyst Plugin (Data Analysis Lifecycle)
+
+**Why install:** Covers the full lifecycle of an analytics question, from turning a vague ask into a locked question through to a stakeholder-ready report, with every skill refusing to proceed on a guessed-at goal and every data check read-only.
+
+**Skills:**
+- **analytics-guidelines** - Shared lifecycle map and reference library (analytics traps, SQL pitfalls, stats pitfalls, report voice) that the other six skills link into instead of duplicating
+- **frame-analysis** - Turns a vague ask into a locked question, a hypotheses table (including the null hypothesis), defined metrics, and a plan
+- **metric-design** - Defines a metric tree with spec cards and a Goodhart/sensitivity/mix-shift stress test per metric
+- **feasibility-check** - Traces the real system a change would plug into and returns a verdict with a breakdown table, never a confident estimate over an open unknown
+- **data-profile** - Read-only grain, freshness, null, cardinality, sentinel-value, outlier, and join-integrity check on a table or file before it's used
+- **analyst-peer-review** - Devil's-advocate review of SQL/Python/notebook analysis: code mechanics first, then whether the analysis actually serves its purpose
+- **present-analysis** - Turns a finished analysis into a three-depth Markdown report (takeaways, recommendations, chart-backed analysis) saved to a file
+
+**How to use:**
+```
+Help me frame this: marketing wants to know why signups dropped last month
+Build a metric tree for whether our support team is actually helping customers
+Is it feasible to show daily watch-time by traffic source for every video?
+Profile the user_events table before I build weekly active users on it
+Review my week-over-week active user query before I send it out
+Write this up for the exec team: should we invest more in mobile onboarding?
+```
+
+[View Details →](./plugins/data-analyst/README.md)
 
 ---
 
@@ -597,6 +641,16 @@ Use commands for workflows:
 
 **You get:** Autonomous ML experimentation with single-agent loops, parallel GPU sweeps via SkyPilot, 4-stage tree search, manuscript generation, and automated peer review. Includes experiment budget guards and SkyPilot auto-authorization hooks.
 
+### For Data Analysis
+
+```bash
+/plugin install DEV-ESSENTIALS@ai-workx
+/plugin install essentials@ai-workx
+/plugin install data-analyst@ai-workx
+```
+
+**You get:** The full analytics lifecycle — framing a vague ask into a locked question, defining metrics that resist gaming, checking feasibility before promising a timeline, profiling data quality read-only, peer-reviewing analysis code, and producing stakeholder-ready reports.
+
 ### For Learning & Knowledge Acquisition
 
 ```bash
@@ -633,6 +687,7 @@ Use commands for workflows:
 - [DEV-BE-GO Plugin (Go) →](./plugins/DEV-BE-GO/README.md)
 - [DEV-FE Plugin →](./plugins/DEV-FE/README.md)
 - [autoresearch Plugin →](./plugins/autoresearch/README.md)
+- [data-analyst Plugin →](./plugins/data-analyst/README.md)
 
 ---
 
