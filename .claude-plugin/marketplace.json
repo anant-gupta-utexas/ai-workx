@@ -105,8 +105,8 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint with citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill for bootstrapping repos from templates (with doc-dir inspection, sanitization proposal, and vault CLAUDE.md registration), brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims and decisions, consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer with a shared Release → Phase → Task contract), dev-docs skill for per-phase backend task specs with task docs that update after every completed task, automate-tasks skill that captures a user's working style into a personal <handle>-mode skill from transcript mining and a short Q&A, and business-strategist, documentation-architect, plan-reviewer, refactor-planner, and web-research-specialist agents",
-      "version": "3.2.0",
+      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint with citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill that generates Python projects from the python-scaffolding Copier template (library_cli, service, and datascience flavors, with planning-doc copy, sanitization scan, and hub registration), brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims and decisions, consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer with a shared Release → Phase → Task contract), dev-docs skill for per-phase backend task specs with task docs that update after every completed task, automate-tasks skill that captures a user's working style into a personal <handle>-mode skill from transcript mining and a short Q&A, and business-strategist, documentation-architect, plan-reviewer, refactor-planner, and web-research-specialist agents",
+      "version": "4.0.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -132,6 +132,7 @@
         "scaffold",
         "template",
         "project-bootstrap",
+        "copier",
         "brainstorming",
         "lateral-thinking",
         "unstuck",

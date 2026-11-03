@@ -9,14 +9,14 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 - **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`. Ingest extracts open problems (top-3 by buildability) from each source to `docs/00_ops/inbox/inbox.md` for downstream triage; lint writes cadence + cleanliness score back to `docs/00_ops/meta/state.md`.
 - **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
 - **chief-of-staff** - Repo-native second-brain orchestrator with on-demand `cos daily`, `cos weekly`, `cos review`, and `cos update` operations. Reads inbox, tasks, journal, projects; writes only to `docs/00_ops/meta/`; delegates wiki work to `maintaining-wiki`
-- **scaffold-project** - Bootstrap a new repo from one of the maintained templates (python, go, react). Drafts `gh repo create --template` commands; never executes remote mutations itself
+- **scaffold-project** - Generate a new Python project from the `python-scaffolding` Copier template in one of three flavors (`library_cli`, `service`, `datascience`). Runs a non-interactive `uvx copier copy` the user approves, then offers the quality gate, first commit, planning-doc copy, GitHub repo creation, and hub registration as separate confirmed steps
 - **brainstorm** - Structured brainstorming that diagnoses whether you're stuck, sprawling, or torn, then runs the right mode: Diverge (one of 5 thinking personas — Contrarian, Hacker, Simplifier, Researcher, Architect), Reframe (collapse many workstreams into the smallest true set), or Converge (candidates rendered as concrete artifacts, one recommendation, cost-of-being-wrong calibration). Includes a stop rule when brainstorming outruns action.
 - **pressure-test** - Adversarial pressure-test for a claim, decision, or research conclusion. Forces evidence-tier classification, walks a five-mode failure scan (tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure), demands a falsifier in `Because-X-then-not-Y` shape, and resolves to a verdict carrying the evidence tier. Invoked at `brainstorm` convergence for medium-high-stakes entries and at `deep-research` Verify for load-bearing conclusions.
 - **consult-experts** - Routes requests to expert personas — Product Manager (PRDs with release plans and deferred features), Tech Lead (TRDs with development phases mapped to PRD releases), System Design Specialist (SDDs), and Code Reviewer — under a shared Release / Phase / Task nomenclature.
 - **dev-docs** - Details one TRD phase into a per-phase Task Specification (TRS) with a flat task list under `dev/active/[feature]-phase-N/`, then keeps those docs current: the generated tasks file carries an update protocol so any agent ticks tasks and updates context after each completed task, plus a full handoff update before compaction or session end. Replaces the `/dev-docs-be` and `/dev-docs-update` commands.
 - **automate-tasks** - Captures a user's working style into a personal `<handle>-mode` skill that agents follow. Mines recent agent transcripts for the current workspace with parallel subagents, asks a few structured questions, clusters the signals (response style, autonomy, subagents, verification, process), then authors or updates the mode skill via `skill-developer`. The mode skill is explicit-invocation-only by default.
 
-> **Note:** In v3.0.0, `ideation-loop` (essentials) and `lateral-thinking` (DEV-ESSENTIALS) were merged into `brainstorm`. In v3.1.0, essentials absorbed DEV-ESSENTIALS' `consult-experts` skill, its 3 agents, and `/dev-docs-be` + `/dev-docs-update` (now the `dev-docs` skill). DEV-ESSENTIALS is superseded — installing both duplicates `consult-experts` and the agents. Install it only if you want its hooks, `/code-review`, `/verify`, or `git-workflow`.
+> **Note:** In v3.0.0, `ideation-loop` (essentials) and `lateral-thinking` (DEV-ESSENTIALS) were merged into `brainstorm`. In v3.1.0, essentials absorbed DEV-ESSENTIALS' `consult-experts` skill, its 3 agents, and `/dev-docs-be` + `/dev-docs-update` (now the `dev-docs` skill). DEV-ESSENTIALS is superseded — installing both duplicates `consult-experts` and the agents. Install it only if you want its hooks, `/code-review`, `/verify`, or `git-workflow`. In v4.0.0, `scaffold-project` moved from drafting `gh repo create --template` commands for python/go/react to running the Python-only `python-scaffolding` Copier template; Go and React templates are no longer covered.
 
 ### Agents (5)
 - **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation with cited frameworks and visualization suggestions
@@ -73,9 +73,9 @@ cos update                             # log completed tasks, notes, status chan
 
 **Scaffold a New Project:**
 ```bash
-"scaffold a new python project called foo-service"
-"start a new go repo for order-worker"
-"bootstrap a react project from template"
+"scaffold a new python service called order-worker"   # → service flavor
+"new CLI tool called tidy-logs"                        # → library_cli flavor
+"start a data science project for churn analysis"      # → datascience flavor
 ```
 
 **Brainstorm:**
@@ -206,25 +206,29 @@ If `docs/00_ops/meta/` is missing, the skill's first run offers to scaffold it r
 
 #### Scaffold Project
 
-**Bootstrap a new repo from a maintained language template**
+**Generate a new Python project from the [`python-scaffolding`](https://github.com/anant-gupta-utexas/python-scaffolding) Copier template**
 
-**Template registry:**
+**Flavors:**
 
-| Language | Template repo |
+| Flavor | What you get |
 | --- | --- |
-| `python` | `anant-gupta-utexas/python-scaffolding` |
-| `go` | `anant-gupta-utexas/go-scaffolding` |
-| `react` | `anant-gupta-utexas/react-scaffolding` |
+| `library_cli` | `argparse` entry point (`cli.py`, `python -m`, `[project.scripts]`) |
+| `service` | FastAPI + Clean Architecture, `pydantic-settings`, Dockerfile, compose, `.env.example` |
+| `datascience` | `ingest`/`features`/`models`, gitignored `data/`, `notebooks/` with `nbstripout` |
 
-**Activation keywords:** `scaffold a new project`, `start a new python/go/react repo`, `bootstrap from template`, `spin up a repo for <name>`, `new project from template`, `initialize a <lang> project`
+Every flavor ships `uv` with a `src/` layout, the `scripts/check.sh` quality gate (ruff, `mypy --strict`, size limits, secret scan, pytest with a coverage floor), a GitHub Actions workflow that runs the gate, `AGENTS.md` + `STATUS.md`, the `docs/00_research … 04_testing` tree, and `dev/` planning templates.
 
-The skill drafts a `gh repo create --template <registry-entry> --clone` command for the chosen language. The user runs it; the skill never mutates remote state itself. A web-UI fallback (`/generate` URL) is provided when `gh` is unavailable.
+**Activation keywords:** `scaffold a new project`, `start a new python repo`, `bootstrap a python service`, `new FastAPI service`, `new data science project`, `new CLI tool`, `spin up a repo for <name>`, `new project from template`
 
-After the `gh` block, the skill:
+The skill asks for any missing answers (flavor, name, description) and runs a non-interactive `uvx copier copy --trust --defaults --data …` command, which the user approves when prompted. Copier creates a local directory and runs `git init` + `uv sync`; it never commits or creates a remote. After generation, the skill offers, each as a separate approved step:
 
-1. **Inspects the cloned template's `docs/` layout** (`ls <name>/docs/`) before drafting `cp` destination paths — so files land in the correct subdirectory even when the template uses numbered or named subdirs.
-2. **Proposes a sanitization pass** on the copied vault docs — warns about person names, company names, engagement dates, and vault-internal paths that don't belong in public repos; offers a grep-based scan with a per-row proposal table the user confirms before anything changes.
-3. **Drafts a vault `CLAUDE.md` sibling-repos table row** for the new repo so the chief-of-staff and all agents know the repo exists; emitted as a named proposal the user applies.
+1. **Run the quality gate and make the first commit** (only on explicit confirmation).
+2. **Copy existing planning docs** (PRD, research notes, system design, TRD) onto the generated `docs/` stubs, keeping filenames and adding rows to `docs/README.md`. A sanitization scan with per-line confirmation is offered for repos that will go public.
+3. **Create a GitHub repo** with `gh repo create --source . --push` after confirming owner and visibility.
+4. **Register the repo in a project hub**, proposing a row in the hub's `CLAUDE.md` repos table and reducing the hub's project folder to a status pointer.
+5. **Pull template improvements later** with `uvx copier update --trust`.
+
+Python-only: requests for Go, React, Rust, and other ecosystems are surfaced as out of scope rather than scaffolded.
 
 #### Brainstorm
 
@@ -372,7 +376,7 @@ Refactoring strategies, tech debt analysis, SOLID violations detection, safe cod
 - Growing and maintaining a knowledge graph with reduce/reflect/reweave pipeline
 - Deep, multi-source investigations with formal cited deliverables
 - Running a private, markdown-first second-brain (Obsidian-compatible) with on-demand daily / weekly / review / update cadences
-- Bootstrapping new repos from maintained language templates (python, go, react)
+- Generating new Python projects (library/CLI, FastAPI service, data science) from a maintained Copier template
 - Getting unstuck and converging on decisions with structured brainstorming
 - Expert consultation from PRD to TRD to per-phase task specs, with task docs that stay current during implementation
 - Development plan review, refactoring plans, and developer documentation

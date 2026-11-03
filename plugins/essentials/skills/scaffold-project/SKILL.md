@@ -1,540 +1,362 @@
 ---
 name: scaffold-project
-description: Use when the user wants to scaffold / bootstrap a new project repository from one of the maintained language templates (python, go, react). Trigger on phrases like "scaffold a new project", "start a new python repo", "bootstrap a go project", "create a react repo from template", "spin up a new repo for <name>", "new project from template", "initialize a <lang> project", "kick off a new <lang> service", "create a repo from my <lang> scaffolding". The skill drafts a `gh repo create --template` command for the chosen language plus a follow-up local-clone step, and prints a "next steps" checklist with language-specific bootstrap hints. It never runs `gh` itself — the user executes the drafted commands. Do NOT trigger for creating files inside an existing repo, for adding a sub-package or module, or for any in-repo scaffolding (that's a plain file edit). Do NOT trigger if the user explicitly wants a non-templated empty repo. Do NOT trigger for languages not in the registry (python / go / react) — instead surface that the registry doesn't cover it.
+description: Use when the user wants to scaffold / bootstrap a new Python project from the maintained Copier template (python-scaffolding). Trigger on phrases like "scaffold a new project", "start a new python repo", "bootstrap a python service", "create a project from my scaffolding", "spin up a new repo for <name>", "new project from template", "initialize a python project", "kick off a new FastAPI service", "new data science project", "new CLI tool". The skill asks any missing questions (flavor, name, description), then runs a non-interactive `uvx copier copy` command for the chosen flavor (library_cli / service / datascience) and prints a "next steps" checklist. Because generation writes files, runs `uv sync`, and executes trusted post-generation tasks, running it surfaces an approval prompt the user approves directly; the agent always passes every answer via `--data`/`--defaults` so the command never blocks on an interactive prompt. Do NOT trigger for creating files inside an existing repo, for adding a sub-package or module, or for any in-repo scaffolding (that's a plain file edit). Do NOT trigger for non-Python ecosystems (Go, JavaScript/React, Rust, Java, etc.) — this template is Python-only; surface that and stop. Do NOT trigger if the user explicitly wants a non-templated empty repo.
 ---
 
 # scaffold-project
 
 ## Purpose
 
-Turn a fully-ideated project (usually something the user has sketched in
-`docs/03_projects/<name>/README.md` in their second-brain vault) into a real
-GitHub repo with the right language scaffolding — without manually clicking
-"Use this template" on github.com.
+Turn a fully-ideated project into a real Python repo with the directory
+structure, planning workflow, `uv` setup, and quality gate from the maintained
+scaffolding template — without hand-assembling any of it.
 
-The skill is a **drafter**, not a doer. It writes the `gh` command that
-creates the repo from a template, clones it locally, drafts the `cp` commands
-that copy the project's vault-side context (the README, PRD, and one or more
-research notes — whichever the user names) into the new repo on top of the
-template's stubs, and prints a one-line next-steps checklist. The user runs
-every command explicitly. This matches the same "never mutate remote state
-yourself" rule the chief-of-staff skill uses for its cross-repo issue
-proposals.
+The scaffolding is a [Copier](https://copier.readthedocs.io) template:
+[`python-scaffolding`](https://github.com/anant-gupta-utexas/python-scaffolding).
+Copier *generates a local project directory* (it does **not** create a GitHub
+repo). It writes the files for the chosen flavor and runs a handful of trusted
+post-generation tasks (`git init`, `uv sync`, and — for the data science
+flavor — `nbstripout --install`). Nothing is committed for you.
 
-The scaffolding templates themselves already ship with `CLAUDE.md`,
-`README.md`, and a `docs/` directory — the skill does **not** re-initialize
-those. The vault content flows in on top.
+The skill is a **collaborative executor**. It asks the user any questions it
+needs (flavor, name, description), assembles a **non-interactive**
+`uvx copier copy` command — every answer supplied via `--data` plus
+`--defaults`, so Copier never blocks waiting on a prompt the agent can't
+answer — and runs it. Generation writes files, runs `uv sync` (network), and
+executes `--trust` post-generation tasks, so the run surfaces an approval prompt
+in the user's environment; the user approves it directly, and that approval is
+the confirmation gate. If the user would rather run it themselves, hand over the
+exact command instead of executing it.
 
-## Template registry
+## Configuration
 
-| Language | Template repo (on GitHub) |
+- **Template source:** `gh:anant-gupta-utexas/python-scaffolding` (Copier's
+  shorthand for `https://github.com/anant-gupta-utexas/python-scaffolding.git`).
+  If the template moves, replace this single value in the command. Nothing else
+  in this skill changes.
+- **Version:** Copier uses the template's latest release tag (`v0.1.0`, …) by
+  default. Pass `--vcs-ref <tag>` only if the user wants to pin an older release.
+- **Private package index (optional).** `uvx` runs the post-generation `uv sync`
+  *outside* any project, so it sees only the shell's own `uv` configuration. If
+  the user's network blocks public PyPI and requires a mirror, set
+  `UV_DEFAULT_INDEX=<mirror-url>` (and `UV_SYSTEM_CERTS=1` if the network
+  re-signs TLS) inline on the same command. On a normal network, set nothing.
+
+## Flavors
+
+This template is Python-only. There is one template, selected by a `flavor`
+question — there is no per-language template repo.
+
+| Flavor (`--data flavor=`) | What you get |
 | --- | --- |
-| `python` | `anant-gupta-utexas/python-scaffolding` |
-| `go` | `anant-gupta-utexas/go-scaffolding` |
-| `react` | `anant-gupta-utexas/react-scaffolding` |
+| `library_cli` | `argparse` entry point (`cli.py`, `python -m`, `[project.scripts]`) |
+| `service` | FastAPI + Clean Architecture (`domain`/`application`/`infrastructure`), `pydantic-settings`, domain-error → HTTP mapping, Dockerfile, compose, `.env.example` |
+| `datascience` | `ingest`/`features`/`models`, gitignored `data/` with a `paths` helper, `notebooks/` with `nbstripout`, pandas/duckdb/pyarrow |
 
-If the user asks for a language not in this table (Rust, Java, Swift, etc.),
-**do not invent a template**. Tell the user the registry doesn't cover it,
-point them at the table above, and stop. Adding a new template means adding
-a repo to the GitHub profile first and then updating this table — that's a
-separate change, not something to paper over at the call site.
+Every flavor also ships:
+
+- `uv` with a `src/` layout, hatchling, `.python-version`
+- `scripts/check.sh`, the single quality gate: ruff lint + format,
+  `mypy --strict`, size limits (400 lines warn / 800 max per file, 50 per
+  function), secret scan, and pytest with a coverage floor
+- `.github/workflows/ci.yml`, which runs the same `scripts/check.sh` on every
+  push and pull request once the repo is on GitHub
+- `AGENTS.md` (with `CLAUDE.md` importing it) and `STATUS.md`
+- a `docs/00_research … 04_testing` tree indexed by `docs/README.md`
+- `dev/active|archive` with plan/context/tasks templates
+  (`scripts/new_feature.sh <name>` scaffolds a feature's planning docs)
+
+If the user asks to scaffold a **non-Python** project (Go, React/JS, Rust, Java,
+Swift, …), **do not invent a template**. Tell them this scaffolding is
+Python-only, point at the three flavors above, and stop. Adding another
+ecosystem is a separate effort (a new template repo), not something to paper
+over here.
+
+## Questions Copier asks
+
+Each of these must be supplied via `--data <key>=<value>` so the command can run
+non-interactively; `--defaults` fills in any you don't set. Ask the user for the
+ones that aren't obvious from their request; accept the defaults for the rest.
+
+| Question | Default | Effect |
+| --- | --- | --- |
+| `project_name` | `My Project` | Titles, docs |
+| `package_name` | derived from `project_name` (lowercased, underscores) | `src/<package_name>/`, distribution name |
+| `description` | placeholder | `pyproject.toml`, README, `AGENTS.md` |
+| `flavor` | `library_cli` | Which files and dependencies you get (see table above) |
+| `python_version` | `3.13` | `.python-version`, ruff, mypy, Docker image (choices: `3.13`, `3.12`, `3.11`) |
+| `min_coverage` | `80` | Coverage floor enforced by `scripts/check.sh` (0–100) |
+
+Answers are saved in the generated project's `.copier-answers.yml`, which
+`copier update` reads later.
 
 ## Steps
 
-1. **Determine language.**
-   - If the user named a language clearly (python / go / react), accept it.
-   - If ambiguous (e.g. "start a new backend repo"), ask one clarifying
-     question: "Python, Go, or React?"
-   - If the named language is not in the registry, stop and surface that
-     (see above).
+1. **Determine the flavor.**
+   - If the user's intent is clear, map it: "CLI" / "library" → `library_cli`;
+     "service" / "API" / "FastAPI" / "web backend" → `service`; "data science"
+     / "notebooks" / "ML" / "analysis" → `datascience`.
+   - If ambiguous (e.g. "start a new python repo"), ask one question:
+     "Library/CLI, service, or data science?"
+   - If the user names a non-Python ecosystem, stop and surface that (see
+     above).
 
-2. **Determine project name.**
-   - Expect a kebab-case slug (e.g. `order-worker`, `foo-service`).
-   - If the user gave something else (spaces, snake_case, camelCase),
-     normalize to kebab-case and confirm before proceeding.
-   - If no name was given, ask: "What should the repo be called?"
+2. **Determine the project name and description.**
+   - `project_name` is the human-readable name (e.g. `Order Worker`); the
+     destination directory and `package_name` derive from it. Confirm the
+     destination directory as a kebab-case slug (e.g. `order-worker`) and the
+     package as a snake_case name (e.g. `order_worker`) if it isn't obvious.
+   - If no name was given, ask: "What should the project be called?"
+   - Let Copier derive `package_name` from `project_name` unless the user wants
+     a specific importable name — then pass `--data package_name=<snake_case>`.
+   - If the request already contains a one-liner ("a worker that processes X"),
+     pass it as `description`. Otherwise ask once, or leave the placeholder —
+     don't stall the scaffold on prose the user can add later.
 
-3. **Pick visibility.** Default is `--public`. If the user hinted at
-   private (`internal`, `private`, `closed-source`), use `--private`.
-   Otherwise ask one question: "Public or private?" Don't assume silently —
-   the wrong answer here is expensive to undo.
+3. **Pick the destination directory.** Copier's final positional argument is the
+   directory it creates and fills. Default to the kebab-case slug in the current
+   working directory (e.g. `order-worker`). Do not pre-create it — Copier makes
+   it.
 
-4. **Collect an optional description.**
-   - If the user's prompt already contains a one-liner ("a worker that
-     processes X"), use it.
-   - Otherwise either ask, or leave `--description` off — don't stall the
-     scaffolding on prose the user can add later.
+4. **Recap the plan, then run the command (non-interactively).** State the
+   choices in one line (flavor, project name, destination), then run
+   `uvx copier copy`. Two hard rules when running it:
+   - **Always non-interactive.** Pass every answer via `--data` and add
+     `--defaults` for the rest. Running a bare `copier copy` blocks on
+     interactive prompts the agent cannot answer — never run it that way.
+   - **`--trust` is required.** Without it Copier refuses to run its
+     post-generation tasks (`git init`, `uv sync`, `nbstripout`) and the project
+     arrives without an environment.
 
-5. **Draft the `gh repo create` block.** Emit exactly one fenced `bash`
-   code block, ready to copy-paste:
-
-   ```bash
-   gh repo create anant-gupta-utexas/<name> \
-     --template anant-gupta-utexas/<lang>-scaffolding \
-     --public \
-     --description "<description>" \
-     --clone
-   ```
-
-   Notes:
-   - `--clone` pulls the new repo to the current working directory. This
-     covers the "clone locally after create" post-step in one command.
-   - If the user chose private, swap `--public` for `--private`.
-   - If no description was collected, drop the `--description` line entirely
-     (don't emit an empty string).
-   - Always use `anant-gupta-utexas/` as the owner. This skill is explicitly
-     personal to Anant's GitHub profile; the template registry lives there.
-     If the user asks for a different owner, surface that this skill only
-     targets `anant-gupta-utexas` and stop.
-
-6. **Inspect the cloned repo's `docs/` structure.** Before drafting any `cp`
-   destination paths, read the actual directory layout of the cloned template:
+   The run writes files and fetches packages, so the user's environment asks
+   them to approve the command. That approval *is* the confirmation gate — a
+   separate yes/no first is not needed. If the user would rather run it
+   themselves, hand over the same command instead of executing it.
 
    ```bash
-   ls <name>/docs/
+   uvx copier copy --trust --defaults \
+     --data project_name="Order Worker" \
+     --data flavor=service \
+     --data description="Processes background order jobs" \
+     gh:anant-gupta-utexas/python-scaffolding \
+     order-worker
    ```
 
-   - If the template uses a flat `docs/` (files directly under `docs/`), route
-     copied files to `<name>/docs/<filename>` as shown in the destination table
-     below.
-   - If the template uses numbered or named subdirectories
-     (`00_research/`, `01_product/`, `02_architecture/`, `03_guides/`,
-     `04_testing/`), map each vault file to the semantically matching subdir:
+   If `uv sync` fails to resolve packages because the network requires a
+   private package index, rerun with the index set inline (see Configuration):
 
-     | Vault file | Likely template subdir |
-     | --- | --- |
-     | `research-*.md` | `00_research/` or similar |
-     | `prd.md` | `01_product/` or similar |
-     | `architecture.md` | `02_architecture/` or similar |
-
-   - If the structure is ambiguous (no `docs/` at all, multiple equally-plausible
-     subdirs for a given file type), ask the user one question with the actual
-     `ls` output pasted inline before drafting destinations.
-   - Do **not** hardcode `docs/<file>` destination paths without running this
-     step first. Hardcoded destinations that don't match the template are the
-     friction pattern this step prevents.
-
-   > If the repo hasn't been cloned yet (the user hasn't run the `gh` block),
-   > note the destinations as provisional and mark them clearly: "These
-   > destinations assume a flat `docs/`. Run `ls <name>/docs/` and share
-   > the layout if the template uses subdirectories."
-
-8. **Fallback when `gh` is not installed.**
-   - If the user has signaled that `gh` is unavailable (or you have reason
-     to believe so — e.g. the user mentions "I don't have the GitHub CLI"),
-     emit the template's `/generate` URL plus the manual clone command:
-
-     ```
-     No gh detected. Create the repo via the web UI:
-       https://github.com/anant-gupta-utexas/<lang>-scaffolding/generate
-
-     Then clone locally:
-     ```
-     ```bash
-     git clone git@github.com:anant-gupta-utexas/<name>.git
-     cd <name>
-     ```
-
-   - `brew install gh` (macOS) or https://cli.github.com/ for other
-     platforms — mention this only if the user asks how to unblock.
-
-9. **Draft the context-copy block.** After the repo is cloned, the user
-   usually wants the project's vault-side docs (the stuff they wrote during
-   ideation — README, PRD, one or more research notes) to land in the new
-   repo on top of the template stubs. Draft the `cp` commands; the user
-   runs them.
-
-   - **Source path convention.** Expect the vault-side folder to live at
-     `<SECOND_BRAIN_DIR>/docs/03_projects/<name>/`. The skill does not probe
-     for it — just name the convention and let the user edit the `VAULT`
-     variable in the drafted block if their vault sits somewhere else.
-
-   - **What the user moves is variable.** A vault project folder typically
-     contains a `README.md` and a `prd.md`, but research is not one fixed
-     filename — there can be zero, one, or many research notes with
-     topic-specific titles (`research-pricing.md`, `research-prior-art.md`,
-     a `research/` subdirectory, etc.). Decision sheets, ideation scratch,
-     and journal fragments may also be present but usually don't belong in
-     a code repo.
-
-   - **Ask the user what to move when in doubt.** If the user hasn't told
-     you what's in the vault folder, ask one consolidated question before
-     drafting:
-
-     ```
-     What's in docs/03_projects/<name>/? List the files to bring into the
-     new repo and cp commands will be drafted for them. Common picks:
-       - README.md       → overwrites the template stub
-       - prd.md          → docs/prd.md
-       - any research-*.md or research/  → docs/research/ or docs/<same-name>.md
-     Paste the filenames (or "everything except decision sheets", etc.).
-     ```
-
-     If the user has already told you the filenames in the prompt, skip
-     the question and draft directly.
-
-   - **Destinations.**
-     | Vault file | Destination in new repo |
-     | --- | --- |
-     | `README.md` | `./<name>/README.md` (overwrites template stub). Project identity lives in the vault; the template's README is a placeholder. |
-     | `prd.md` | `./<name>/docs/prd.md` |
-     | Any `research*.md` (one or many) | `./<name>/docs/<same-filename>` — preserve the vault's titles so `research-pricing.md` stays `research-pricing.md`, not collapsed into a single `research.md`. |
-     | A `research/` subdirectory | `./<name>/docs/research/` as a directory copy (`cp -R`). |
-
-   - **What stays untouched.** `CLAUDE.md` stays as-is from the template —
-     the template ships a project-scaffolding-shaped routing file, and the
-     user edits it once the vault context has landed. `docs/` itself and any
-     template stubs inside it stay as-is.
-
-   - **Drafted block.** Emit exactly one fenced `bash` block, separate from
-     the `gh repo create` block above (per the "don't emit multiple commands
-     in one fenced block" anti-pattern). Only include lines for files the
-     user confirmed exist — don't emit a failing `cp` for something that
-     isn't there. Example shape with a multi-file research set:
-
-     ```bash
-     VAULT=~/second-brain/docs/03_projects/<name>
-     cp "$VAULT/README.md"                ./<name>/README.md
-     cp "$VAULT/prd.md"                   ./<name>/docs/prd.md
-     cp "$VAULT/research-pricing.md"      ./<name>/docs/research-pricing.md
-     cp "$VAULT/research-prior-art.md"    ./<name>/docs/research-prior-art.md
-     ```
-
-     If research lives in a subdirectory instead:
-
-     ```bash
-     VAULT=~/second-brain/docs/03_projects/<name>
-     cp    "$VAULT/README.md" ./<name>/README.md
-     cp    "$VAULT/prd.md"    ./<name>/docs/prd.md
-     cp -R "$VAULT/research/" ./<name>/docs/research/
-     ```
-
-   - **Other vault artifacts (decision sheets, ideation scratch, journal
-     fragments).** Do not copy them by default. If the user explicitly
-     names one, add it — otherwise list them in prose as "also in the
-     source folder — left in the vault; add manually if you want them in
-     the repo later."
-
-10. **Post-copy sanitization proposal.** After drafting the `cp` block,
-    warn the user that vault docs often contain person names, company names,
-    engagement dates, and vault-internal path fragments that don't belong
-    in a public (or semi-public) repo.
-
-    Emit this warning and offer before the user runs the `cp` commands:
-
-    ```
-    Before you run the cp block: vault docs often carry real names (founders,
-    clients, team members), company/product names, engagement-specific framing,
-    and vault-internal paths (docs/03_projects/…, docs/00_ops/…) that don't
-    belong in a public repo.
-
-    Scan the copied files for risky patterns and draft a sanitization
-    proposal? The scan greps for:
-      - proper-noun clusters from the project README/PRD
-      - vault-internal path fragments (docs/03_projects/, docs/00_ops/, second-brain)
-      - any obvious engagement-specific dates or client identifiers
-
-    Reply "yes, scan" to get a proposal table (what gets stripped,
-    what stays, line-by-line) before any change is made. Some names
-    (public collaborators, open-source maintainers) may be intentional —
-    you confirm each one.
-    ```
-
-    Rules for the sanitization pass (when the user says "yes, scan"):
-    - Draft the scan as a proposal table — one row per risky pattern found,
-      with the line it appears on, the proposed replacement, and a rationale.
-    - Never auto-sanitize silently. The user confirms each row.
-    - Do not strip names that are clearly the user's own public identity
-      (e.g. the repo owner's GitHub handle) — those are intentional.
-    - After the user approves the table, emit the sanitized file contents as
-      a fenced block. The user replaces the files manually (same "draft, don't
-      execute" rule that governs the `cp` block).
-
-    If the user skips sanitization ("no, skip"), move on. Record nothing.
-    If the copied files are known to be already clean (the user says so),
-    accept that and move on.
-
-11. **Print the next-steps checklist.** Short, language-specific, one line
-    per step. Use the template below (adapt to the chosen language):
-
-    **Python:**
-    ```
-    Next steps:
-    - cd <name>
-    - uv sync                       # install deps
-    - uv run pytest                 # verify scaffolding tests pass
-    - open README.md                # language-specific bootstrap details
-    - ls docs/                      # review vault context copied over
-    ```
-
-    **Go:**
-    ```
-    Next steps:
-    - cd <name>
-    - go mod tidy                   # resolve deps
-    - go test ./...                 # verify scaffolding tests pass
-    - open README.md                # language-specific bootstrap details
-    - ls docs/                      # review vault context copied over
-    ```
-
-    **React:**
-    ```
-    Next steps:
-    - cd <name>
-    - pnpm install                  # install deps
-    - pnpm dev                      # start dev server
-    - open README.md                # language-specific bootstrap details
-    - ls docs/                      # review vault context copied over
-    ```
-
-    Do not pretend to know details of the template beyond these — the
-    template README is authoritative.
-
-12. **Draft the vault `CLAUDE.md` sibling-repos update.** Once the repo URL
-    is known (the user confirms the `gh` block ran and shares the URL, or it
-    is derivable from the owner + name), propose adding the new repo to the
-    vault's `CLAUDE.md` sibling-repos table so the chief-of-staff and all
-    agents know the repo exists.
-
-    Emit the proposal as a named diff (not a command to run):
-
-    ```
-    Add to CLAUDE.md #sibling-repos table (vault edit — confirm before applying):
-
-    | [`<name>`](https://github.com/anant-gupta-utexas/<name>) | `../<name>` | <one-line purpose> | Code, README, config go there. Plans, decisions, research, and task tracking stay in `docs/03_projects/<name>/`. |
-    ```
-
-    Rules:
-    - The vault path column is always `../<name>` (sibling to the vault under
-      `~/PycharmProjects/` or equivalent — use whatever parent the user's
-      vault sits in).
-    - The "What lives there" cell comes from the project description the user
-      gave in Step 4. Keep it to one sentence.
-    - The "Routing rule" cell follows the same pattern as existing sibling
-      entries: code and repo-level docs go to the sibling repo; vault-side
-      plans, decisions, and task tracking stay in `docs/03_projects/<name>/`.
-    - Do **not** write to the vault yourself. This is a proposal the user
-      confirms; they (or `cos update`) apply the edit.
-    - If the repo URL is not yet known (the user hasn't confirmed the `gh`
-      block ran), note that the CLAUDE.md update is pending the URL and
-      remind the user to reply with it.
-
-13. **Propose vault hub reduction.** After the cp block, tell the user that
-   the vault folder should now shrink to hub-only shape — its operational
-   docs (PRD, research, scoping notes) have migrated to the sibling repo and
-   the vault copy should become a status pointer, not a duplicate.
-
-   Emit this as a named proposal (not a command to run):
-
-   ```
-   Once the repo is confirmed, reduce docs/03_projects/<name>/README.md to
-   hub-only shape and delete the migrated files from the vault folder.
-   Reply with the repo URL to get a drafted cos update that does this.
+   ```bash
+   UV_DEFAULT_INDEX=<mirror-url> UV_SYSTEM_CERTS=1 \
+   uvx copier copy --trust --defaults ... gh:anant-gupta-utexas/python-scaffolding order-worker
    ```
 
-   The canonical hub shape for the vault README is:
+   If the destination directory already exists and isn't empty, Copier refuses
+   to overwrite; add `--overwrite` only after the user confirms they want to
+   generate on top of existing files.
 
-   ```markdown
-   ---
-   title: <name> — <one-line purpose>
-   status: design | active | paused | complete | deferred
-   phase: <current phase>
-   repo: https://github.com/anant-gupta-utexas/<name>
-   last_reviewed: YYYY-MM-DD
-   ---
+5. **Report what Copier did — and did not — do.** It ran `git init -q -b main`,
+   `uv sync`, and (data science only) `nbstripout --install`. It did **not**
+   create a commit, and it did **not** create or push a GitHub repo. Remote
+   creation is a separate step (Step 8).
 
-   # <name>
+6. **Offer the next steps — and run the ones the user wants.** Show the
+   checklist, then offer to run the quality gate and (only on explicit
+   confirmation) make the first commit. Each is a separate action the user
+   approves; never commit without explicit confirmation.
 
-   <one-line purpose>
-
-   ## Status
-
-   <current focus / phase summary>
-
-   ## Repository
-
-   [anant-gupta-utexas/<name>](https://github.com/anant-gupta-utexas/<name>)
-
-   ## Operational docs
-
-   PRD, research, and design notes live in the repo at <destination-dir>/.
-
-   ## Cross-references
-
-   *(vault-internal links only — overall plan, meta docs, cos-suggestions)*
+   ```
+   Next steps:
+   - cd <project-dir>
+   - scripts/check.sh                 # the quality gate — must pass before every commit
+   - git add -A && git commit -m "chore: scaffold from python-scaffolding"
+   - open AGENTS.md, then docs/README.md
+   - scripts/new_feature.sh <feature> # scaffold a feature's plan/context/tasks docs
    ```
 
-   Files to delete from the vault folder after migration: everything that
-   was copied into the repo (PRD, research notes, scoping docs). Only
-   `README.md` (hub-shaped) should remain, plus a `decisions/` folder if
-   the user has vault-side ADRs that didn't migrate.
+   Do not invent other template details — `AGENTS.md` and `docs/README.md` in
+   the generated project are authoritative.
 
-   Do not execute any of this. The hub reduction happens via `cos update`
-   after the user confirms the repo URL.
+7. **(Optional) Bring existing planning docs into the generated `docs/` tree.**
+   If the user already wrote planning docs during ideation (a PRD, research
+   notes, a system design) and wants them in the repo, copy them onto the
+   matching stubs. The agent can run the copies (the user approves the file
+   operations); confirm what to copy first.
 
-14. **Stop.** Do not run any command yourself. Do not attempt to
-    `git clone`, `gh auth status`, `cp` the vault files, or otherwise touch
-    the filesystem or network.
+   | Planning doc | Destination in the generated project |
+   | --- | --- |
+   | PRD | `<project-dir>/docs/01_product/PRD.md` (overwrites the stub) |
+   | UI/UX design specification | `<project-dir>/docs/01_product/<same-filename>` |
+   | Research note(s) | `<project-dir>/docs/00_research/<same-filename>` (the dir ships empty) |
+   | System / architecture design | `<project-dir>/docs/02_architecture/SYSTEM_DESIGN.md` (overwrites the stub) |
+   | Technical requirements | `<project-dir>/docs/02_architecture/TRD.md` (overwrites the stub) |
+
+   - Preserve the source filenames for research notes (one copy per note; don't
+     collapse many into one `research.md`).
+   - Add a row to `docs/README.md` for every doc that isn't already indexed
+     there (research notes, design specs). The generated index is the single
+     entry point to `docs/`, and the template's rule is that new docs get a row.
+   - `README.md` is generated from `description`; only overwrite it if the user
+     has a richer project-identity README to bring in.
+   - **Sanitization caution.** If these docs will land in a repo that goes
+     public, warn the user that planning docs often carry real names, internal
+     paths, and engagement-specific framing that don't belong in a public repo.
+     Offer to scan the copied files and propose redactions (one proposed change
+     per line, user confirms each) before anything ships. Never strip content
+     silently.
+
+8. **(Optional) Create a remote repo.** Copier only makes a local project. If
+   the user wants it on GitHub, confirm the owner and visibility (public or
+   private — the wrong choice is expensive to undo), then run:
+
+   ```bash
+   cd <project-dir>
+   gh repo create <owner>/<project-dir> --private --source . --push
+   ```
+
+   Swap `--private` for `--public` per the user's answer. `--push` needs the
+   first commit from Step 6; if there isn't one yet, offer it first. Once
+   pushed, the generated CI workflow runs `scripts/check.sh` on GitHub Actions.
+   Creating and pushing a remote repo mutates remote state, so the run surfaces
+   an approval prompt the user approves directly.
+
+9. **(Optional) Register in a project hub.** If the user tracks projects in a
+   hub repo (a second-brain vault or workspace with a sibling- or linked-repos
+   table in its `CLAUDE.md`), propose a row for the new repo matching the hub's
+   existing table shape. Plans, decisions, and tracking stay in the hub's
+   project folder (e.g. `docs/03_projects/<slug>/`). If planning docs moved into
+   the repo in Step 7, also propose reducing that hub folder to a short status
+   pointer (status, phase, repo link) so the docs don't live in two places. The
+   user reviews and approves each edit as a diff before it lands; follow any
+   hub-specific "propose, then apply" or commit-confirmation rules the hub sets.
+
+10. **Updating a generated project later.** When the template improves, a
+    project pulls the changes in. Mention this when relevant; run it only if the
+    user asks and the tree is clean:
+
+    ```bash
+    cd <project-dir> && git status   # tree must be clean
+    uvx copier update --trust
+    ```
+
+    Copier does a three-way merge between the old template, the new template,
+    and the project's edits. Releases are git tags on the template repo
+    (`v0.1.0`, …); `copier update` follows them.
+
+11. **Wrap up.** Summarize what now exists: the generated directory, the flavor,
+    whether the gate passed, whether a commit or remote repo was made, and the
+    obvious next action. Offer the remaining optional steps the user skipped.
 
 ## Anti-patterns
 
-- **Don't run `gh` yourself.** Always draft; user executes. Even if the
-  command looks safe, running remote-mutating commands on the user's behalf
-  breaks the "propose, don't mutate cross-repo" pattern used elsewhere in
-  this marketplace.
-- **Don't assume visibility.** Ask, or use an explicit user signal. Public
-  and private repos have different downstream consequences (org policies,
-  secrets, CI minutes).
-- **Don't invent a template for a language not in the registry.** Surfacing
-  the gap is more useful than shipping an empty repo the user then has to
-  delete.
-- **Don't pre-create the local directory.** `gh repo create --clone`
-  handles that in one step. Pre-creating it means the clone lands inside
-  the pre-created dir or errors out.
-- **Don't emit multiple commands in one fenced block.** Keep `gh repo
-  create` in its own block so the user can copy-paste without reading every
-  line. Next-steps go in a separate plain-text block.
-- **Don't modify the template repos.** If the user wants a change
-  ("add black config to python-scaffolding"), that's a separate edit to
-  the template repo, not a per-project tweak.
-- **Don't copy vault files yourself.** Draft the `cp` block; the user
-  runs it. Same contract as `gh repo create` — the skill never touches
-  the filesystem on the user's behalf.
-- **Don't re-initialize `CLAUDE.md`, `README.md`, or `docs/`.** The
-  scaffolding template already ships all three. The skill only drafts the
-  copy of vault content *on top of* the template — it does not generate
-  a fresh `CLAUDE.md`, synthesize a project README from scratch, or
-  scaffold `docs/` with stubs. If the template is missing one of these,
-  that's a fix to the template repo, not to this skill.
-- **Don't bulk-copy the vault folder.** A bare `cp -r "$VAULT/." .`
-  drags in decision sheets, ideation scratch, and journal fragments that
-  belong in the vault. Enumerate files explicitly (or the user-named
-  subdirectory like `research/`), one `cp` line per artifact.
-- **Don't assume there's exactly one research doc.** Research notes are
-  topic-named (`research-pricing.md`, `research-prior-art.md`) or live
-  under a `research/` subdirectory. Don't collapse them into a single
-  `docs/research.md` and don't skip the ones beyond the first. When the
-  vault contents aren't visible to you, ask.
-- **Don't rename files on copy.** Preserve the vault's filenames in the
-  new repo's `docs/` — `research-pricing.md` stays `research-pricing.md`.
-  Renaming breaks the mental link back to the vault-side doc and forces
-  the user to reconcile names later.
-- **Don't hardcode `docs/<file>` cp destinations without inspecting the
-  template first.** Always run `ls <name>/docs/` (Step 6) before drafting
-  destination paths. Templates may use numbered subdirectories; hardcoded
-  flat paths break silently and force mid-session course corrections.
-- **Don't skip the sanitization warning.** Every scaffold session that
-  copies vault docs into a public (or semi-public) repo must emit the
-  sanitization offer (Step 10). Vault docs routinely carry person names,
-  company names, and vault-internal paths that don't belong in public
-  repos. Skipping the warning shifts the cost onto the user.
-- **Don't auto-sanitize silently.** If the user asks for a sanitization
-  scan, produce a proposal table and wait. Never strip content without
-  explicit per-row confirmation.
-- **Don't write the vault `CLAUDE.md` yourself.** Draft the sibling-repos
-  table row (Step 12) as a proposal. The user applies it (or delegates to
-  `cos update`). Same "propose, don't mutate" rule as the `cp` block.
-- **Don't skip the `CLAUDE.md` sibling-repos proposal.** Every new repo
-  scaffolded via this skill should be registered in the vault's routing
-  table. If the repo URL isn't known yet, emit the pending reminder; don't
-  silently omit the step.
-- **Don't skip the hub-reduction proposal.** Every scaffold ends with a
-  prompt to reduce the vault folder to hub-only shape (Step 13). The
-  operational docs now live in the sibling repo; leaving duplicates in the
-  vault is the failure mode this step prevents. Even if the user doesn't
-  act on it immediately, the proposal must appear.
+- **Don't run Copier interactively.** Always pass every answer via `--data` and
+  add `--defaults`. A bare `copier copy` blocks on prompts the agent can't
+  answer and the run hangs. Interactivity — not the act of running — is the
+  thing to avoid.
+- **Don't drop `--trust`.** Without it, Copier refuses to run the post-generation
+  tasks (`git init`, `uv sync`, `nbstripout`), and the project arrives without an
+  environment. The template documents `--trust` as required.
+- **Don't set a package-index override by default.** `UV_DEFAULT_INDEX` and
+  `UV_SYSTEM_CERTS` are only for networks that block public PyPI. Add them
+  after a resolution failure or when the user says their network needs a
+  mirror — never as a reflex.
+- **Don't commit without explicit confirmation.** Generation never commits.
+  Making the first commit (Step 6) is a distinct action the user must approve;
+  never fold it into the scaffold silently.
+- **Don't invent a template for a non-Python ecosystem.** This scaffolding is
+  Python-only with three flavors. Surfacing the gap is more useful than shipping
+  something that doesn't exist.
+- **Don't confuse scaffolding with repo creation.** `copier copy` makes a local
+  directory only — no commit, no GitHub repo. Remote creation (Step 8) is a
+  separate, confirmed step; don't imply one command does both.
+- **Don't pre-create the destination directory.** Copier creates it. A
+  pre-existing non-empty directory makes Copier refuse (or needs an explicit
+  `--overwrite` the user approved).
+- **Don't re-initialize `AGENTS.md`, `CLAUDE.md`, `STATUS.md`, or `docs/`.** The
+  template ships all of them. The skill only copies *existing planning docs on
+  top of* the generated stubs — it does not synthesize these files. If the
+  template is missing something, that's a fix to the template repo, not to this
+  skill.
+- **Don't bulk-copy a planning folder.** Copy files explicitly (one per
+  artifact) so ideation scratch, decision sheets, and journal fragments stay out
+  of the code repo.
+- **Don't rename files on copy.** Preserve source filenames (a research note
+  keeps its name) so the mental link back to the planning doc survives.
+- **Don't skip the sanitization caution for a repo that will go public.**
+  Planning docs routinely carry names, internal paths, and engagement framing.
+  Offer the scan; never strip content silently or without per-line confirmation.
+- **Don't modify the template repo from here.** If the user wants a change to
+  the scaffolding itself ("add ruff rule X", "change the Dockerfile base
+  image"), that's an edit to `python-scaffolding`, not a per-project tweak at
+  the call site.
 
 ## Example flows
 
-### Happy path
+### Happy path (service)
 
 ```
-User: scaffold a new python project called foo-service, private, for running
-      background data jobs
+User: scaffold a new python service called order-worker that processes
+      background order jobs
 
 Skill:
-  Language: python (from registry).
-  Name: foo-service (kebab-case, OK).
-  Visibility: private (user said "private").
-  Description: "Background data job runner"
+  Flavor: service (FastAPI + Clean Architecture).
+  Project name: Order Worker  →  directory order-worker, package order_worker.
 
-  Run this to create the repo and clone it locally:
+  Generating now — approve the command when your environment prompts:
 
-  ```bash
-  gh repo create anant-gupta-utexas/foo-service \
-    --template anant-gupta-utexas/python-scaffolding \
-    --private \
-    --description "Background data job runner" \
-    --clone
-  ```
+  [runs]
+  uvx copier copy --trust --defaults \
+    --data project_name="Order Worker" \
+    --data flavor=service \
+    --data description="Processes background order jobs" \
+    gh:anant-gupta-utexas/python-scaffolding \
+    order-worker
 
-  Once cloned, run `ls foo-service/docs/` and paste the output so the
-  vault files can be routed to the right subdirectories. (If the template
-  uses a flat docs/, the cp block below is provisional and already correct.)
+  Done. order-worker/ is generated; `git init` and `uv sync` ran. No commit or
+  GitHub repo yet.
 
-  What's in docs/03_projects/foo-service/? List the files to bring into
-  the new repo and cp commands will be drafted for them.
+  Want me to run scripts/check.sh to verify the gate passes? And should I make
+  the first commit and/or create a GitHub repo?
+```
 
-User: README.md, prd.md, research-pricing.md, research-batching.md.
-      Skip the decision sheets. docs/ is flat.
+### CLI with planning docs to bring in
+
+```
+User: start a new python CLI called tidy-logs; bring in my PRD and the two
+      research notes from the planning folder
 
 Skill:
-  The template already ships `CLAUDE.md`, `README.md`, and `docs/` —
-  this overwrites the stub README with the vault's project-identity
-  README and drops the PRD plus both research notes into `docs/` with
-  their original filenames. `CLAUDE.md` stays as-is from the template:
+  Flavor: library_cli.  Project name: Tidy Logs  →  tidy-logs, package tidy_logs.
 
-  ```bash
-  VAULT=~/second-brain/docs/03_projects/foo-service
-  cp "$VAULT/README.md"             ./foo-service/README.md
-  cp "$VAULT/prd.md"                ./foo-service/docs/prd.md
-  cp "$VAULT/research-pricing.md"   ./foo-service/docs/research-pricing.md
-  cp "$VAULT/research-batching.md"  ./foo-service/docs/research-batching.md
-  ```
+  [runs]
+  uvx copier copy --trust --defaults \
+    --data project_name="Tidy Logs" \
+    --data flavor=library_cli \
+    gh:anant-gupta-utexas/python-scaffolding \
+    tidy-logs
 
-  Before you run the cp block: vault docs often carry real names, company
-  names, and vault-internal paths (docs/03_projects/…) that don't belong
-  in a public repo. Scan the copied files for risky patterns and draft a
-  sanitization proposal? Reply "yes, scan" or "no, skip".
+  Generated. Copying: PRD → docs/01_product/PRD.md, research-formats.md and
+  research-prior-art.md → docs/00_research/ (names kept), plus two rows in
+  docs/README.md. Approve the file operations when prompted.
 
-User: no, skip
+  Will this repo be public? If so, the copied docs can be scanned for names
+  and internal paths first.
+```
+
+### Ambiguous flavor
+
+```
+User: spin up a new python repo called metrics-box
+
+Skill: Which flavor — library/CLI, service, or data science?
+```
+
+### Non-Python ecosystem (out of scope)
+
+```
+User: bootstrap a go service called fast-relay
 
 Skill:
-  Next steps:
-  - cd foo-service
-  - uv sync
-  - uv run pytest
-  - open README.md
-  - ls docs/
-
-  Add to CLAUDE.md #sibling-repos table in your vault (confirm before applying):
-
-  | [`foo-service`](https://github.com/anant-gupta-utexas/foo-service) | `../foo-service` | Background data job runner. | Code, README, config go there. Plans, decisions, research, and task tracking stay in `docs/03_projects/foo-service/`. |
-
-  Once the repo is confirmed, reduce docs/03_projects/foo-service/README.md
-  to hub-only shape and delete the migrated files from the vault folder.
-  Reply with the repo URL to get a drafted cos update that does this.
-```
-
-### Ambiguous language
-
-```
-User: spin up a new repo called order-worker
-
-Skill: Which template — python, go, or react?
-```
-
-### Out-of-registry language
-
-```
-User: bootstrap a rust project called fast-relay
-
-Skill:
-  The template registry covers python, go, and react only — there's no
-  `rust-scaffolding` repo on `anant-gupta-utexas`. To scaffold a Rust
-  project, either:
-    1. Create `anant-gupta-utexas/rust-scaffolding` on GitHub first, then
-       add it to the skill's registry, or
-    2. Bootstrap manually with `cargo new fast-relay` and skip the template.
-  No action taken.
+  This scaffolding is Python-only (Copier template with library_cli / service /
+  datascience flavors) — there's no Go template here. For Go, bootstrap manually
+  (`go mod init`) or use a Go-specific template. No action taken.
 ```
