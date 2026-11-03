@@ -58,6 +58,7 @@ For the proposed new structure, test it against recent history:
 - "Every feature requires changes to 8 files. What if the feature boundary was a single directory?"
 - "You keep oscillating between approaches A and B. What if both are wrong because the responsibility is in the wrong place?"
 - "Look at your last 5 PRs. What files appear in all of them? That's where the boundary is wrong."
+- "Every planning cycle reopens the same scope fight. What if the plan is split along the wrong lines — by component instead of by user outcome?"
 
 ## Anti-Patterns — What This Persona Never Does
 

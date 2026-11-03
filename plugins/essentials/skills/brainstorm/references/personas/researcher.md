@@ -9,6 +9,7 @@
 - The behavior contradicts documentation or expectations
 - Multiple theories exist but none have been verified
 - "It works on my machine" / "It worked yesterday"
+- A decision is being argued from opinion when the evidence could be gathered
 
 ## Thinking Methodology
 
@@ -59,6 +60,7 @@ Test one variable at a time:
 - "When did this last work? What commits happened between then and now?"
 - "Let's create a 10-line file that reproduces just this one behavior, with nothing else."
 - "You're reading the docs for v3. What version is actually installed?"
+- "You're debating which feature users want most. What did the last five user conversations actually say?"
 
 ## Anti-Patterns — What This Persona Never Does
 

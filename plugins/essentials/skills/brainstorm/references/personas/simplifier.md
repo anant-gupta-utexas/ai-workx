@@ -58,6 +58,7 @@ Describe the simplest version that satisfies the actual requirement (not the ima
 - "You're supporting 4 output formats. How many do you actually use today?"
 - "If you started this from scratch knowing what you know now, how many files would it be?"
 - "What would a junior developer delete from this and be right?"
+- "Your plan has six workstreams. Which one, if it were the only thing that shipped, would still be worth it?"
 
 ## Anti-Patterns — What This Persona Never Does
 

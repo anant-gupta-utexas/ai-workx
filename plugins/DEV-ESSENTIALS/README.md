@@ -4,10 +4,11 @@ Development essentials with specialized agents for planning, documentation, and 
 
 ## What's Included
 
-### Skills (3)
+### Skills (2)
 - **git-workflow** - Git workflow patterns including branching strategies, conventional commits, PR workflow, merge vs rebase, conflict resolution, and release management
-- **lateral-thinking** - Break through development blocks with 5 thinking personas (Contrarian, Hacker, Simplifier, Researcher, Architect) that diagnose your stagnation pattern and reframe the problem
 - **consult-experts** - Access specialized expert personas for product requirements (PRDs with release plans and deferred features), technical requirements (TRDs with development phases mapped to PRD releases), system design (SDDs), and code review. Uses a shared Release / Phase / Task nomenclature contract across personas.
+
+> **Note:** In v2.0.0, `lateral-thinking` was merged with `ideation-loop` into the `brainstorm` skill in the essentials plugin (`/plugin install essentials@ai-workx`).
 
 ### Agents (3)
 - **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering from code and existing docs, plus Maps of Content (MOC) navigation
@@ -47,14 +48,6 @@ Development essentials with specialized agents for planning, documentation, and 
 "What's the conventional commit format?"
 "How should I resolve this merge conflict?"
 "Create a PR description for my changes"
-```
-
-**Lateral Thinking (when stuck):**
-```bash
-"I'm stuck on this caching problem, nothing I try works"
-"I keep going in circles on this auth flow"
-"I need a different perspective on this architecture"
-"Help me think about this from the contrarian angle"
 ```
 
 **Consult Experts:**
@@ -179,20 +172,6 @@ export DISABLED_HOOKS="block-no-verify,suggest-compact,doc-file-warning"
 
 **Activation keywords:** `git workflow`, `commit convention`, `branching strategy`, `merge conflict`, `PR description`
 
-#### Lateral Thinking
-
-**5 thinking personas** that diagnose your stagnation pattern and reframe the problem from a fresh angle:
-
-| Persona | Core Question | Best For |
-|---------|--------------|----------|
-| Contrarian | "What if the opposite were true?" | Challenging assumptions, inverting requirements |
-| Hacker | "What constraints are actually real?" | Creative workarounds, prototype-first solutions |
-| Simplifier | "What's the simplest thing that could work?" | Reducing complexity, removing unnecessary layers |
-| Researcher | "What evidence do we actually have?" | Gathering facts, investigating root causes |
-| Architect | "If we started over, would we build it this way?" | Structural problems, wrong decomposition |
-
-**Activation keywords:** `stuck`, `blocked`, `can't figure out`, `lateral thinking`, `different perspective`, `unstuck`, `going in circles`
-
 #### Consult Experts
 
 **Provides access to 4 expert personas:**
@@ -243,7 +222,6 @@ Updates development documentation before context compaction for seamless continu
 
 - Expert consultation (Product Manager, Tech Lead, System Design, Code Reviewer)
 - Development plan review
-- Breaking through development blocks with lateral thinking
 - Refactoring and code modernization
 - Git workflow setup and management
 - Pre-commit code review and verification

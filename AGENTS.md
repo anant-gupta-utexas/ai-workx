@@ -8,8 +8,8 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 
 | Plugin | Purpose | Key Components |
 |--------|---------|----------------|
-| DEV-ESSENTIALS | Development essentials | 3 skills, 4 agents, 4 commands, 8 hooks |
-| essentials | Skills, wiki, research, chief-of-staff, project scaffolding, ideation | 6 skills, 1 agent |
+| DEV-ESSENTIALS | Development essentials | 2 skills, 3 agents, 4 commands, 8 hooks |
+| essentials | Skills, wiki, research, chief-of-staff, project scaffolding, brainstorming, pressure-test | 7 skills, 2 agents |
 | DEV-BE-PYTHON | Python/FastAPI Clean Architecture | 1 skill (12 resource guides) |
 | DEV-BE-GO | Go/Chi Clean Architecture | 1 skill (13 resource guides) |
 | DEV-FE | TanStack Start/React/TypeScript | 1 skill, 2 agents, 1 command |

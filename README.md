@@ -7,24 +7,24 @@ Production-tested Claude Code plugins for modern development workflows with spec
 ### Core Plugins (Recommended)
 
 #### [DEV-ESSENTIALS](./plugins/DEV-ESSENTIALS/)
-Development essentials with specialized agents for planning, documentation (with Maps of Content navigation), and refactoring, git workflow, lateral thinking, and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
+Development essentials with specialized agents for planning, documentation (with Maps of Content navigation), and refactoring, git workflow and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
 
 **Includes:**
-- 3 Skills (git-workflow, lateral-thinking, consult-experts)
+- 2 Skills (git-workflow, consult-experts)
 - 3 Agents (documentation-architect with MOC generation, plan-reviewer, refactor-planner)
 - 4 Commands (dev-docs-update, dev-docs-be, code-review, verify)
 - 8 Hooks (security scan, commit quality, file size guard, debug statement warnings, and more)
 
-**Perfect for:** Expert consultation, lateral thinking, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
+**Perfect for:** Expert consultation, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, and web research agent for enhanced development workflow.
 
 **Includes:**
-- 6 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates with doc-dir inspection + sanitization + CLAUDE.md registration, ideation-loop for moving from fuzzy intent to locked decisions)
+- 7 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates with doc-dir inspection + sanitization + CLAUDE.md registration, brainstorm for getting unstuck and converging on decisions, pressure-test for adversarial review of claims and decisions)
 - 2 Agents (business-strategist, web-research-specialist)
 
-**Perfect for:** Business strategy and product planning, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
+**Perfect for:** Business strategy and product planning, brainstorming and decision-making, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
@@ -194,11 +194,10 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ### DEV-ESSENTIALS Plugin (Core)
 
-**Why install:** Provides fundamental development utilities including git workflow patterns, lateral thinking for breaking through blocks, expert consultation, code review, verification, backend TRS documentation, 8 quality hooks, and planning agents.
+**Why install:** Provides fundamental development utilities including git workflow patterns, expert consultation, code review, verification, backend TRS documentation, 8 quality hooks, and planning agents.
 
 **Skills:**
 - **git-workflow** - Branching strategies, conventional commits, PR workflow, merge vs rebase, conflict resolution, release management
-- **lateral-thinking** - 5 thinking personas (Contrarian, Hacker, Simplifier, Researcher, Architect) that diagnose stagnation patterns and reframe problems
 - **consult-experts** - Access specialized expert personas (Product Manager, Tech Lead, System Design Specialist, Code Reviewer) with a shared Release / Phase / Task nomenclature: PRDs now ship with release plans (v0.1.0 MVP, v0.2.0, …) and deferred features; TRDs break work into Development Phases tagged to PRD releases
 
 **Agents:**
@@ -218,9 +217,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ---
 
-### essentials Plugin (Skills, Wiki, Chief-of-Staff, Scaffolding & Research)
+### essentials Plugin (Skills, Wiki, Chief-of-Staff, Scaffolding, Brainstorming & Research)
 
-**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, chief-of-staff second-brain orchestrator, project scaffolding from language templates, and web research capabilities.
+**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, chief-of-staff second-brain orchestrator, project scaffolding from language templates, structured brainstorming and pressure-testing, and web research capabilities.
 
 **Skills:**
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
@@ -228,8 +227,10 @@ This opens an interactive UI showing all available plugins from this marketplace
 - **deep-research** - Structured multi-round investigation pipeline: plan (task ledger, slug derivation) -> scale decision (complexity-based parallelism) -> execute (parallel searches) -> synthesize -> verify (citation anchoring, URL validation) -> deliver (source-grounded brief). 4 resource guides.
 - **chief-of-staff** - Repo-native second-brain orchestrator with four operations (`cos daily`, `cos weekly`, `cos review`, `cos update`). Reads inbox, tasks, journal, and project folders; writes only to `docs/00_ops/meta/`; delegates wiki ops to `maintaining-wiki`. Draft-only cross-repo routing via `gh issue create`.
 - **scaffold-project** - Bootstrap a new repo from one of the maintained templates (`python-scaffolding`, `go-scaffolding`, `react-scaffolding`). Drafts `gh repo create --template --clone` commands; user executes. Inspects the cloned template's `docs/` layout before drafting `cp` destinations, proposes a sanitization pass on vault docs copied into the new repo, and drafts a vault `CLAUDE.md` sibling-repos row so CoS tracks the new repo. Web-UI fallback when `gh` is unavailable.
+- **brainstorm** - Diagnoses whether you're stuck, sprawling, or torn, then diverges (one of 5 thinking personas: Contrarian, Hacker, Simplifier, Researcher, Architect), reframes (collapse to the smallest true set), or converges (candidates rendered as concrete artifacts, one recommendation, cost-of-being-wrong rating). Stop rule fires when brainstorming outruns action.
+- **pressure-test** - Adversarial pressure-test for a claim, decision, or conclusion: evidence-tier classification, five-mode failure scan, a required falsifier, and a verdict with a concrete next step.
 
-> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin. The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0.
+> **Note:** The consult-experts skill has moved to the DEV-ESSENTIALS plugin. The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0. In v3.0.0, `ideation-loop` and DEV-ESSENTIALS' `lateral-thinking` were merged into `brainstorm`.
 
 **Agents:**
 - **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation
@@ -629,7 +630,7 @@ Use commands for workflows:
 /plugin install learning-coach@ai-workx
 ```
 
-**You get:** Business strategy, expert consultation, lateral thinking, planning, documentation architect, context management, learning coach, and essential utilities without tech-specific development patterns.
+**You get:** Business strategy, expert consultation, brainstorming, planning, documentation architect, context management, learning coach, and essential utilities without tech-specific development patterns.
 
 ### For ML Research & Experimentation
 

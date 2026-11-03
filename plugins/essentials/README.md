@@ -1,6 +1,6 @@
 # Essentials Plugin
 
-Skill development tools, wiki maintenance, chief-of-staff second-brain orchestrator, project scaffolding, and web research agent for enhanced development workflow.
+Skill development tools, wiki maintenance, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, and web research agent for enhanced development workflow.
 
 ## What's Included
 
@@ -10,10 +10,10 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 - **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
 - **chief-of-staff** - Repo-native second-brain orchestrator with on-demand `cos daily`, `cos weekly`, `cos review`, and `cos update` operations. Reads inbox, tasks, journal, projects; writes only to `docs/00_ops/meta/`; delegates wiki work to `maintaining-wiki`
 - **scaffold-project** - Bootstrap a new repo from one of the maintained templates (python, go, react). Drafts `gh repo create --template` commands; never executes remote mutations itself
-- **ideation-loop** - Five-phase pattern for moving from fuzzy intent to locked decisions: reframe, canonical plan, decision sheet, topic split, archive. The load-bearing primitive is a decision-sheet entry format with end-to-end rendered candidates, a single recommendation (no menus), and cost-of-being-wrong calibration. Includes a stop rule that fires when planning cycles outrun shipping.
-- **pressure-test** - Adversarial pressure-test for a claim, decision, or research conclusion. Forces evidence-tier classification, walks a five-mode failure scan (tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure), demands a falsifier in `Because-X-then-not-Y` shape, and resolves to a verdict carrying the evidence tier. Invoked at `ideation-loop` convergence for medium-high-stakes entries and at `deep-research` Verify for load-bearing conclusions.
+- **brainstorm** - Structured brainstorming that diagnoses whether you're stuck, sprawling, or torn, then runs the right mode: Diverge (one of 5 thinking personas — Contrarian, Hacker, Simplifier, Researcher, Architect), Reframe (collapse many workstreams into the smallest true set), or Converge (candidates rendered as concrete artifacts, one recommendation, cost-of-being-wrong calibration). Includes a stop rule when brainstorming outruns action.
+- **pressure-test** - Adversarial pressure-test for a claim, decision, or research conclusion. Forces evidence-tier classification, walks a five-mode failure scan (tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure), demands a falsifier in `Because-X-then-not-Y` shape, and resolves to a verdict carrying the evidence tier. Invoked at `brainstorm` convergence for medium-high-stakes entries and at `deep-research` Verify for load-bearing conclusions.
 
-> **Note:** The consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer) has moved to the DEV-ESSENTIALS plugin.
+> **Note:** The consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer) has moved to the DEV-ESSENTIALS plugin. In v3.0.0, `ideation-loop` (essentials) and `lateral-thinking` (DEV-ESSENTIALS) were merged into `brainstorm`.
 
 ### Agents (2)
 - **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation with cited frameworks and visualization suggestions
@@ -72,13 +72,13 @@ cos update                             # log completed tasks, notes, status chan
 "bootstrap a react project from template"
 ```
 
-**Ideation Loop:**
+**Brainstorm:**
 ```bash
-"help me plan my next build"
-"decide between A and B"
-"force convergence on my open decisions"
-"scope this out — I have N open questions"
-"what should I build first"
+"I'm stuck on this caching problem, nothing I try works"   # → Diverge
+"I keep going in circles on this auth flow"                # → Diverge
+"I have six workstreams and don't know where to start"     # → Reframe
+"decide between A and B"                                   # → Converge
+"try the contrarian angle"                                 # → named persona
 ```
 
 **Pressure Test:**
@@ -191,29 +191,35 @@ After the `gh` block, the skill:
 2. **Proposes a sanitization pass** on the copied vault docs — warns about person names, company names, engagement dates, and vault-internal paths that don't belong in public repos; offers a grep-based scan with a per-row proposal table the user confirms before anything changes.
 3. **Drafts a vault `CLAUDE.md` sibling-repos table row** for the new repo so the chief-of-staff and all agents know the repo exists; emitted as a named proposal the user applies.
 
-#### Ideation Loop
+#### Brainstorm
 
-**Five-phase pattern for moving from fuzzy intent to locked decisions in under 72 hours**
+**Diagnose the state, then diverge or converge — always ending in a concrete next action**
 
-**Phases:**
-
-| Phase | Artifact | Purpose |
+| State | Signals | Mode |
 | --- | --- | --- |
-| 1. Reframe | `prioritization.md` | Collapse N workstreams into the smallest true set |
-| 2. Canonical plan | `{project}-plan.md` | One doc owns phase schedule + gating |
-| 3. Decision sheet | `decisions-week{N}.md` | Force convergence with end-to-end rendered candidates |
-| 4. Topic split | Per-topic owner docs | Once plan is locked, each major topic gets its own doc |
-| 5. Archive + memory | `archive/README.md` | Audit trail of superseded docs and what shifted |
+| Stuck | No workable option; same approach repeated; fixes undo each other | Diverge — apply one thinking persona |
+| Sprawling | Many ideas or workstreams, no order | Reframe — one collapsing move into the smallest true set |
+| Torn | Several viable options, no decision | Converge — decision entries with concrete candidates |
 
-**Load-bearing primitive:** The decision-sheet entry renders candidates end-to-end (repo path, README line 1, imports, public hook) rather than as abstract option lists. One recommendation leads — no balanced menus. Cost-of-being-wrong calibration gates time spent (low / medium / high).
+**Diverge personas:**
 
-**Stop rule:** Surfaces drift when planning cycles outrun shipping. No third decision sheet before the first build-phase commit.
+| Persona | Core Question | Best For |
+| --- | --- | --- |
+| Contrarian | "What if the opposite were true?" | Spinning, assumption lock-in |
+| Hacker | "What constraints are actually real?" | Creative workarounds, prototype-first (default) |
+| Simplifier | "What's the simplest thing that could work?" | Complexity traps, diminishing returns |
+| Researcher | "What evidence do we actually have?" | Unknown root cause, opinion-driven debates |
+| Architect | "If we started over, would we build it this way?" | Oscillation, wrong decomposition |
 
-**Activation keywords:** `help me plan`, `decide between`, `force convergence`, `scope this out`, `too many open decisions`, `what should I build first`, `help me plan X`, `choose between A and B`
+**Converge entry:** each candidate is rendered as a concrete artifact (concrete form, first impression, day-to-day use, one-sentence pitch), followed by one recommendation with at most one conditional alternative and a low / medium / high cost-of-being-wrong rating. High-cost entries hand off to `pressure-test`.
+
+**Stop rule:** a third brainstorming round on the same problem with nothing acted on surfaces the tradeoff once.
+
+**Activation keywords:** `stuck`, `blocked`, `going in circles`, `different perspective`, `brainstorm`, `help me think through`, `decide between`, `too many options`, `what should I do first`, `scope this out`
 
 **References:**
-- `references/decision-sheet-template.md` — blank fillable template
-- `references/phase-checklist.md` — per-phase checklist for what artifact to produce next
+- `references/personas/` — one methodology file per persona
+- `references/decision-sheet-template.md` — fillable sheet for several decisions in one sitting
 
 #### Pressure Test
 
@@ -237,7 +243,7 @@ After the `gh` block, the skill:
 **Anti-tooling-the-muscle clause:** Requires the user to attempt a failure-mode scan first (one sentence per mode is enough) before invoking. Running the rubric cold short-circuits the formation of the user's own pattern-matching.
 
 **Composition:**
-- `ideation-loop` invokes at convergence on decision-sheet entries with cost-of-being-wrong ≥ medium
+- `brainstorm` invokes at convergence on decision entries with cost-of-being-wrong ≥ medium
 - `deep-research` invokes at Verify on load-bearing conclusions
 - Direct invocation works for ad-hoc claims and hypotheses
 
@@ -265,6 +271,7 @@ Technical solutions research, best practices, GitHub issues, library comparisons
 - Deep, multi-source investigations with formal cited deliverables
 - Running a private, markdown-first second-brain (Obsidian-compatible) with on-demand daily / weekly / review / update cadences
 - Bootstrapping new repos from maintained language templates (python, go, react)
+- Getting unstuck and converging on decisions with structured brainstorming
 - Pressure-testing claims, decisions, and research conclusions with explicit evidence-tier classification and a named falsifier
 
 ## Not Designed For

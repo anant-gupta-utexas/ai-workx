@@ -51,6 +51,7 @@ Suggest the smallest possible experiment that tests the most impactful inversion
 - "You're optimizing this query. What if the query shouldn't exist at all? What if the data model is wrong?"
 - "You keep adding error handling. What if the error is telling you the approach is wrong, not that you need more try-catch?"
 - "Everyone agrees on this architecture. What's the strongest argument against it?"
+- "You're assuming the launch needs every feature on the list. What if it shipped with one, and the rest waited for real feedback?"
 
 ## Anti-Patterns — What This Persona Never Does
 

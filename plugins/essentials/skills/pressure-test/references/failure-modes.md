@@ -49,7 +49,7 @@ This is distinct from "the chosen option is wrong." This mode is upstream of the
 
 ### When it fires
 
-- Decision sheet entry: "Pick `plumb` vs `yardstick` for the framework name." Mode fires if a name like `inkblot` or `groundtruth` was dismissed in 30 seconds without being rendered end-to-end. The fast-dismissal is the bias — the user didn't pay the cost to actually see the rejected name beside the kept ones.
+- Decision sheet entry: "Pick Postgres queue vs Celery for background jobs." Mode fires if a managed queue service was dismissed in 30 seconds without being rendered end-to-end. The fast-dismissal is the bias — the user didn't pay the cost to actually see the rejected name beside the kept ones.
 - Research brief: "These three frameworks are the leading agent measurement tools." Mode fires if the brief sampled GitHub stars and didn't sample academic citations or industry adoption. The selection-method itself filtered the candidate set.
 - Hiring decision: "These three candidates are the top of the pile." Mode fires if the JD's language filtered out qualified people who didn't recognize their own match.
 

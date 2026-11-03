@@ -53,6 +53,7 @@ Once the ugly version works, you have a real choice:
 - "What if you hardcoded the values for now and made it configurable later?"
 - "Is there a CLI tool that already does this that you could shell out to?"
 - "What if you solved this in the build step instead of at runtime?"
+- "Before building a signup flow for the pilot, could a shared form and a spreadsheet run the first ten users?"
 
 ## Anti-Patterns — What This Persona Never Does
 
