@@ -1,7 +1,7 @@
 {
   "name": "essentials",
-  "version": "4.0.0",
-  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest with open-problem extraction to inbox, query, lint with state-cadence write-back, citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator (daily/weekly/review/update cadences), scaffold-project skill that generates Python projects from the python-scaffolding Copier template (library_cli / service / datascience flavors, non-interactive copier copy, quality gate, optional gh repo create and copier update), brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims/decisions/conclusions (five-mode failure rubric, falsifier requirement, evidence-tier classification), consult-experts skill with Product Manager / Tech Lead / System Design / Code Reviewer personas sharing a Release → Phase → Task contract, dev-docs skill that details one TRD phase into a flat task list and keeps the task docs updated after every completed task, automate-tasks skill that mines recent agent transcripts plus a short structured Q&A to capture a user's working style into a personal <handle>-mode skill, business-strategist, documentation-architect, plan-reviewer, refactor-planner, and web-research-specialist agents",
+  "version": "4.1.0",
+  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest with open-problem extraction to inbox, query, lint with state-cadence write-back, citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator (daily/weekly/review/update cadences), scaffold-project skill that generates Python projects from the python-scaffolding Copier template (library_cli / service / datascience flavors, non-interactive copier copy, quality gate, optional gh repo create and copier update), brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims/decisions/conclusions (five-mode failure rubric, falsifier requirement, evidence-tier classification), consult-experts skill with Product Manager / Tech Lead / System Design / Code Reviewer personas sharing a Release → Phase → Task contract, dev-docs skill that details one TRD phase into a flat task list and keeps the task docs updated after every completed task, automate-tasks skill that mines recent agent transcripts plus a short structured Q&A to capture a user's working style into a personal <handle>-mode skill, create-verification-skill and maintain-verification-skill that generate and audit a project-local skill which launches the real app, drives each feature the way a user does, and keeps the evidence, business-strategist, documentation-architect, plan-reviewer, refactor-planner, and web-research-specialist agents",
   "author": {
     "name": "Anant Gupta"
   },
@@ -52,6 +52,9 @@
     "automation",
     "working-style",
     "mode-skill",
-    "preferences"
+    "preferences",
+    "verification",
+    "e2e",
+    "feature-map"
   ]
 }

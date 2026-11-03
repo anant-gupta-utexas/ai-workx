@@ -1,10 +1,10 @@
 # Essentials Plugin
 
-Skill development tools, wiki maintenance, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation (PRD → TRD → TRS), backend task specs with self-updating task docs, working-style capture into a personal `-mode` skill, and planning, documentation, refactoring, and research agents.
+Skill development tools, wiki maintenance, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation (PRD → TRD → TRS), backend task specs with self-updating task docs, working-style capture into a personal `-mode` skill, live app verification, and planning, documentation, refactoring, and research agents.
 
 ## What's Included
 
-### Skills (10)
+### Skills (12)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`. Ingest extracts open problems (top-3 by buildability) from each source to `docs/00_ops/inbox/inbox.md` for downstream triage; lint writes cadence + cleanliness score back to `docs/00_ops/meta/state.md`.
 - **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
@@ -15,6 +15,8 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 - **consult-experts** - Routes requests to expert personas — Product Manager (PRDs with release plans and deferred features), Tech Lead (TRDs with development phases mapped to PRD releases), System Design Specialist (SDDs), and Code Reviewer — under a shared Release / Phase / Task nomenclature.
 - **dev-docs** - Details one TRD phase into a per-phase Task Specification (TRS) with a flat task list under `dev/active/[feature]-phase-N/`, then keeps those docs current: the generated tasks file carries an update protocol so any agent ticks tasks and updates context after each completed task, plus a full handoff update before compaction or session end. Replaces the `/dev-docs-be` and `/dev-docs-update` commands.
 - **automate-tasks** - Captures a user's working style into a personal `<handle>-mode` skill that agents follow. Mines recent agent transcripts for the current workspace with parallel subagents, asks a few structured questions, clusters the signals (response style, autonomy, subagents, verification, process), then authors or updates the mode skill via `skill-developer`. The mode skill is explicit-invocation-only by default.
+- **create-verification-skill** - Generates a project-local `verify-<app>` skill under `.claude/skills/` that launches the real app, runs a read-only health check, drives features the way a user does (browser/CDP, PTY/tmux, or HTTP), captures evidence, and cleans up without deleting the proof. Seeds a per-feature map and proves the generated skill end to end once before handing it over.
+- **maintain-verification-skill** - Periodic audit of a `verify-<app>` skill: one read-only subagent per feature checks the map against source, a single live pass drives every feature, and only proven doc or harness corrections ship. Product regressions are reported, not papered over.
 
 > **Note:** In v3.0.0, `ideation-loop` (essentials) and `lateral-thinking` (DEV-ESSENTIALS) were merged into `brainstorm`. In v3.1.0, essentials absorbed DEV-ESSENTIALS' `consult-experts` skill, its 3 agents, and `/dev-docs-be` + `/dev-docs-update` (now the `dev-docs` skill). DEV-ESSENTIALS is superseded — installing both duplicates `consult-experts` and the agents. Install it only if you want its hooks, `/code-review`, `/verify`, or `git-workflow`. In v4.0.0, `scaffold-project` moved from drafting `gh repo create --template` commands for python/go/react to running the Python-only `python-scaffolding` Copier template; Go and React templates are no longer covered.
 
@@ -116,6 +118,12 @@ cos update                             # log completed tasks, notes, status chan
 "automate me"                            # → new <handle>-mode skill
 "capture my working style into a skill"
 "update my -mode skill"                  # → mines only history since last edit
+```
+
+**Live Verification:**
+```bash
+/create-verification-skill               # → .claude/skills/verify-<app>/ + features/ map
+/maintain-verification-skill             # → audit the map against source and a live run
 ```
 
 ### Using Agents Directly
@@ -349,6 +357,28 @@ docs/
 
 **Activation keywords:** `automate me`, `automate my tasks`, `capture my working style`, `turn my preferences into a skill`, `create my -mode skill`, `update my -mode skill`
 
+#### Create / Maintain Verification Skill
+
+**A project-local skill that proves behavior by driving the real app**
+
+`create-verification-skill` reads the repo (not the user) to answer five questions: the user-facing surface, how the app runs locally, how an agent can drive it, what evidence can be captured, and whether two instances can run side by side. It then writes `.claude/skills/verify-<app>/SKILL.md` with these sections:
+
+| Section | Contract |
+| --- | --- |
+| Launch | Exact start command, a real "ready" signal (usable, not just answering), teardown |
+| Doctor | One read-only check: process up, right build, port owned by this run, auth valid |
+| Drive | Real selectors and commands from the repo; stable handles over coordinates |
+| Evidence | Real user path, action plus resulting state, side effects verified, dry-runs observed |
+| Cleanup | Kill only what the run started; evidence survives teardown |
+
+It also seeds `features/` with an index plus one file per top user-facing feature (`Sub-features`, `How to get to it (user POV)`, `Driving it with <harness>`, `Gotchas`; see `references/feature-map-example/`), then runs the generated skill once end to end. A skill that was never executed counts as a draft.
+
+`maintain-verification-skill` keeps that map honest. It fixes the index, sends one read-only source subagent per feature, reconciles drift, runs one live pass that drives every feature with doctor checks between failures, and triages each finding as doc drift (fix), harness gap (fix and re-drive), or product gap (report only). It ends as **clean**, **changed** (one change of proven corrections), or **blocked**, and edits only the verification skill's own directory.
+
+**Best fit:** services, web UIs, desktop apps, and CLIs where unit tests can't show that the running app works for a user. Low value for pure libraries, whose test suite already drives the public API. Run `maintain` after significant user-facing changes or before a release, not on every commit; it launches the app and drives every feature.
+
+**Invocation:** explicit only (`disable-model-invocation: true`), via `/create-verification-skill` and `/maintain-verification-skill`.
+
 ### Agents
 
 #### Business Strategist
@@ -382,6 +412,7 @@ Refactoring strategies, tech debt analysis, SOLID violations detection, safe cod
 - Development plan review, refactoring plans, and developer documentation
 - Pressure-testing claims, decisions, and research conclusions with explicit evidence-tier classification and a named falsifier
 - Capturing a user's working style into a personal mode skill so agents work the way they do
+- Proving app behavior end to end with a generated, maintained verification skill
 
 ## Not Designed For
 
