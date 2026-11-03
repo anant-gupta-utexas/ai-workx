@@ -8,7 +8,7 @@ Go/Chi Clean Architecture backend development guidelines with comprehensive patt
 - **backend-dev-guidelines** - Go/Chi Clean Architecture with domain entities, services, repositories, and infrastructure patterns (sqlc + pgx)
 
 ### Commands (0)
-> Reuse the **dev-docs-be** command from the [essentials plugin](../essentials/) for creating technical requirement specifications.
+> Reuse the **dev-docs** skill (`/dev-docs`) from the [essentials plugin](../essentials/) for creating technical requirement specifications.
 
 ## Tech Stack Support
 
@@ -85,9 +85,9 @@ Use the backend TRS command from the essentials plugin:
 
 ```bash
 # Create technical requirement specification for a feature
-/dev-docs-be refactor authentication system
-/dev-docs-be implement order processing microservice
-/dev-docs-be build gRPC notification service
+/dev-docs refactor authentication system
+/dev-docs implement order processing microservice
+/dev-docs build gRPC notification service
 ```
 
 ## Skill Details

@@ -130,7 +130,7 @@ When completing a backend feature or task, maintain documentation in `/dev/` usi
 | --- | --- |
 | `README.md` | Project index, overview, setup, handoff notes for next developer |
 | `[feature-name]-plan.md` | Implementation strategy and approach |
-| `[feature-name]-task.md` | Task checklist with completed/pending items |
+| `[feature-name]-tasks.md` | Task checklist with completed/pending items |
 | `[feature-name]-context.md` | Current state, decisions, blockers, next steps |
 | `session-log.md` | Session notes and progress updates |
 
@@ -138,7 +138,7 @@ When completing a backend feature or task, maintain documentation in `/dev/` usi
 - Update after session completion
 - Keep concise — document decisions, not obvious details
 - Update `[feature-name]-context.md` with current implementation state and blockers
-- Mark tasks complete in `[feature-name]-task.md` immediately upon completion
+- Mark tasks complete in `[feature-name]-tasks.md` immediately upon completion
 - Update `README.md` with handoff notes for next developer
 
 ---
