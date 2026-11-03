@@ -161,7 +161,7 @@ This mode is recursive: pressure-test itself can fire Mode 5. A ceremonial press
 Ask three questions, in order:
 
 1. **What specifically was probed?** Name the test, the source, the reviewer, the production case. Not "we reviewed it" — what got reviewed.
-2. **How do we know the probe was non-trivial?** Could the probe have surfaced a problem that didn't exist before? If the answer is "no, the probe would always pass," the verification was ceremonial.
+2. **What shows the probe was non-trivial?** Could the probe have surfaced a problem that didn't exist before? If the answer is "no, the probe would always pass," the verification was ceremonial.
 3. **What was the most credible contrary signal and why was it dismissed?** If no contrary signal exists, either the claim is rock-solid or the search was biased. Almost always the latter.
 
 ---

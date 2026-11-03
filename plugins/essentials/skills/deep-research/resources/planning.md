@@ -29,10 +29,10 @@ Before searching, build a Task Ledger that captures the investigation scope. Wri
 **Date:** YYYY-MM-DD
 **Requested by:** User
 
-## What We Know
+## Already Known
 - <existing knowledge, context the user provided, constraints mentioned>
 
-## What We Need to Find
+## Still to Find
 1. <specific question or gap>
 2. <specific question or gap>
 3. ...

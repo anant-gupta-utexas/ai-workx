@@ -9,7 +9,7 @@ headlines in any operation.
 The CoS interrupts the user only for one of these six things:
 
 1. **Blocker** — something preventing current-focus work from progressing.
-2. **Waiting-on-me** — someone is waiting for the user (PR review, reply,
+2. **Waiting-on-user** — someone is waiting for the user (PR review, reply,
   decision).
 3. **Material status change** — a project flipped phase, a goal went
   stalling → on-track, a cadence went from on-time to overdue, etc.

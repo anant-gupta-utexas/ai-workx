@@ -71,7 +71,7 @@ A general pattern is being applied to a specialist context, or vice versa. Confi
 
 The claim says it's done but the falsifier was not actually probed. Common shapes: the test passes but it doesn't test the thing; the brief reaches a conclusion but no source disagrees with it (so disagreement was never invited); the decision is "locked" but no concrete observation would unlock it. The verification step exists in form but not in substance.
 
-**Catch:** Ask: what specifically was probed, and how do we know the probe was non-trivial? If a test exists, what would have to be different for it to fail? If a source review exists, what was the most credible contrary source and why was it dismissed?
+**Catch:** Ask: what specifically was probed, and what shows the probe was non-trivial? If a test exists, what would have to be different for it to fail? If a source review exists, what was the most credible contrary source and why was it dismissed?
 
 ## The falsifier
 

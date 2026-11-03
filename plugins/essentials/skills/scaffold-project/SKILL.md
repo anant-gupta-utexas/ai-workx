@@ -116,7 +116,7 @@ separate change, not something to paper over at the call site.
 
    > If the repo hasn't been cloned yet (the user hasn't run the `gh` block),
    > note the destinations as provisional and mark them clearly: "These
-   > destinations assume a flat `docs/`. Run `ls <name>/docs/` and let me know
+   > destinations assume a flat `docs/`. Run `ls <name>/docs/` and share
    > the layout if the template uses subdirectories."
 
 8. **Fallback when `gh` is not installed.**
@@ -162,8 +162,8 @@ separate change, not something to paper over at the call site.
      drafting:
 
      ```
-     What's in docs/03_projects/<name>/? I'll draft cp commands for the
-     files you want in the new repo. Common picks:
+     What's in docs/03_projects/<name>/? List the files to bring into the
+     new repo and cp commands will be drafted for them. Common picks:
        - README.md       → overwrites the template stub
        - prd.md          → docs/prd.md
        - any research-*.md or research/  → docs/research/ or docs/<same-name>.md
@@ -228,13 +228,13 @@ separate change, not something to paper over at the call site.
     and vault-internal paths (docs/03_projects/…, docs/00_ops/…) that don't
     belong in a public repo.
 
-    Want me to scan the copied files for risky patterns and draft a
-    sanitization proposal? I'll grep for:
+    Scan the copied files for risky patterns and draft a sanitization
+    proposal? The scan greps for:
       - proper-noun clusters from the project README/PRD
       - vault-internal path fragments (docs/03_projects/, docs/00_ops/, second-brain)
       - any obvious engagement-specific dates or client identifiers
 
-    Reply "yes, scan" and I'll draft a proposal table (what gets stripped,
+    Reply "yes, scan" to get a proposal table (what gets stripped,
     what stays, line-by-line) before any change is made. Some names
     (public collaborators, open-source maintainers) may be intentional —
     you confirm each one.
@@ -329,7 +329,7 @@ separate change, not something to paper over at the call site.
    ```
    Once the repo is confirmed, reduce docs/03_projects/<name>/README.md to
    hub-only shape and delete the migrated files from the vault folder.
-   Reply with the repo URL and I'll draft the cos update to do this.
+   Reply with the repo URL to get a drafted cos update that does this.
    ```
 
    The canonical hub shape for the vault README is:
@@ -468,12 +468,12 @@ Skill:
     --clone
   ```
 
-  Once cloned, run `ls foo-service/docs/` and paste the output so I can
-  route the vault files to the right subdirectories. (If the template uses
-  a flat docs/, the cp block below is provisional and already correct.)
+  Once cloned, run `ls foo-service/docs/` and paste the output so the
+  vault files can be routed to the right subdirectories. (If the template
+  uses a flat docs/, the cp block below is provisional and already correct.)
 
-  What's in docs/03_projects/foo-service/? I'll draft cp commands for
-  the files you want in the new repo.
+  What's in docs/03_projects/foo-service/? List the files to bring into
+  the new repo and cp commands will be drafted for them.
 
 User: README.md, prd.md, research-pricing.md, research-batching.md.
       Skip the decision sheets. docs/ is flat.
@@ -494,8 +494,8 @@ Skill:
 
   Before you run the cp block: vault docs often carry real names, company
   names, and vault-internal paths (docs/03_projects/…) that don't belong
-  in a public repo. Want me to scan the copied files for risky patterns
-  and draft a sanitization proposal? Reply "yes, scan" or "no, skip".
+  in a public repo. Scan the copied files for risky patterns and draft a
+  sanitization proposal? Reply "yes, scan" or "no, skip".
 
 User: no, skip
 
@@ -513,7 +513,7 @@ Skill:
 
   Once the repo is confirmed, reduce docs/03_projects/foo-service/README.md
   to hub-only shape and delete the migrated files from the vault folder.
-  Reply with the repo URL and I'll draft the cos update to do this.
+  Reply with the repo URL to get a drafted cos update that does this.
 ```
 
 ### Ambiguous language

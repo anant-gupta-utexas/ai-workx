@@ -76,7 +76,7 @@ User request
 
 ### 1. Plan
 
-Read `resources/planning.md`. Derive a slug from the topic, build a Task Ledger (what we know, what we need, constraints, acceptance criteria), and write the plan to `outputs/research/.plans/<slug>-plan.md`. **Present the plan to the user and wait for confirmation before proceeding.**
+Read `resources/planning.md`. Derive a slug from the topic, build a Task Ledger (already known, still to find, constraints, acceptance criteria), and write the plan to `outputs/research/.plans/<slug>-plan.md`. **Present the plan to the user and wait for confirmation before proceeding.**
 
 ### 2. Scale Decision
 

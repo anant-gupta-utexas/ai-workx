@@ -76,7 +76,7 @@ Don't:
 - **Synthesize across uncited gaps.** If two pages don't connect, don't paper over it with "these concepts relate because..." unless the wiki itself makes that link.
 - **Auto-promote the answer into the wiki.** Queries can surface gaps; filling them is an ingest operation that needs the full extract/propose/apply loop.
 - **Trust the index blindly.** If you read a page and its claims contradict what the index summary said, trust the page and flag the index drift.
-- **Answer from raw/ directly.** Raw sources are the past; the wiki is the compiled present. If the answer isn't in the wiki, the right response is "the wiki doesn't cover this; want me to ingest `<raw-file>`?"
+- **Answer from raw/ directly.** Raw sources are the past; the wiki is the compiled present. If the answer isn't in the wiki, the right response is "the wiki doesn't cover this; ingest `<raw-file>`?"
 
 ## Citation format reference
 

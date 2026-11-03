@@ -69,7 +69,7 @@ Each open decision gets one entry in this shape. Every slot does work; dropping 
 *Candidate: {alt-name}*
 - {same four slots}
 
-**My read:** {one recommendation plus at most ONE conditional alternative}
+**Recommendation:** {one recommendation plus at most ONE conditional alternative}
 
 **Cost of being wrong:** {low / medium / high} — {concrete: what undoing it costs}
 
@@ -95,7 +95,7 @@ Each open decision gets one entry in this shape. Every slot does work; dropping 
 - Concrete form: a jobs table in the existing database; workers run as `procrastinate worker`
 - First impression: no new service in `docker-compose.yml`
 - Day-to-day use: `@app.task` on a function; inspect jobs with a SQL query
-- One-sentence pitch: "Jobs ride on the database we already back up and monitor."
+- One-sentence pitch: "Jobs ride on the database that is already backed up and monitored."
 
 *Candidate: Redis + Celery*
 - Concrete form: a new Redis service plus Celery worker and beat processes
@@ -103,7 +103,7 @@ Each open decision gets one entry in this shape. Every slot does work; dropping 
 - Day-to-day use: `@shared_task`; inspect with Flower
 - One-sentence pitch: "The standard Python queue, built for high throughput."
 
-**My read:** Postgres queue — volume is hundreds of jobs per hour, and one fewer service beats throughput headroom nobody needs yet. Celery if you expect sustained load above ~100 jobs per second within a year.
+**Recommendation:** Postgres queue — volume is hundreds of jobs per hour, and one fewer service beats throughput headroom nobody needs yet. Celery if you expect sustained load above ~100 jobs per second within a year.
 
 **Cost of being wrong:** medium — jobs sit behind one interface; swapping is about a day of work plus draining in-flight jobs.
 

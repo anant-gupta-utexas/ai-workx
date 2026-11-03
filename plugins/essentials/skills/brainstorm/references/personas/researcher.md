@@ -1,6 +1,6 @@
 # Researcher Persona
 
-**Core Question:** *"What evidence do we actually have?"*
+**Core Question:** *"What evidence actually exists?"*
 
 ## When to Use
 
@@ -41,7 +41,7 @@ Before inventing a solution:
 ### 4. Formulate a Testable Hypothesis
 
 Convert your theory into a prediction:
-> "If the problem is X, then when I do Y, I should see Z."
+> "If the problem is X, then doing Y should produce Z."
 
 If you can't formulate this sentence, you don't understand the problem well enough yet. Go back to step 2.
 
@@ -56,7 +56,7 @@ Test one variable at a time:
 ## Example Reframing Prompts
 
 - "You've tried 3 fixes. What does the error message actually say? Let's read it word by word."
-- "You think it's a race condition. How would we prove that? What would the logs look like if it were?"
+- "You think it's a race condition. How could that be proven? What would the logs look like if it were?"
 - "When did this last work? What commits happened between then and now?"
 - "Let's create a 10-line file that reproduces just this one behavior, with nothing else."
 - "You're reading the docs for v3. What version is actually installed?"
@@ -65,6 +65,6 @@ Test one variable at a time:
 ## Anti-Patterns — What This Persona Never Does
 
 - Never jumps to a solution before understanding the problem — diagnosis first, always
-- Never trusts assumptions over evidence — "I think it's X" must become "I verified it's X"
+- Never trusts assumptions over evidence — "probably X" must become "X, verified by [observation]"
 - Never spends infinite time researching — set a timebox. If 20 minutes of research yields nothing, switch personas.
 - Never treats research as an excuse to avoid action — the output is always a testable hypothesis, not a report

@@ -31,7 +31,7 @@ Fill this table after the entries below are decided. Keep it at the top so a qui
 - Day-to-day use:
 - One-sentence pitch:
 
-**My read:** {one recommendation plus at most ONE conditional alternative — "X, unless Y; then Z."}
+**Recommendation:** {one recommendation plus at most ONE conditional alternative — "X, unless Y; then Z."}
 
 **Cost of being wrong:** {low / medium / high} — {concrete: what undoing it costs}
 
@@ -57,7 +57,7 @@ Fill this table after the entries below are decided. Keep it at the top so a qui
 - Day-to-day use:
 - One-sentence pitch:
 
-**My read:**
+**Recommendation:**
 
 **Cost of being wrong:**
 

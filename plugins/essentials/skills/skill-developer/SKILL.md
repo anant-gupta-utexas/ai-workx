@@ -50,7 +50,7 @@ Start by understanding what the skill should do. If the conversation already con
 1. What should this skill enable Claude to do?
 2. When should it trigger? (what user phrases/contexts)
 3. What's the expected output format?
-4. Should we set up test cases? Skills with objectively verifiable outputs (file transforms, data extraction, code generation) benefit from test cases. Subjective skills (writing style, design) often don't.
+4. Are test cases worth setting up? Skills with objectively verifiable outputs (file transforms, data extraction, code generation) benefit from test cases. Subjective skills (writing style, design) often don't.
 
 Proactively ask about edge cases, input/output formats, example files, and dependencies before writing the skill.
 
@@ -60,7 +60,7 @@ Proactively ask about edge cases, input/output formats, example files, and depen
 
 ```yaml
 ---
-name: my-skill
+name: example-skill
 description: What it does and when to trigger. Include specific contexts and phrases.
 ---
 ```
@@ -169,11 +169,11 @@ Output: feat(auth): implement JWT-based authentication
 
 ```markdown
 ---
-name: my-skill
+name: example-skill
 description: What this skill does. Use when the user mentions X, Y, or Z, or when working with A or B files, even if they don't explicitly ask for this skill.
 ---
 
-# My Skill
+# Example Skill
 
 ## Purpose
 What this skill helps accomplish and why it exists.
@@ -189,7 +189,7 @@ Real code examples showing expected inputs and outputs.
 
 ```markdown
 ---
-name: my-skill
+name: example-skill
 description: What this skill does with trigger contexts.
 context: fork
 agent: specialist-agent

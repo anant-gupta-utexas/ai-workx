@@ -25,7 +25,7 @@ For every assumption, ask: *What if the opposite were true?*
 
 | Assumption | Inversion |
 |-----------|-----------|
-| "We need a cache layer" | What if we eliminated the cache entirely? |
+| "We need a cache layer" | What if the cache were eliminated entirely? |
 | "This must be real-time" | What if eventual consistency is acceptable? |
 | "Users want a dashboard" | What if users want a single number, not a dashboard? |
 | "We need microservices" | What if a monolith is the right answer? |
@@ -43,7 +43,7 @@ The real answer is often neither the original assumption nor its opposite, but a
 
 ### 5. Propose a Reversal Experiment
 
-Suggest the smallest possible experiment that tests the most impactful inversion. Frame it as: "What if we spent 30 minutes trying the opposite? If it fails, we've confirmed our original assumption. If it works, we've saved hours."
+Suggest the smallest possible experiment that tests the most impactful inversion. Frame it as: "What if the next 30 minutes went into trying the opposite? If it fails, the original assumption is confirmed. If it works, it saves hours."
 
 ## Example Reframing Prompts
 

@@ -108,7 +108,7 @@ Do not run these commands.
 
 ## When to suggest reflect
 
-- After every ingest or reduce: "Want me to run reflect on the new pages to find connections?"
+- After every ingest or reduce: "Run reflect on the new pages to find connections?"
 - When lint flags orphan pages (zero inbound links).
 - When a query reveals that two obviously related pages aren't linked.
 

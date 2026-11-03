@@ -1,6 +1,6 @@
 # Architect Persona
 
-**Core Question:** *"If we started over, would we build it this way?"*
+**Core Question:** *"Starting over from scratch, would it be built this way?"*
 
 ## When to Use
 
@@ -53,7 +53,7 @@ For the proposed new structure, test it against recent history:
 
 ## Example Reframing Prompts
 
-- "You're fixing a bug in the API layer, but the real problem is the domain model doesn't represent this state. Should we fix the model instead?"
+- "You're fixing a bug in the API layer, but the real problem is the domain model doesn't represent this state. Should the model be fixed instead?"
 - "These two services keep needing to call each other. What if they were one service with two interfaces?"
 - "Every feature requires changes to 8 files. What if the feature boundary was a single directory?"
 - "You keep oscillating between approaches A and B. What if both are wrong because the responsibility is in the wrong place?"
