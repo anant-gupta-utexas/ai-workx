@@ -1,7 +1,7 @@
 {
   "name": "essentials",
-  "version": "3.0.0",
-  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest with open-problem extraction to inbox, query, lint with state-cadence write-back, citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator (daily/weekly/review/update cadences), scaffold-project skill for bootstrapping repos from templates, brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims/decisions/conclusions (five-mode failure rubric, falsifier requirement, evidence-tier classification), business-strategist agent for creating in-depth operational business plans, and web research agent for enhanced development workflow",
+  "version": "3.1.0",
+  "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest with open-problem extraction to inbox, query, lint with state-cadence write-back, citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator (daily/weekly/review/update cadences), scaffold-project skill for bootstrapping repos from templates, brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims/decisions/conclusions (five-mode failure rubric, falsifier requirement, evidence-tier classification), consult-experts skill with Product Manager / Tech Lead / System Design / Code Reviewer personas sharing a Release → Phase → Task contract, dev-docs skill that details one TRD phase into a flat task list and keeps the task docs updated after every completed task, business-strategist, documentation-architect, plan-reviewer, refactor-planner, and web-research-specialist agents",
   "author": {
     "name": "Anant Gupta"
   },
@@ -40,6 +40,13 @@
     "adversarial",
     "falsifier",
     "evidence-tier",
-    "failure-modes"
+    "failure-modes",
+    "prd",
+    "trd",
+    "trs",
+    "dev-docs",
+    "documentation",
+    "plan-review",
+    "refactoring"
   ]
 }
