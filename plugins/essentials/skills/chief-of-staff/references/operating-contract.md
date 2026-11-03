@@ -48,7 +48,7 @@ right one before writing:
 
 Examples:
 - "The wiki lint has never been run" → `cos-suggestions.md` (implies running a cadence / skill operation).
-- "Cursor's format-on-save corrupts markdown" → `observed-preferences.md` (a friction fact about the user's environment; the IDE fix is a one-off, not a recurring capability).
+- "The editor's format-on-save corrupts markdown" → `observed-preferences.md` (a friction fact about the user's environment; the IDE fix is a one-off, not a recurring capability).
 - "The user re-reads the same ticker three weeks in a row" → `cos-suggestions.md` (implies promoting to wiki via maintaining-wiki).
 - "The user tends to journal retroactively on Sundays, not daily" → `observed-preferences.md` (behavioral drift; no new capability needed unless it becomes a problem).
 

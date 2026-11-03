@@ -69,7 +69,7 @@ Regardless of operation:
   `active.md`, `inbox.md`, a project README, or a goals file, show the diff
   and ask.
 - **Delegate, don't duplicate.** For wiki ops call out to `maintaining-wiki`
-  (by name in your message — Cursor will route). For per-ticker analysis
+  (by name in your message — the harness routes to it). For per-ticker analysis
   reference `financial-coach`. Do not inline those skills' work here.
 - **Surface, don't flood.** Follow the notification policy in
   `references/operating-contract.md` — only speak up about blockers, waiting,
