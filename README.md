@@ -20,13 +20,13 @@ Development essentials with specialized agents for planning, documentation (with
 **Perfect for:** Expert consultation, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
 
 #### [essentials](./plugins/essentials/)
-Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation, backend task specs with self-updating task docs, and planning, documentation, refactoring, and research agents.
+Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation, backend task specs with self-updating task docs, working-style capture into a personal mode skill, and planning, documentation, refactoring, and research agents.
 
 **Includes:**
-- 9 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates with doc-dir inspection + sanitization + CLAUDE.md registration, brainstorm for getting unstuck and converging on decisions, pressure-test for adversarial review of claims and decisions, consult-experts for PRD/TRD/SDD/code-review personas, dev-docs for per-phase task specs that stay updated during implementation)
+- 10 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for bootstrapping repos from templates with doc-dir inspection + sanitization + CLAUDE.md registration, brainstorm for getting unstuck and converging on decisions, pressure-test for adversarial review of claims and decisions, consult-experts for PRD/TRD/SDD/code-review personas, dev-docs for per-phase task specs that stay updated during implementation, automate-tasks for capturing a user's working style into a personal `<handle>-mode` skill)
 - 5 Agents (business-strategist, documentation-architect with MOC generation, plan-reviewer, refactor-planner, web-research-specialist)
 
-**Perfect for:** Business strategy and product planning, brainstorming and decision-making, expert consultation from PRD to task list, plan review, refactoring, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates
+**Perfect for:** Business strategy and product planning, brainstorming and decision-making, expert consultation from PRD to task list, plan review, refactoring, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates, teaching agents a personal working style
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
@@ -234,6 +234,7 @@ This opens an interactive UI showing all available plugins from this marketplace
 - **pressure-test** - Adversarial pressure-test for a claim, decision, or conclusion: evidence-tier classification, five-mode failure scan, a required falsifier, and a verdict with a concrete next step.
 - **consult-experts** - Expert personas (Product Manager, Tech Lead, System Design Specialist, Code Reviewer) with a shared Release / Phase / Task nomenclature: PRDs ship with release plans (v0.1.0 MVP, v0.2.0, …) and deferred features; TRDs break work into Development Phases tagged to PRD releases
 - **dev-docs** - Details one TRD phase into a per-phase TRS with a flat task list under `dev/active/`, keeping every doc at 800 lines or fewer. The generated tasks file carries an update protocol, so any agent ticks tasks and updates context after each completed task; a full handoff update runs before compaction or session end.
+- **automate-tasks** - Captures a user's working style into a personal `<handle>-mode` skill. Mines the current workspace's agent transcripts with parallel subagents, asks a few structured questions, clusters the recurring signals, and authors or updates the mode skill via `skill-developer` (explicit-invocation-only by default; never copies secrets or other people's names from transcripts).
 
 > **Note:** The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0. In v3.0.0, `ideation-loop` and DEV-ESSENTIALS' `lateral-thinking` were merged into `brainstorm`. In v3.1.0, essentials absorbed DEV-ESSENTIALS' `consult-experts`, its 3 agents, and `/dev-docs-be` + `/dev-docs-update` (now the `dev-docs` skill).
 
@@ -490,6 +491,7 @@ After installation, skills automatically activate when:
 - "Following backend guidelines, create an endpoint"
 - "Using react best practices, create a component"
 - "Consult expert for architecture decisions"
+- "Automate me" (captures your working style into a `<handle>-mode` skill)
 
 ### Using Agents
 

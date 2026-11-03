@@ -1,10 +1,10 @@
 # Essentials Plugin
 
-Skill development tools, wiki maintenance, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation (PRD → TRD → TRS), backend task specs with self-updating task docs, and planning, documentation, refactoring, and research agents.
+Skill development tools, wiki maintenance, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation (PRD → TRD → TRS), backend task specs with self-updating task docs, working-style capture into a personal `-mode` skill, and planning, documentation, refactoring, and research agents.
 
 ## What's Included
 
-### Skills (9)
+### Skills (10)
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
 - **maintaining-wiki** - Ingest, query, lint, reduce, reflect, reweave, and manage a personal knowledge base / second-brain wiki under `docs/02_learning/`. Ingest extracts open problems (top-3 by buildability) from each source to `docs/00_ops/inbox/inbox.md` for downstream triage; lint writes cadence + cleanliness score back to `docs/00_ops/meta/state.md`.
 - **deep-research** - Structured multi-round investigation pipeline producing source-grounded research briefs with planning, parallel execution, verification, and citation anchoring
@@ -14,6 +14,7 @@ Skill development tools, wiki maintenance, chief-of-staff second-brain orchestra
 - **pressure-test** - Adversarial pressure-test for a claim, decision, or research conclusion. Forces evidence-tier classification, walks a five-mode failure scan (tier mismatch, selection bias, eval-aware target, domain drift, verification/termination failure), demands a falsifier in `Because-X-then-not-Y` shape, and resolves to a verdict carrying the evidence tier. Invoked at `brainstorm` convergence for medium-high-stakes entries and at `deep-research` Verify for load-bearing conclusions.
 - **consult-experts** - Routes requests to expert personas — Product Manager (PRDs with release plans and deferred features), Tech Lead (TRDs with development phases mapped to PRD releases), System Design Specialist (SDDs), and Code Reviewer — under a shared Release / Phase / Task nomenclature.
 - **dev-docs** - Details one TRD phase into a per-phase Task Specification (TRS) with a flat task list under `dev/active/[feature]-phase-N/`, then keeps those docs current: the generated tasks file carries an update protocol so any agent ticks tasks and updates context after each completed task, plus a full handoff update before compaction or session end. Replaces the `/dev-docs-be` and `/dev-docs-update` commands.
+- **automate-tasks** - Captures a user's working style into a personal `<handle>-mode` skill that agents follow. Mines recent agent transcripts for the current workspace with parallel subagents, asks a few structured questions, clusters the signals (response style, autonomy, subagents, verification, process), then authors or updates the mode skill via `skill-developer`. The mode skill is explicit-invocation-only by default.
 
 > **Note:** In v3.0.0, `ideation-loop` (essentials) and `lateral-thinking` (DEV-ESSENTIALS) were merged into `brainstorm`. In v3.1.0, essentials absorbed DEV-ESSENTIALS' `consult-experts` skill, its 3 agents, and `/dev-docs-be` + `/dev-docs-update` (now the `dev-docs` skill). DEV-ESSENTIALS is superseded — installing both duplicates `consult-experts` and the agents. Install it only if you want its hooks, `/code-review`, `/verify`, or `git-workflow`.
 
@@ -108,6 +109,13 @@ cos update                             # log completed tasks, notes, status chan
 /dev-docs search-feature Phase 1      # Create: TRS + task files for one TRD phase
 "break down Phase 2 of the TRD into tasks"
 "update dev docs before we compact"      # Update: full handoff
+```
+
+**Automate Tasks (working-style capture):**
+```bash
+"automate me"                            # → new <handle>-mode skill
+"capture my working style into a skill"
+"update my -mode skill"                  # → mines only history since last edit
 ```
 
 ### Using Agents Directly
@@ -318,6 +326,25 @@ docs/
 
 **Activation keywords:** `/dev-docs`, `create a TRS`, `break down Phase N`, `plan the tasks for this phase`, `update dev docs`, `save progress`, `handoff notes`
 
+#### Automate Tasks
+
+**Turn a user's working conventions into one `<handle>-mode` skill**
+
+**Flow:**
+0. **Check for an existing mode skill** under `.claude/skills/` or `~/.claude/skills/`. If found, run in update mode: mine only history since the last edit, ask what changed, and edit in place.
+1. **Mine history.** Parallel subagents read slices of the current workspace's transcripts only, never other projects. A signal must show up in 2+ slices to count.
+2. **Ask directly.** One or two multi-select questions, then one free-form question.
+3. **Cluster** into only the sections that apply: response style, autonomy, understand-first, subagents, prose/code discipline, review and verify, process, skills.
+4. **Draft** with `skill-developer` at `.claude/skills/<handle>-mode/SKILL.md` (or `~/.claude/skills/` for a personal skill), with `disable-model-invocation: true` by default.
+5. **Iterate** on the prose with the user: explain the why, keep it lean, generalize.
+6. **Land it.** Personal skills are just saved; project skills follow the repo's git conventions.
+
+**Guardrails:** don't overfit to one conversation, reference other skills rather than inlining them, keep sections minimal, and never copy secrets, credentials, internal URLs, or other people's names out of transcripts.
+
+**When not to use:** task-specific skills or one narrow workflow. Use `skill-developer` directly for those.
+
+**Activation keywords:** `automate me`, `automate my tasks`, `capture my working style`, `turn my preferences into a skill`, `create my -mode skill`, `update my -mode skill`
+
 ### Agents
 
 #### Business Strategist
@@ -350,6 +377,7 @@ Refactoring strategies, tech debt analysis, SOLID violations detection, safe cod
 - Expert consultation from PRD to TRD to per-phase task specs, with task docs that stay current during implementation
 - Development plan review, refactoring plans, and developer documentation
 - Pressure-testing claims, decisions, and research conclusions with explicit evidence-tier classification and a named falsifier
+- Capturing a user's working style into a personal mode skill so agents work the way they do
 
 ## Not Designed For
 
