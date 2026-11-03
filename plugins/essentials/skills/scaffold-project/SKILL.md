@@ -98,14 +98,14 @@ separate change, not something to paper over at the call site.
      copied files to `<name>/docs/<filename>` as shown in the destination table
      below.
    - If the template uses numbered or named subdirectories
-     (`1_product_and_research/`, `2_architecture/`, etc.), map each vault file
-     to the semantically matching subdir:
+     (`00_research/`, `01_product/`, `02_architecture/`, `03_guides/`,
+     `04_testing/`), map each vault file to the semantically matching subdir:
 
      | Vault file | Likely template subdir |
      | --- | --- |
-     | `prd.md` | `1_product_and_research/` or similar |
-     | `architecture.md` | `2_architecture/` or similar |
-     | `research-*.md` | `1_product_and_research/` or similar |
+     | `research-*.md` | `00_research/` or similar |
+     | `prd.md` | `01_product/` or similar |
+     | `architecture.md` | `02_architecture/` or similar |
 
    - If the structure is ambiguous (no `docs/` at all, multiple equally-plausible
      subdirs for a given file type), ask the user one question with the actual
