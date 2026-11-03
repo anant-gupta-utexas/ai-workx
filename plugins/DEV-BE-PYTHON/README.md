@@ -8,7 +8,7 @@ Python/FastAPI Clean Architecture backend development guidelines with comprehens
 - **backend-dev-guidelines** - Python/FastAPI Clean Architecture with domain entities, use cases, repositories, and infrastructure patterns
 
 ### Commands (0)
-> For backend TRS documentation, use the `/dev-docs-be` command from the [essentials plugin](../essentials/).
+> For backend TRS documentation, use the `dev-docs` skill (`/dev-docs`) from the [essentials plugin](../essentials/).
 
 ## Tech Stack Support
 
