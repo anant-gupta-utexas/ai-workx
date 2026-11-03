@@ -1,32 +1,19 @@
 # AI WorkX Marketplace
 
-Production-tested Claude Code plugins for modern development workflows with specialized tools for backend, frontend, and essential utilities including documentation, planning, and research.
+Production-tested Claude Code plugins for development workflows, research, learning, financial analysis, and data analysis: skills, agents, commands, and hooks for planning, documentation, verification, and second-brain operations.
 
 ## 🎯 Available Plugins
 
 ### Core Plugins (Recommended)
 
-#### [DEV-ESSENTIALS](./plugins/DEV-ESSENTIALS/) (superseded)
-> **Superseded by essentials v3.1.0.** `consult-experts`, the 3 agents, and `dev-docs` (which now also covers `/dev-docs-update`) ship in essentials. Installing both plugins duplicates them. Install DEV-ESSENTIALS only if you want its hooks, `/code-review`, `/verify`, or `git-workflow`.
-
-Development essentials with specialized agents for planning, documentation (with Maps of Content navigation), and refactoring, git workflow and expert consultation skills, code review and verification commands, backend TRS documentation, and 8 development quality hooks.
-
-**Includes:**
-- 2 Skills (git-workflow, consult-experts)
-- 3 Agents (documentation-architect with MOC generation, plan-reviewer, refactor-planner)
-- 4 Commands (dev-docs-update, dev-docs-be, code-review, verify)
-- 8 Hooks (security scan, commit quality, file size guard, debug statement warnings, and more)
-
-**Perfect for:** Expert consultation, refactoring, documentation with navigational Maps of Content, git workflow, code review, pre-commit verification, context management
-
 #### [essentials](./plugins/essentials/)
-Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation, backend task specs with self-updating task docs, working-style capture into a personal mode skill, and planning, documentation, refactoring, and research agents.
+Skill development tools, wiki maintenance with knowledge pipeline (reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator, project scaffolding, brainstorming, pressure-testing, expert consultation, backend task specs with self-updating task docs, working-style capture into a personal mode skill, live app verification skills, and planning, documentation, refactoring, and research agents.
 
 **Includes:**
-- 10 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for generating Python projects from a Copier template in 3 flavors (library_cli, service, datascience), brainstorm for getting unstuck and converging on decisions, pressure-test for adversarial review of claims and decisions, consult-experts for PRD/TRD/SDD/code-review personas, dev-docs for per-phase task specs that stay updated during implementation, automate-tasks for capturing a user's working style into a personal `<handle>-mode` skill)
+- 12 Skills (skill-developer, maintaining-wiki with 7 operations: ingest, query, lint, status, reduce, reflect, reweave, deep-research with plan-execute-verify pipeline, chief-of-staff with 4 operations: daily, weekly, review, update, scaffold-project for generating Python projects from a Copier template in 3 flavors (library_cli, service, datascience), brainstorm for getting unstuck and converging on decisions, pressure-test for adversarial review of claims and decisions, consult-experts for PRD/TRD/SDD/code-review personas, dev-docs for per-phase task specs that stay updated during implementation, automate-tasks for capturing a user's working style into a personal `<handle>-mode` skill, create-verification-skill and maintain-verification-skill for generating and auditing a project-local skill that drives the real app and captures evidence)
 - 5 Agents (business-strategist, documentation-architect with MOC generation, plan-reviewer, refactor-planner, web-research-specialist)
 
-**Perfect for:** Business strategy and product planning, brainstorming and decision-making, expert consultation from PRD to task list, plan review, refactoring, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new repos from templates, teaching agents a personal working style
+**Perfect for:** Business strategy and product planning, brainstorming and decision-making, expert consultation from PRD to task list, plan review, refactoring, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new Python projects from a Copier template, proving app behavior end to end with a project-local verification skill, teaching agents a personal working style
 
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
@@ -87,57 +74,6 @@ Data analysis lifecycle skills covering question framing, metric design, feasibi
 
 ---
 
-### Specialized Plugins (Install Based on Your Stack)
-
-#### [DEV-BE-PYTHON](./plugins/DEV-BE-PYTHON/) - Backend Development (Python)
-Python/FastAPI Clean Architecture backend development guidelines with comprehensive patterns for building scalable, maintainable backend applications.
-
-**Includes:**
-- 1 Skill (backend-dev-guidelines)
-
-**Tech Stack:**
-- Python 3.13+
-- FastAPI
-- Pydantic 2.8.0+
-- Clean Architecture
-
-**Perfect for:** Python/FastAPI backend projects following Clean Architecture
-
-#### [DEV-BE-GO](./plugins/DEV-BE-GO/) - Backend Development (Go)
-Go/Chi Clean Architecture backend development guidelines with DDD patterns, sqlc + pgx database access, and gRPC support.
-
-**Includes:**
-- 1 Skill (backend-dev-guidelines)
-
-**Tech Stack:**
-- Go 1.24+
-- Chi router
-- sqlc + pgx
-- koanf, slog + OpenTelemetry
-- Clean Architecture / DDD
-
-**Perfect for:** Go backend projects, Clean Architecture in Go, gRPC services
-
-#### [DEV-FE](./plugins/DEV-FE/) - Frontend Development
-TanStack Start/React/TypeScript frontend development guidelines with modern SSR-ready patterns and comprehensive technical requirement specification command.
-
-**Includes:**
-- 1 Skill (frontend-dev-guidelines)
-- 2 Agents (frontend-error-fixer, uiux-specialist)
-- 1 Command (dev-docs-fe)
-
-**Tech Stack:**
-- TanStack Start
-- React 18+
-- TypeScript
-- TanStack Query/Router/Form
-- shadcn/ui
-- Tailwind CSS
-
-**Perfect for:** TanStack Start/React/TypeScript frontend projects, creating frontend TRS documents
-
----
-
 ## 🚀 Quick Start
 
 ### 1. Add This Marketplace
@@ -164,15 +100,6 @@ This opens an interactive UI showing all available plugins from this marketplace
 /plugin install learning-coach@ai-workx
 /plugin install financial-coach@ai-workx
 
-# Backend plugin (if you have a Python/FastAPI backend)
-/plugin install DEV-BE-PYTHON@ai-workx
-
-# Backend plugin (if you have a Go backend)
-/plugin install DEV-BE-GO@ai-workx
-
-# Frontend plugin (if you have a TanStack Start/React/TypeScript frontend)
-/plugin install DEV-FE@ai-workx
-
 # ML research plugin (if you're doing autonomous ML experimentation)
 /plugin install autoresearch@ai-workx
 
@@ -193,36 +120,9 @@ This opens an interactive UI showing all available plugins from this marketplace
 
 ## 📦 Plugin Details
 
-### DEV-ESSENTIALS Plugin (Superseded)
+### essentials Plugin (Core: Skills, Wiki, Chief-of-Staff, Scaffolding, Brainstorming, Expert Consultation, Verification & Research)
 
-> **Superseded by essentials v3.1.0.** Everything below except the hooks, `/code-review`, `/verify`, and `git-workflow` now ships in essentials (`/dev-docs-update` is folded into the `dev-docs` skill). Don't install both unless you need those.
-
-**Why install:** Provides fundamental development utilities including git workflow patterns, expert consultation, code review, verification, backend TRS documentation, 8 quality hooks, and planning agents.
-
-**Skills:**
-- **git-workflow** - Branching strategies, conventional commits, PR workflow, merge vs rebase, conflict resolution, release management
-- **consult-experts** - Access specialized expert personas (Product Manager, Tech Lead, System Design Specialist, Code Reviewer) with a shared Release / Phase / Task nomenclature: PRDs now ship with release plans (v0.1.0 MVP, v0.2.0, …) and deferred features; TRDs break work into Development Phases tagged to PRD releases
-
-**Agents:**
-- **documentation-architect** - Create comprehensive, developer-focused documentation with context gathering and Maps of Content (MOC) navigation
-- **plan-reviewer** - Review development plans before implementation
-- **refactor-planner** - Create comprehensive refactoring strategies with brownfield-aware convention detection
-
-**Commands:**
-- **/dev-docs-update** - Update dev documentation before context compaction for seamless continuation
-- **/dev-docs-be** - Generate a per-phase Technical Requirement Specification (TRS) by picking ONE phase from the TRD and producing a flat task list for that phase
-- **/code-review** - Run security and quality review of uncommitted changes before committing
-- **/verify** - Run comprehensive verification (build, types, lint, tests, secrets, debug statements)
-
-**Hooks (8):** Pre-commit security scan, commit quality validation, block --no-verify, suggest compact, large file blocker, doc file warning, console.log warning, test file reminder
-
-[View Details →](./plugins/DEV-ESSENTIALS/README.md)
-
----
-
-### essentials Plugin (Core: Skills, Wiki, Chief-of-Staff, Scaffolding, Brainstorming, Expert Consultation & Research)
-
-**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, chief-of-staff second-brain orchestrator, Python project scaffolding from a Copier template, structured brainstorming and pressure-testing, expert consultation from PRD to per-phase task specs, planning/documentation/refactoring agents, and web research capabilities.
+**Why install:** Provides skill development tools, wiki maintenance with a full knowledge pipeline, chief-of-staff second-brain orchestrator, Python project scaffolding from a Copier template, structured brainstorming and pressure-testing, expert consultation from PRD to per-phase task specs, live app verification, planning/documentation/refactoring agents, and web research capabilities.
 
 **Skills:**
 - **skill-developer** - Meta-skill for creating and managing Claude Code skills
@@ -235,8 +135,10 @@ This opens an interactive UI showing all available plugins from this marketplace
 - **consult-experts** - Expert personas (Product Manager, Tech Lead, System Design Specialist, Code Reviewer) with a shared Release / Phase / Task nomenclature: PRDs ship with release plans (v0.1.0 MVP, v0.2.0, …) and deferred features; TRDs break work into Development Phases tagged to PRD releases
 - **dev-docs** - Details one TRD phase into a per-phase TRS with a flat task list under `dev/active/`, keeping every doc at 800 lines or fewer. The generated tasks file carries an update protocol, so any agent ticks tasks and updates context after each completed task; a full handoff update runs before compaction or session end.
 - **automate-tasks** - Captures a user's working style into a personal `<handle>-mode` skill. Mines the current workspace's agent transcripts with parallel subagents, asks a few structured questions, clusters the recurring signals, and authors or updates the mode skill via `skill-developer` (explicit-invocation-only by default; never copies secrets or other people's names from transcripts).
+- **create-verification-skill** - Generates a project-local `verify-<app>` skill that launches the real app (web UI, CLI/TUI, service, desktop), health-checks it, drives features the way a user does, captures evidence, and cleans up without deleting the proof. Seeds a per-feature map and runs the generated skill end to end once before handing it over. Explicit invocation only.
+- **maintain-verification-skill** - Periodic audit of a `verify-<app>` skill: parallel read-only subagents check each feature file against source, one live pass drives every feature, and proven doc or harness corrections ship as one change. Product regressions are reported, never papered over in docs. Explicit invocation only.
 
-> **Note:** The chief-of-staff skill previously lived in its own plugin; it was folded into essentials in v2.4.0. In v3.0.0, `ideation-loop` and DEV-ESSENTIALS' `lateral-thinking` were merged into `brainstorm`. In v3.1.0, essentials absorbed DEV-ESSENTIALS' `consult-experts`, its 3 agents, and `/dev-docs-be` + `/dev-docs-update` (now the `dev-docs` skill). In v4.0.0, `scaffold-project` became a Python-only Copier flow; Go and React templates are no longer covered.
+> **Note:** The chief-of-staff skill was folded into essentials in v2.4.0. In v3.0.0, `ideation-loop` and `lateral-thinking` were merged into `brainstorm`. In v3.1.0, essentials took in `consult-experts`, the documentation-architect / plan-reviewer / refactor-planner agents, and the `dev-docs` skill. In v4.0.0, `scaffold-project` became a Python-only Copier flow. In v4.1.0, essentials added the `create-verification-skill` and `maintain-verification-skill` pair.
 
 **Agents:**
 - **business-strategist** - Create in-depth operational business plans from product ideas via interactive inquiry, synthesis, and formal plan generation
@@ -392,79 +294,6 @@ Write this up for the exec team: should we invest more in mobile onboarding?
 
 ---
 
-### DEV-BE-PYTHON Plugin (Python Backend Specialization)
-
-**When to install:** You're working on Python/FastAPI backend projects following Clean Architecture.
-
-**Skill:**
-- **backend-dev-guidelines** - Python/FastAPI Clean Architecture with domain entities, use cases, repository patterns
-
-**Key Topics:**
-- Domain layer (entities, value objects)
-- Application layer (use cases, DTOs)
-- Repository pattern and data access
-- FastAPI endpoint structure
-- Validation, error handling, testing
-
-**Resources:** 12 comprehensive guides on Clean Architecture patterns
-
-> For backend TRS documentation, use the `dev-docs` skill (`/dev-docs`) from the essentials plugin.
-
-[View Details →](./plugins/DEV-BE-PYTHON/README.md)
-
----
-
-### DEV-BE-GO Plugin (Go Backend Specialization)
-
-**When to install:** You're working on Go backend projects following Clean Architecture with DDD patterns.
-
-**Skill:**
-- **backend-dev-guidelines** - Go/Chi Clean Architecture with domain entities, services, repository patterns (sqlc + pgx)
-
-**Key Topics:**
-- Domain layer (unexported fields, constructors, value objects)
-- Application layer (services, DTOs, CQRS as advanced pattern)
-- Repository pattern with sqlc + pgx
-- Chi router and HTTP handlers
-- Configuration with koanf
-- Error handling and observability (slog + OpenTelemetry)
-- gRPC with buf and connect-go
-- Testing with testify, mockery, and testcontainers-go
-
-**Resources:** 13 comprehensive guides on Go Clean Architecture patterns
-
-[View Details →](./plugins/DEV-BE-GO/README.md)
-
----
-
-### DEV-FE Plugin (Frontend Specialization)
-
-**When to install:** You're working on TanStack Start/React/TypeScript projects with modern SSR-ready patterns.
-
-**Skill:**
-- **frontend-dev-guidelines** - TanStack Start/React/TypeScript patterns with Suspense, lazy loading, shadcn/ui, and SSR-ready architecture
-
-**Agents:**
-- **frontend-error-fixer** - Debug and fix frontend errors (build and runtime)
-- **uiux-specialist** - UI/UX design and specialist guidance
-
-**Commands:**
-- **/dev-docs-fe** - Create comprehensive Technical Requirement Specifications (TRS) for frontend features with UI component design, API integration, state management, and implementation phases
-
-**Key Topics:**
-- Component patterns (Suspense, lazy loading)
-- TanStack Start/Query/Router/Form
-- shadcn/ui components and Tailwind CSS
-- SSR-ready architecture
-- Performance optimization
-- TypeScript standards
-
-**Resources:** 11 comprehensive guides on TanStack Start/React best practices
-
-[View Details →](./plugins/DEV-FE/README.md)
-
----
-
 ## 🎨 What's a Plugin?
 
 A Claude Code plugin is a package of:
@@ -488,8 +317,8 @@ After installation, skills automatically activate when:
 - You mention relevant technologies
 
 **Best Practice:** Use explicit trigger phrases:
-- "Following backend guidelines, create an endpoint"
-- "Using react best practices, create a component"
+- "Brainstorm this, I'm stuck on the caching design"
+- "Pressure-test this decision before I lock it"
 - "Consult expert for architecture decisions"
 - "Automate me" (captures your working style into a `<handle>-mode` skill)
 
@@ -503,10 +332,6 @@ Invoke agents for complex tasks:
 "Use the plan-reviewer agent to review my authentication implementation plan"
 "Use the business-strategist agent to help me plan my product strategy"
 "Use the web-research-specialist agent to find best practices for WebSockets"
-
-# Frontend agents (if DEV-FE installed)
-"Use the frontend-error-fixer agent to debug this console error"
-"Use the uiux-specialist agent to review my dashboard design"
 
 # ML research agents (if autoresearch installed)
 "Use the ml-researcher agent to optimize my training script"
@@ -523,14 +348,9 @@ Use commands for workflows:
 /dev-docs implement order processing microservice
 "update dev docs before we compact"
 
-# Code review and verification (only if DEV-ESSENTIALS installed)
-/code-review
-/verify
-/verify pre-pr
-
-# Frontend commands (if DEV-FE installed)
-/dev-docs-fe create user dashboard with real-time metrics
-/dev-docs-fe implement checkout flow with payment integration
+# Live verification (essentials)
+/create-verification-skill
+/maintain-verification-skill
 
 # ML research commands (if autoresearch installed)
 /experiment baseline
@@ -552,21 +372,15 @@ Use commands for workflows:
 ### Update Plugins
 
 ```bash
-/plugin update DEV-ESSENTIALS
 /plugin update essentials
-/plugin update DEV-BE-PYTHON
-/plugin update DEV-BE-GO
-/plugin update DEV-FE
+/plugin update data-analyst
 ```
 
 ### Remove Plugins
 
 ```bash
-/plugin uninstall DEV-ESSENTIALS
 /plugin uninstall essentials
-/plugin uninstall DEV-BE-PYTHON
-/plugin uninstall DEV-BE-GO
-/plugin uninstall DEV-FE
+/plugin uninstall data-analyst
 ```
 
 ### List All Marketplaces
@@ -579,48 +393,13 @@ Use commands for workflows:
 
 ## 💡 Recommended Plugin Combinations
 
-### For Fullstack Projects (Backend + Frontend)
+### For Software Development
 
 ```bash
 /plugin install essentials@ai-workx
-/plugin install learning-coach@ai-workx
-/plugin install DEV-BE-PYTHON@ai-workx    # Python/FastAPI
-# OR
-/plugin install DEV-BE-GO@ai-workx        # Go/Chi
-/plugin install DEV-FE@ai-workx
 ```
 
-**You get:** Complete development workflow with backend/frontend patterns, expert consultation, self-updating TRS task docs, planning agents, documentation tools, and learning coach. Add `DEV-ESSENTIALS` only if you also want its quality hooks, `/code-review`, `/verify`, and git workflow patterns.
-
-### For Backend-Only Projects (Python)
-
-```bash
-/plugin install essentials@ai-workx
-/plugin install learning-coach@ai-workx
-/plugin install DEV-BE-PYTHON@ai-workx
-```
-
-**You get:** Python/FastAPI Clean Architecture patterns, planning agents, documentation tools, learning coach, and essential utilities.
-
-### For Backend-Only Projects (Go)
-
-```bash
-/plugin install essentials@ai-workx
-/plugin install learning-coach@ai-workx
-/plugin install DEV-BE-GO@ai-workx
-```
-
-**You get:** Go/Chi Clean Architecture patterns with sqlc + pgx, gRPC support, planning agents, documentation tools, learning coach, and essential utilities.
-
-### For Frontend-Only Projects
-
-```bash
-/plugin install essentials@ai-workx
-/plugin install learning-coach@ai-workx
-/plugin install DEV-FE@ai-workx
-```
-
-**You get:** TanStack Start/React patterns, frontend TRS command, UI/UX specialist, error fixing, planning agents, learning coach, and documentation tools.
+**You get:** PRD → TRD → per-phase task specs (`consult-experts`, `dev-docs`) with task docs that stay current during implementation, Python project scaffolding from a Copier template, live end-to-end verification skills generated for the repo, plan review, refactoring plans, and developer documentation.
 
 ### For Product Planning & Documentation
 
@@ -677,13 +456,9 @@ Use commands for workflows:
 - [Creating Skills](https://code.claude.com/docs/en/skills)
 
 ### Plugin READMEs
-- [DEV-ESSENTIALS Plugin (superseded) →](./plugins/DEV-ESSENTIALS/README.md)
 - [essentials Plugin →](./plugins/essentials/README.md)
 - [learning-coach Plugin →](./plugins/learning-coach/README.md)
 - [financial-coach Plugin →](./plugins/financial-coach/README.md)
-- [DEV-BE-PYTHON Plugin (Python) →](./plugins/DEV-BE-PYTHON/README.md)
-- [DEV-BE-GO Plugin (Go) →](./plugins/DEV-BE-GO/README.md)
-- [DEV-FE Plugin →](./plugins/DEV-FE/README.md)
 - [autoresearch Plugin →](./plugins/autoresearch/README.md)
 - [data-analyst Plugin →](./plugins/data-analyst/README.md)
 
@@ -737,16 +512,13 @@ MIT License - Use freely in your projects.
 After installing these plugins, you get:
 
 - **Intelligent skill activation** - Skills suggest themselves when relevant
-- **Specialized agents** - AI assistants for business strategy, documentation, planning, UI/UX, research, and error fixing
-- **Expert guidance** - Access to business strategist, documentation architect, tech lead, UI/UX specialist, and 4 expert consultation personas
-- **Lateral thinking** - 5 thinking personas to break through development blocks (Contrarian, Hacker, Simplifier, Researcher, Architect)
-- **Git workflow patterns** - Branching strategies, conventional commits, PR workflow, conflict resolution
-- **Code review and verification** - Pre-commit quality gates and comprehensive PR-readiness checks
-- **8 development hooks** - Automated security scanning, commit quality, file size guards, debug statement detection
-- **TRS documentation commands** - Create comprehensive Technical Requirement Specifications for backend and frontend features
-- **Context management** - Update dev docs before context reset for seamless continuation
-- **Production patterns** - Best practices from real-world projects (Python/FastAPI, Go/Chi, TanStack Start/React)
-- **Modern tech stacks** - SSR-ready React patterns, Clean Architecture backends (Python + Go), shadcn/ui, TanStack ecosystem
-- **Modular installation** - Install only what you need for your project
+- **Specialized agents** - AI assistants for business strategy, documentation, planning, refactoring, research, and ML experimentation
+- **Expert guidance** - Business strategist, documentation architect, and 4 expert consultation personas (Product Manager, Tech Lead, System Design, Code Reviewer)
+- **Structured brainstorming** - 5 thinking personas to break through blocks (Contrarian, Hacker, Simplifier, Researcher, Architect), plus convergence on decisions and adversarial pressure-testing
+- **Per-phase task specs** - Technical Requirement Specifications that keep their task docs updated after every completed task
+- **Live verification** - Project-local skills that launch the real app, drive it the way a user does, and keep evidence
+- **Project scaffolding** - New Python projects with `uv`, a quality gate, CI, and docs/dev planning trees
+- **Second-brain operations** - Wiki maintenance and on-demand daily / weekly / review cadences
+- **Modular installation** - Install only what you need
 
 **Build better products faster!**
