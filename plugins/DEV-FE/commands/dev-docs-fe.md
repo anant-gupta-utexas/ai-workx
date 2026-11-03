@@ -9,7 +9,7 @@ Create TRS for Feature: $ARGUMENTS
 ## Instructions
 
 1. **Analyze the request** and determine the scope of planning needed
-2. **Examine relevant files** as mentioned in user input - `/docs/2_architecture/TRD.md`, `/docs/1_product/PRD.md`
+2. **Examine relevant files** as mentioned in user input - `/docs/02_architecture/TRD.md`, `/docs/01_product/PRD.md`
 3. **Ask user for clarification** if any information is missing and required rather than making an assumption. Give options to the user along with small comparison of the different approaches that can be applied.
 4. **Create a structured plan** with the following sections:
     - **Overview & Scope**
