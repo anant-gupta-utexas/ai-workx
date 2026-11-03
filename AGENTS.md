@@ -8,8 +8,8 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 
 | Plugin | Purpose | Key Components |
 |--------|---------|----------------|
-| DEV-ESSENTIALS | Development essentials | 2 skills, 3 agents, 4 commands, 8 hooks |
-| essentials | Skills, wiki, research, chief-of-staff, project scaffolding, brainstorming, pressure-test | 7 skills, 2 agents |
+| DEV-ESSENTIALS | **Superseded by essentials** — install only for its hooks, `/code-review`, `/verify`, `git-workflow` | 2 skills, 3 agents, 4 commands, 8 hooks |
+| essentials | Skills, wiki, research, chief-of-staff, project scaffolding, brainstorming, pressure-test, expert consultation, backend task specs | 9 skills, 5 agents |
 | DEV-BE-PYTHON | Python/FastAPI Clean Architecture | 1 skill (12 resource guides) |
 | DEV-BE-GO | Go/Chi Clean Architecture | 1 skill (13 resource guides) |
 | DEV-FE | TanStack Start/React/TypeScript | 1 skill, 2 agents, 1 command |
@@ -25,8 +25,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 /plugin marketplace add anant-gupta-utexas/ai-workx
 
 # Install plugins
-/plugin install DEV-ESSENTIALS@ai-workx  # Dev essentials
-/plugin install essentials@ai-workx       # Expert consultation
+/plugin install essentials@ai-workx       # Core: expert consultation, agents, dev docs, wiki, research
 /plugin install DEV-BE-PYTHON@ai-workx    # Python backend
 /plugin install DEV-BE-GO@ai-workx        # Go backend
 /plugin install DEV-FE@ai-workx           # Frontend
@@ -35,14 +34,16 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 
 > **Note:** The chief-of-staff skill (second-brain orchestrator, `cos daily`/`weekly`/`review`/`update`) now ships as part of `essentials@ai-workx`.
 
+> **Note:** DEV-ESSENTIALS is superseded by essentials v3.1.0, which now ships `consult-experts`, the documentation-architect / plan-reviewer / refactor-planner agents, and the `dev-docs` skill (replacing `/dev-docs-be` and `/dev-docs-update`). Installing both duplicates those components; install DEV-ESSENTIALS only for its hooks, `/code-review`, `/verify`, or `git-workflow`.
+
 ## Available Agents
 
 | Agent | Plugin | Purpose |
 |-------|--------|---------|
 | business-strategist | essentials | Product strategy, roadmap planning, market analysis |
-| documentation-architect | DEV-ESSENTIALS | Developer-focused documentation from code and existing docs |
-| plan-reviewer | DEV-ESSENTIALS | Review implementation plans, risk assessment |
-| refactor-planner | DEV-ESSENTIALS | Refactoring strategies, tech debt analysis |
+| documentation-architect | essentials (also DEV-ESSENTIALS) | Developer-focused documentation from code and existing docs |
+| plan-reviewer | essentials (also DEV-ESSENTIALS) | Review implementation plans, risk assessment |
+| refactor-planner | essentials (also DEV-ESSENTIALS) | Refactoring strategies, tech debt analysis |
 | web-research-specialist | essentials | Technical research, best practices, library comparisons |
 | frontend-error-fixer | DEV-FE | Debug and fix frontend build/runtime errors |
 | uiux-specialist | DEV-FE | UI/UX design and specialist guidance |
@@ -55,8 +56,8 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 
 | Command | Plugin | Purpose |
 |---------|--------|---------|
-| /dev-docs-update | DEV-ESSENTIALS | Update dev docs before context compaction |
-| /dev-docs-be | DEV-ESSENTIALS | Create backend Technical Requirement Specifications |
+| /dev-docs | essentials (skill) | Create a per-phase TRS and keep its task docs updated after each task and before compaction (docs capped at 800 lines) |
+| /dev-docs-update | DEV-ESSENTIALS (superseded) | Update dev docs before context compaction — use the `dev-docs` skill's Update operation instead |
 | /code-review | DEV-ESSENTIALS | Security and quality review of uncommitted changes |
 | /verify | DEV-ESSENTIALS | Comprehensive codebase verification (build, types, lint, tests, secrets) |
 | /dev-docs-fe | DEV-FE | Create frontend Technical Requirement Specifications |

@@ -11,7 +11,7 @@
       "name": "DEV-BE-PYTHON",
       "source": "./plugins/DEV-BE-PYTHON",
       "description": "Python/FastAPI Clean Architecture backend development guidelines with domain entities, use cases, and repository patterns.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -31,7 +31,7 @@
       "name": "DEV-BE-GO",
       "source": "./plugins/DEV-BE-GO",
       "description": "Go/Chi Clean Architecture backend development guidelines with domain entities, services, and repository patterns (sqlc + pgx). Includes DDD patterns, CQRS guidance, slog observability, and gRPC support.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -56,7 +56,7 @@
       "name": "DEV-FE",
       "source": "./plugins/DEV-FE",
       "description": "React/TypeScript/Tanstack Query/Tanstack Router frontend development guidelines. Includes dev-docs-fe command for creating comprehensive technical requirement specifications.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -78,7 +78,7 @@
     {
       "name": "DEV-ESSENTIALS",
       "source": "./plugins/DEV-ESSENTIALS",
-      "description": "Development essentials with specialized agents (including documentation-architect with Maps of Content navigation), git workflow and release-aware expert consultation skills (PRD releases → TRD phases → TRS tasks), code review and verification commands, backend TRS documentation, and 8 development quality hooks",
+      "description": "[Superseded by essentials v3.1.0 — consult-experts, the 3 agents, and dev-docs now ship in essentials; installing both duplicates them. Install only for its 8 development quality hooks, /code-review, /verify, or git-workflow.] Development essentials with specialized agents (including documentation-architect with Maps of Content navigation), git workflow and release-aware expert consultation skills (PRD releases → TRD phases → TRS tasks), code review and verification commands, backend TRS documentation, and 8 development quality hooks",
       "version": "2.0.0",
       "author": {
         "name": "Anant Gupta",
@@ -105,8 +105,8 @@
     {
       "name": "essentials",
       "source": "./plugins/essentials",
-      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint with citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill for bootstrapping repos from templates (with doc-dir inspection, sanitization proposal, and vault CLAUDE.md registration), brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims and decisions, business-strategist agent for creating in-depth operational business plans, and web research agent for enhanced development workflow",
-      "version": "3.0.0",
+      "description": "Skill development tools, wiki maintenance with knowledge pipeline (ingest, query, lint with citation-resolution and code-span-aware link checks, reduce, reflect, reweave), deep-research investigation pipeline, chief-of-staff second-brain orchestrator with daily/weekly/review/update cadences, scaffold-project skill for bootstrapping repos from templates (with doc-dir inspection, sanitization proposal, and vault CLAUDE.md registration), brainstorm skill that diverges when stuck (5 thinking personas) and converges when torn (concrete candidate rendering, one recommendation, cost-of-being-wrong, stop rule), pressure-test skill for adversarial pressure-testing of claims and decisions, consult-experts skill (Product Manager, Tech Lead, System Design, Code Reviewer with a shared Release → Phase → Task contract), dev-docs skill for per-phase backend task specs with task docs that update after every completed task, and business-strategist, documentation-architect, plan-reviewer, refactor-planner, and web-research-specialist agents",
+      "version": "3.1.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -140,7 +140,16 @@
         "planning",
         "convergence",
         "business-strategy",
-        "product-planning"
+        "product-planning",
+        "experts",
+        "consultation",
+        "prd",
+        "trd",
+        "trs",
+        "dev-docs",
+        "documentation",
+        "plan-review",
+        "refactoring"
       ]
     },
     {
