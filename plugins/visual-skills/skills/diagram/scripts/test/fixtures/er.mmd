@@ -1,0 +1,8 @@
+erDiagram
+  CUSTOMER ||--o{ ORDER : places
+  ORDER ||--|{ ITEM : contains
+  PRODUCT ||--o{ ITEM : identifies
+  CUSTOMER { int id PK }
+  ORDER { int id PK }
+  ITEM { int quantity }
+  PRODUCT { string name }

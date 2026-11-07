@@ -1,6 +1,8 @@
 # Dependencies
 **/node_modules/
 **/package-lock.json
+!plugins/visual-skills/skills/diagram/scripts/package-lock.json
+!plugins/visual-skills/skills/diagram/scripts/art/package-lock.json
 
 # OS files
 .DS_Store

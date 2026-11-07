@@ -1,0 +1,30 @@
+{
+  "skill_name": "diagram",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Draw our job flow: API validates a request, rejects invalid input, otherwise queues it; a worker loads, transforms, stores and notifies. Group the worker steps together.",
+      "expected_output": "Editable Mermaid and clean SVG with the worker boundary and both validation branches. Inspect the image; no art dependency installation."
+    },
+    {
+      "id": 2,
+      "prompt": "Make a sequence diagram: User submits to API, API enqueues to Queue, Queue delivers to Worker, Worker returns a result to API, API reports completion to User.",
+      "expected_output": "Four participants, five messages, source plus clean SVG. Preserve direction and labels; no canvas, fonts or browser setup."
+    },
+    {
+      "id": 3,
+      "prompt": "Render this flat state Mermaid as a hand-drawn diagram. DESIGN.md says Hand-drawn support: disabled.",
+      "expected_output": "Preserve the supplied Mermaid. Explain the disabled policy without invoking or installing art and without silently producing a different requested style."
+    },
+    {
+      "id": 4,
+      "prompt": "Make this order state diagram hand-drawn, including its Published --> [*] final marker.",
+      "expected_output": "Preserve the final marker in source. Explain that art rejects final markers; offer clean SVG without silently removing the marker or claiming art succeeded."
+    },
+    {
+      "id": 5,
+      "prompt": "Show customers placing orders, orders containing items and products identifying items in an ER diagram. Use one-to-many relationships.",
+      "expected_output": "Four entities and three relationships with cardinality, editable source and inspected clean SVG."
+    }
+  ]
+}

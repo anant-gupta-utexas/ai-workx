@@ -1,0 +1,33 @@
+name: Visual skills
+
+on:
+  push:
+    paths: ['plugins/visual-skills/**', '.github/workflows/visual-skills.yml', '.claude-plugin/marketplace.json']
+  pull_request:
+    paths: ['plugins/visual-skills/**', '.github/workflows/visual-skills.yml', '.claude-plugin/marketplace.json']
+
+permissions:
+  contents: read
+
+jobs:
+  diagram:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: plugins/visual-skills/skills/diagram/scripts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: |
+            plugins/visual-skills/skills/diagram/scripts/package-lock.json
+            plugins/visual-skills/skills/diagram/scripts/art/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm run test:coverage
+      - run: npm ci --prefix art --ignore-scripts
+      - run: npm run test:art

@@ -13,6 +13,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 | DEV-BE-PYTHON | Python/FastAPI Clean Architecture | 1 skill (12 resource guides) |
 | DEV-BE-GO | Go/Chi Clean Architecture | 1 skill (13 resource guides) |
 | DEV-FE | TanStack Start/React/TypeScript | 1 skill, 2 agents, 1 command |
+| visual-skills | Mermaid diagrams: clean SVG default, optional hand-drawn flat states | 1 skill, separate core/art dependencies, isolation test |
 | learning-coach | Learning and system design coaching | 2 skills (learning_methods + technical_coach) |
 | financial-coach | Investment analysis and valuation | 2 skills |
 | autoresearch | Autonomous ML research pipeline | 1 skill (12 resource guides), 4 agents, 7 commands, 3 hooks |
@@ -30,6 +31,7 @@ Plugin marketplace for modern development workflows. Provides specialized agents
 /plugin install DEV-BE-GO@ai-workx        # Go backend
 /plugin install DEV-FE@ai-workx           # Frontend
 /plugin install data-analyst@ai-workx     # Data analysis lifecycle
+/plugin install visual-skills@ai-workx    # Clean diagrams, optional art
 ```
 
 > **Note:** The chief-of-staff skill (second-brain orchestrator, `cos daily`/`weekly`/`review`/`update`) now ships as part of `essentials@ai-workx`.

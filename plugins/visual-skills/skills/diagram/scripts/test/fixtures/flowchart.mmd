@@ -1,0 +1,12 @@
+flowchart LR
+  A[Request] --> B[Validate]
+  B --> C{Approved?}
+  C -- Yes --> D[Queue]
+  C -- No --> E[Reject]
+  subgraph Worker
+    D --> F[Load]
+    F --> G[Transform]
+    G --> H[Store]
+  end
+  H --> I[Notify]
+  I --> J[Complete]

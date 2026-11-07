@@ -1,0 +1,10 @@
+stateDiagram-v2
+  Queued: queued
+  Packing: packing
+  Dispatched: dispatched
+  Delivered: delivered
+  [*] --> Queued
+  Queued --> Packing: pick items
+  Packing --> Dispatched: ship
+  Packing --> Queued: retry
+  Dispatched --> Delivered: confirm receipt

@@ -1,0 +1,14 @@
+{
+  "name": "@ai-workx/diagram",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "test": "node --test test/core.test.mjs test/clean-only.test.mjs",
+    "test:coverage": "node --experimental-test-coverage --test --test-coverage-exclude=**/visual-skills-clean-*/** --test-coverage-exclude=**/test/** --test-coverage-lines=80 test/core.test.mjs test/clean-only.test.mjs",
+    "test:art": "node --test test/art.test.mjs"
+  },
+  "dependencies": { "pele": "1.9.0" }
+}

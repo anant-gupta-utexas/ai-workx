@@ -1,0 +1,7 @@
+stateDiagram-v2
+  direction LR
+  [*] --> Draft
+  Draft --> Review: submit
+  Review --> Draft: revise
+  Review --> Published: approve
+  Published --> [*]

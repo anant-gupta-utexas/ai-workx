@@ -15,6 +15,14 @@ Skill development tools, wiki maintenance with knowledge pipeline (reduce, refle
 
 **Perfect for:** Business strategy and product planning, brainstorming and decision-making, expert consultation from PRD to task list, plan review, refactoring, technical research, deep multi-source investigations, creating custom skills, managing and growing a personal knowledge graph, running a markdown-first second-brain vault with on-demand cadences, bootstrapping new Python projects from a Copier template, proving app behavior end to end with a project-local verification skill, teaching agents a personal working style
 
+#### [visual-skills](./plugins/visual-skills/)
+Source-backed Mermaid diagrams with clean SVG by default and separately installed, optional hand-drawn PNG for flat states. Independent of essentials.
+
+**Includes:**
+- 1 Skill (`diagram`), a pele-only clean renderer, optional art backend, project style policy and a clean-only dependency isolation release test.
+
+**Perfect for:** Architecture flowcharts, actor sequences, ER relationships and state diagrams with editable Mermaid sources.
+
 #### [learning-coach](./plugins/learning-coach/)
 Personal learning and system design coach grounded in cognitive science, with comprehensive coverage of general learning methods and system design for SWE & MLE interviews.
 
@@ -97,6 +105,7 @@ This opens an interactive UI showing all available plugins from this marketplace
 ```bash
 # Core plugins
 /plugin install essentials@ai-workx
+/plugin install visual-skills@ai-workx   # Diagrams; clean SVG by default, optional art
 /plugin install learning-coach@ai-workx
 /plugin install financial-coach@ai-workx
 
@@ -461,6 +470,7 @@ Use commands for workflows:
 - [financial-coach Plugin →](./plugins/financial-coach/README.md)
 - [autoresearch Plugin →](./plugins/autoresearch/README.md)
 - [data-analyst Plugin →](./plugins/data-analyst/README.md)
+- [visual-skills Plugin →](./plugins/visual-skills/README.md)
 
 ---
 

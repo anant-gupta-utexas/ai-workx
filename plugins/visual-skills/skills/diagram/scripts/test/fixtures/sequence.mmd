@@ -1,0 +1,10 @@
+sequenceDiagram
+  participant U as User
+  participant A as API
+  participant Q as Queue
+  participant W as Worker
+  U->>A: Submit job
+  A->>Q: Enqueue
+  Q->>W: Deliver
+  W-->>A: Result
+  A-->>U: Complete

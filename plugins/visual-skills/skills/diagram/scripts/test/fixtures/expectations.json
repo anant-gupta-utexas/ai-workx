@@ -1,0 +1,88 @@
+{
+  "flowchart": {
+    "labels": [
+      "Request",
+      "Validate",
+      "Approved?",
+      "Queue",
+      "Reject",
+      "Load",
+      "Transform",
+      "Store",
+      "Notify",
+      "Complete",
+      "Worker"
+    ]
+  },
+  "sequence": {
+    "labels": [
+      "User",
+      "API",
+      "Queue",
+      "Worker",
+      "Submit job",
+      "Enqueue",
+      "Deliver",
+      "Result",
+      "Complete"
+    ]
+  },
+  "er": {
+    "labels": [
+      "CUSTOMER",
+      "ORDER",
+      "ITEM",
+      "PRODUCT",
+      "places",
+      "contains",
+      "identifies"
+    ]
+  },
+  "terminal": {
+    "labels": [
+      "Draft",
+      "Review",
+      "Published",
+      "submit",
+      "revise",
+      "approve"
+    ],
+    "nodes": 3,
+    "edges": 5,
+    "markers": [
+      "pele-state-start",
+      "pele-state-end"
+    ]
+  },
+  "order": {
+    "labels": [
+      "in line",
+      "ordered",
+      "paid",
+      "being made",
+      "ready",
+      "refunded",
+      "in your hand"
+    ],
+    "nodes": 7,
+    "edges": 8,
+    "markers": [
+      "pele-state-start"
+    ]
+  },
+  "day": {
+    "labels": [
+      "closed",
+      "getting ready",
+      "quiet",
+      "busy",
+      "a rush",
+      "closing up"
+    ],
+    "nodes": 6,
+    "edges": 8,
+    "markers": [
+      "pele-state-start"
+    ]
+  }
+}
