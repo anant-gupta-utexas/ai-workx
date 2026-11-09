@@ -31,3 +31,23 @@ jobs:
       - run: npm run test:coverage
       - run: npm ci --prefix art --ignore-scripts
       - run: npm run test:art
+
+  visual-brief:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/visual-skills/skills/visual-brief/scripts/colloquium
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: plugins/visual-skills/skills/visual-brief/scripts/colloquium/uv.lock
+      - run: uv sync --frozen --group dev
+      - run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - run: uv run --frozen --group dev python -m pytest -q
+        env:
+          VISUAL_SKILLS_PDF_SMOKE: '1'

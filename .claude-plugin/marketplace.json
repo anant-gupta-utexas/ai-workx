@@ -272,8 +272,8 @@
     {
       "name": "visual-skills",
       "source": "./plugins/visual-skills",
-      "description": "Source-backed Mermaid diagrams with clean SVG by default and separately installed, optional hand-drawn state diagrams.",
-      "version": "0.1.0",
+      "description": "Visual briefs and Mermaid diagrams: clean SVG by default, optional hand-drawn states, isolated Colloquium HTML/PDF, and existing host PowerPoint workflows.",
+      "version": "0.2.0",
       "author": {
         "name": "Anant Gupta",
         "contact": "anant.gupta@utexas.edu"
@@ -285,7 +285,12 @@
         "svg",
         "state-diagram",
         "hand-drawn",
-        "visualization"
+        "visualization",
+        "briefs",
+        "presentations",
+        "colloquium",
+        "html",
+        "pdf"
       ]
     }
   ],

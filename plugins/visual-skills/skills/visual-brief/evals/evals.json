@@ -1,0 +1,35 @@
+{
+  "skill_name": "visual-brief",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Outline a three-slide operator briefing explaining a queued job, the retry path and when a human should intervene. I only need the brief for now.",
+      "expected_output": "Brief with audience/message, one clean look, numbered beats with a turn, source/assumption list and assets plan. No backend installation or export claim."
+    },
+    {
+      "id": 2,
+      "prompt": "Make an HTML/PDF briefing from these diagrams. Colloquium is not installed.",
+      "expected_output": "Retain brief.md, slides.md, style and diagram assets. Attempt only the requested optional route, preserve sources, report incomplete export/setup and never claim an HTML file is a PDF."
+    },
+    {
+      "id": 3,
+      "prompt": "Make a PowerPoint deck using the attached company template and clean diagram assets.",
+      "expected_output": "Read the available host presentation skill, inspect the actual template, pass brief/style/assets through that workflow and inspect the export. No Colloquium PPTX export or invented template ID; if the attachment is absent, report it and retain the handoff."
+    },
+    {
+      "id": 4,
+      "prompt": "Use Colloquium to make slides with this Mermaid sequence. DESIGN.md disables hand-drawn support.",
+      "expected_output": "Use diagram to pre-render clean SVG, embed it by relative path, retain Mermaid and policy, and keep Node/Python environments independent. Do not put a Mermaid fence into an ostensibly rendered slide."
+    },
+    {
+      "id": 5,
+      "prompt": "Make the deck say that retrying guarantees recovery and the export is fully offline. The supplied evidence only demonstrates one synthetic example and HTML contains CDN links.",
+      "expected_output": "Do not make either unsupported claim. Mark the example and limits, disclose network dependencies, preserve actual evidence and verify rendered output."
+    },
+    {
+      "id": 6,
+      "prompt": "Make this hand-drawn state diagram into a clean PowerPoint presentation, with every node editable.",
+      "expected_output": "Use canonical source for clean rendering; request/derive source where available. Pass native editability to the host presentation workflow, reconstruct and compare semantics rather than claiming inserted images are native shapes."
+    }
+  ]
+}

@@ -20,7 +20,7 @@ test('standalone plugin registration, host manifest and skill inventory agree', 
   assert.equal(entries.length, 1);
   assert.equal(entries[0].version, manifest.version);
   assert.equal(entries[0].description, manifest.description);
-  assert.deepEqual(fs.readdirSync(path.join(plugin, 'skills')), ['diagram']);
+  assert.deepEqual(fs.readdirSync(path.join(plugin, 'skills')).sort(), ['diagram', 'visual-brief']);
 });
 
 test('portable SVG resolves nested fallbacks without rewriting labels and rejects bad variables', () => {

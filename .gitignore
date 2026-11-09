@@ -18,6 +18,10 @@ Thumbs.db
 **/.cache/
 **/dist/
 **/build/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/.coverage*
 
 # User-specific
 *.local

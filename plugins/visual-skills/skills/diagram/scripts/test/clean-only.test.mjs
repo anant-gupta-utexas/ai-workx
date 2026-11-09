@@ -15,13 +15,14 @@ test('real plugin renders with only pele installed and no optional backend or ho
   const plugin = path.resolve(scripts, '../../..');
   const staged = path.join(temp, 'visual-skills');
   fs.cpSync(plugin, staged, { recursive: true, verbatimSymlinks: true, filter: file =>
-    !['node_modules', 'art'].includes(path.basename(file)) });
+    !['node_modules', 'art', 'colloquium', '.venv', '__pycache__', '.pytest_cache'].includes(path.basename(file)) });
   assert.equal(fs.realpathSync(path.join(staged, '.claude-plugin/plugin.json')),
     fs.realpathSync(path.join(staged, 'plugin.json')));
   const core = path.join(staged, 'skills/diagram/scripts');
   assert(!fs.existsSync(path.join(core, 'art')));
   assert(!fs.existsSync(path.join(core, 'fonts')));
-  assert(!fs.existsSync(path.join(staged, 'skills/visual-brief')));
+  assert(fs.existsSync(path.join(staged, 'skills/visual-brief/SKILL.md')));
+  assert(!fs.existsSync(path.join(staged, 'skills/visual-brief/scripts/colloquium')));
   const bin = path.join(temp, 'bin');
   fs.mkdirSync(bin);
   fs.symlinkSync(process.execPath, path.join(bin, process.platform === 'win32' ? 'node.exe' : 'node'));
